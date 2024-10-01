@@ -1,8 +1,9 @@
 {
   "name": "sudoku",
-  "private": true,
   "version": "1.0.0",
   "type": "module",
+  "license": "MIT",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
