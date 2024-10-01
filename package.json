@@ -5,10 +5,13 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "eslint": "eslint \"**/*.{js,jsx,ts,tsx}\"",
+    "prettier": "prettier --check .",
+    "preview": "vite preview",
+    "start": "vite",
+    "stylelint": "stylelint \"**/*.{css,scss}\"",
+    "typescript": "tsc --noEmit"
   },
   "dependencies": {
     "react": "18.3.1",
