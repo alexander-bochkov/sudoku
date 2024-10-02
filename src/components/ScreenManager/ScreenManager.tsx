@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
-import { TitleScreen } from 'screens';
+import { GameScreen, TitleScreen } from 'screens';
 import type { Screen } from 'types';
 
 export const ScreenManager = () => {
-  const [screen, setScreen] = useState<Screen>('title');
+  const [screen, setScreen] = useState<Screen>('game');
 
   const handleScreenChange = useCallback((nextScreen: Screen) => {
     setScreen(nextScreen);
@@ -14,12 +14,7 @@ export const ScreenManager = () => {
       return <TitleScreen onScreenChange={handleScreenChange} />;
 
     case 'game':
-      return (
-        <>
-          <div>Game screen</div>
-          <button onClick={() => handleScreenChange('title')}>Go to 'title' screen</button>
-        </>
-      );
+      return <GameScreen onScreenChange={handleScreenChange} />;
 
     default:
       console.warn(`'${screen}' screen is not implemented`);
