@@ -1,3 +1,3 @@
-import { ScreenManager } from './components';
+import { ScreenManager } from 'components';
 
 export const App = () => <ScreenManager />;

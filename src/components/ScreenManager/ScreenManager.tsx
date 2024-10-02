@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
-
-type Screen = 'title' | 'game';
+import { TitleScreen } from 'screens';
+import type { Screen } from 'types';
 
 export const ScreenManager = () => {
   const [screen, setScreen] = useState<Screen>('title');
@@ -11,12 +11,7 @@ export const ScreenManager = () => {
 
   switch (screen) {
     case 'title':
-      return (
-        <>
-          <div>Title screen</div>
-          <button onClick={() => handleScreenChange('game')}>Go to 'game' screen</button>
-        </>
-      );
+      return <TitleScreen onScreenChange={handleScreenChange} />;
 
     case 'game':
       return (

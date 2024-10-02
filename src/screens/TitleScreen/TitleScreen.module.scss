@@ -1,0 +1,27 @@
+.titleScreen {
+  background: #00416f;
+  box-sizing: border-box;
+  height: 100vh;
+}
+
+.title {
+  color: #ffffff;
+  font-family: Itim, sans-serif;
+  font-size: 76px;
+  margin: 0;
+}
+
+.menuLayout {
+  align-items: center;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  position: absolute;
+}
+
+.startGame {
+  color: #ffffff;
+  cursor: pointer;
+  font-family: Inter, sans-serif;
+  font-size: 38px;
+}
