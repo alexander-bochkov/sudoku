@@ -1,4 +1,4 @@
-import { PlayingField, ScreenLayout } from 'components';
+import { Button, PlayingField, ScreenLayout } from 'components';
 import type { FC } from 'react';
 import type { Screen } from 'types';
 import styles from './GameScreen.module.scss';
@@ -14,13 +14,19 @@ export const GameScreen: FC<GameScreenProps> = () => {
         heading={<p className={styles.title}>Sudoku</p>}
         content={
           <>
+            <Button withPause onClick={() => {}} />
             <PlayingField />
+            <Button number={1} onClick={() => {}} />
+            <Button number={2} onClick={() => {}} />
+            <Button number={3} onClick={() => {}} />
+            <Button number={4} onClick={() => {}} />
+            <Button number={5} onClick={() => {}} />
+            <Button number={6} onClick={() => {}} />
+            <Button number={7} onClick={() => {}} />
+            <Button number={8} onClick={() => {}} />
+            <Button number={9} onClick={() => {}} />
+            <Button withEraser onClick={() => {}} />
           </>
-          // <div className={styles.menuLayout}>
-          //   <span className={styles.startGame} onClick={() => onScreenChange('game')}>
-          //     Start game
-          //   </span>
-          // </div>
         }
       />
     </div>
