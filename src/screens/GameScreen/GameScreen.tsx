@@ -1,4 +1,4 @@
-import { Button, PlayingField, ScreenLayout } from 'components';
+import { Button, Modal, PlayingField, ScreenLayout } from 'components';
 import { useState } from 'react';
 import type { FC } from 'react';
 import type { Screen } from 'types';
@@ -8,8 +8,9 @@ type GameScreenProps = {
   onScreenChange: (nextScreen: Screen) => void;
 };
 
-export const GameScreen: FC<GameScreenProps> = () => {
+export const GameScreen: FC<GameScreenProps> = ({ onScreenChange }) => {
   const [size, setSize] = useState<number>(0);
+  const [showPauseModal, setShowPauseModal] = useState<boolean>(false);
 
   const handlePlayingFieldResize = (nextSize: number) => {
     setSize(nextSize);
@@ -22,7 +23,12 @@ export const GameScreen: FC<GameScreenProps> = () => {
         content={
           <div className={styles.contentLayout}>
             <div className={styles.pauseButtonLayout} style={{ width: size }}>
-              <Button withPause onClick={() => {}} />
+              <Button
+                withPause
+                onClick={() => {
+                  setShowPauseModal(true);
+                }}
+              />
             </div>
             <PlayingField onPlayingFieldResize={handlePlayingFieldResize} />
             <div className={styles.buttonsLayout}>
@@ -41,6 +47,16 @@ export const GameScreen: FC<GameScreenProps> = () => {
         }
         isGame
       />
+      {showPauseModal && (
+        <Modal
+          bottomButton="Return to Main Menu"
+          size={size}
+          title="Pause"
+          topButton="Continue"
+          onBottomButtonClick={() => onScreenChange('title')}
+          onTopButtonClick={() => setShowPauseModal(false)}
+        />
+      )}
     </div>
   );
 };
