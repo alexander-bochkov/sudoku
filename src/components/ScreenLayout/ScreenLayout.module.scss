@@ -2,6 +2,20 @@
   box-sizing: border-box;
   height: 100%;
   padding: 30px 15px;
+
+  &_game {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+@media (height >= 720px) and (width >= 720px) {
+  .screenLayout {
+    &_game {
+      display: block;
+    }
+  }
 }
 
 .headingWrapper {
