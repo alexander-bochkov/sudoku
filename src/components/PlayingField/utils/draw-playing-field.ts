@@ -8,9 +8,9 @@ import {
   GROUPS_QUANTITY_IN_FIELD_ROW,
   CELL_DIVIDERS_QUANTITY,
 } from '../constants';
-import type { PlayingFieldDimensions } from 'types';
+import type { Dimensions } from '../types';
 
-export const drawPlayingField = (canvas: HTMLCanvasElement | null, dimensions: PlayingFieldDimensions): void => {
+export const drawPlayingField = (canvas: HTMLCanvasElement | null, dimensions: Dimensions): void => {
   const context = canvas?.getContext('2d');
 
   if (!canvas || !context) return;

@@ -1,4 +1,4 @@
-export type PlayingFieldDimensions = {
+export type Dimensions = {
   cell: number;
   field: number;
   group: number;

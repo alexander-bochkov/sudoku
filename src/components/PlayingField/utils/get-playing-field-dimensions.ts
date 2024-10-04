@@ -8,7 +8,7 @@ import {
   MAX_FIELD_SIZE,
   MIN_FIELD_SIZE,
 } from '../constants';
-import type { PlayingFieldDimensions } from 'types';
+import type { Dimensions } from '../types';
 
 const calculateFieldSize = (screenSize: number, depth = 1): number => {
   if (screenSize >= MAX_FIELD_SIZE) return MAX_FIELD_SIZE;
@@ -23,7 +23,7 @@ const calculateGroupSize = (fieldSize: number): number =>
 
 const calculateCellSize = (groupSize: number): number => (groupSize - CELL_DIVIDERS_SIZE) / CELLS_QUANTITY_IN_GROUP_ROW;
 
-export const getPlayingFieldDimensions = (screenHeight: number, screenWidth: number): PlayingFieldDimensions => {
+export const getPlayingFieldDimensions = (screenHeight: number, screenWidth: number): Dimensions => {
   const availableScreenSize = Math.min(screenHeight, screenWidth) - GAPS_MIN_SIZE;
 
   const fieldSize = calculateFieldSize(availableScreenSize);
