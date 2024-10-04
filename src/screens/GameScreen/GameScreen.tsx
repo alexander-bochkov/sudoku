@@ -1,5 +1,5 @@
+import { useCallback, useState } from 'react';
 import { Button, Modal, PlayingField, ScreenLayout } from 'components';
-import { useState } from 'react';
 import type { FC } from 'react';
 import type { Screen } from 'types';
 import styles from './GameScreen.module.scss';
@@ -12,9 +12,9 @@ export const GameScreen: FC<GameScreenProps> = ({ onScreenChange }) => {
   const [size, setSize] = useState<number>(0);
   const [showPauseModal, setShowPauseModal] = useState<boolean>(false);
 
-  const handlePlayingFieldResize = (nextSize: number) => {
+  const handlePlayingFieldResize = useCallback((nextSize: number) => {
     setSize(nextSize);
-  };
+  }, []);
 
   return (
     <div className={styles.gameScreen}>

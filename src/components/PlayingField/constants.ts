@@ -1,22 +1,35 @@
-export const MIN_FIELD_SIZE = 280;
-export const MAX_FIELD_SIZE = 370;
-
-const GAP_MIN_SIZE = 15;
-const GAPS_QUANTITY = 2;
-export const GAPS_MIN_SIZE = GAP_MIN_SIZE * GAPS_QUANTITY;
-
-const CELL_RESIZE_STEP = 2;
 export const CELLS_QUANTITY_IN_GROUP_ROW = 3;
 export const GROUPS_QUANTITY_IN_FIELD_ROW = 3;
-export const FIELD_RESIZE_STEP = CELL_RESIZE_STEP * CELLS_QUANTITY_IN_GROUP_ROW * GROUPS_QUANTITY_IN_FIELD_ROW;
 
 export const ONE_GROUP_DIVIDER_SIZE = 2;
 export const GROUP_DIVIDERS_QUANTITY = 2;
-export const GROUP_DIVIDERS_SIZE = ONE_GROUP_DIVIDER_SIZE * GROUP_DIVIDERS_QUANTITY;
 
 export const ONE_CELL_DIVIDER_SIZE = 1;
 export const CELL_DIVIDERS_QUANTITY = 2;
-export const CELL_DIVIDERS_SIZE = ONE_CELL_DIVIDER_SIZE * CELL_DIVIDERS_QUANTITY;
 
 export const CELL_DIVIDER_COLOR = '#C7C7C7';
 export const GROUP_DIVIDER_COLOR = '#00416F';
+
+// new constants
+export const MIN_SCREEN_EDGES_DISTANCE = 30;
+
+export const CELL_RESIZE_STEP = 2;
+
+export const GRID = {
+  COLOR: '#00416F',
+  LINES: 2,
+  THICKNESS: 2,
+} as const;
+
+export const SUBGRID = {
+  COLOR: '#C7C7C7',
+  LINES: 2,
+  THICKNESS: 1,
+} as const;
+
+export const PLAYING_FIELD = {
+  CELLS_ON_AXIS: 9,
+  GROUPS_ON_AXIS: 3,
+  MAX_DIMENSION: 370,
+  MIN_DIMENSION: 280,
+} as const;

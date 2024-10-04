@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { GridCanvas } from './GridCanvas';
-import { drawPlayingField, getPlayingFieldDimensions, getPlayingFieldStyle } from './utils';
+import { usePlayingFieldDimensions } from './hooks';
+import { drawPlayingField, getPlayingFieldStyle } from './utils';
 import type { FC } from 'react';
-import type { Dimensions } from './types';
 import styles from './PlayingField.module.scss';
 
 type PlayingFieldProps = {
@@ -10,41 +10,14 @@ type PlayingFieldProps = {
 };
 
 export const PlayingField: FC<PlayingFieldProps> = ({ onPlayingFieldResize }) => {
-  const [dimensions, setDimensions] = useState<Dimensions>(() =>
-    getPlayingFieldDimensions(window.innerHeight, window.innerWidth),
-  );
+  const dimensions = usePlayingFieldDimensions();
 
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    const nextDimensions = getPlayingFieldDimensions(window.innerHeight, window.innerWidth);
-
-    setDimensions(nextDimensions);
-
-    onPlayingFieldResize(nextDimensions.field);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     drawPlayingField(canvasRef.current, dimensions);
-  }, [dimensions]);
-
-  useEffect(() => {
-    const handleResize = ({ target }: Event) => {
-      const { innerHeight, innerWidth } = target as Window;
-      const nextDimensions = getPlayingFieldDimensions(innerHeight, innerWidth);
-
-      setDimensions(nextDimensions);
-
-      onPlayingFieldResize(nextDimensions.field);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [onPlayingFieldResize]);
+    onPlayingFieldResize(dimensions.field);
+  }, [dimensions, onPlayingFieldResize]);
 
   return (
     <div className={styles.playingField} style={getPlayingFieldStyle(dimensions.field, dimensions.cell)}>
