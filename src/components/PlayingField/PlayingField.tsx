@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { GridCanvas } from './GridCanvas';
+import { NumbersCanvas } from './NumbersCanvas';
 import { usePlayingFieldDimensions } from './hooks';
 import { getPlayingFieldStyle } from './utils';
 import type { FC } from 'react';
@@ -19,6 +20,7 @@ export const PlayingField: FC<PlayingFieldProps> = ({ onPlayingFieldResize }) =>
   return (
     <div className={styles.playingField} style={getPlayingFieldStyle(dimensions.field, dimensions.cell)}>
       <GridCanvas className={styles.canvas} dimensions={dimensions} />
+      <NumbersCanvas className={styles.canvas} dimensions={dimensions} />
     </div>
   );
 };
