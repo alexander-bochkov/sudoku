@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { PLAYING_FIELD, GRID, SUBGRID } from '../constants';
 import type { RefObject } from 'react';
-import type { Coords, Dimensions, LineDirection } from '../types';
+import type { Dimensions } from 'types/playing-field';
+import type { Coords, LineDirection } from '../types';
 
 export const useGridDrawing = (canvasRef: RefObject<HTMLCanvasElement>, dimensions: Dimensions) => {
   const [context, setContext] = useState<CanvasRenderingContext2D>();

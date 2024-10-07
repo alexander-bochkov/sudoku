@@ -1,21 +1,14 @@
-import { useEffect } from 'react';
 import { GridCanvas } from './GridCanvas';
 import { NumbersCanvas } from './NumbersCanvas';
-import { usePlayingFieldDimensions } from './hooks';
+import { usePlayingFieldDimensions } from 'contexts';
 import { getPlayingFieldStyle } from './utils';
 import type { FC } from 'react';
 import styles from './PlayingField.module.scss';
 
-type PlayingFieldProps = {
-  onPlayingFieldResize: (nextSize: number) => void;
-};
+export const PlayingField: FC = () => {
+  const { dimensions } = usePlayingFieldDimensions();
 
-export const PlayingField: FC<PlayingFieldProps> = ({ onPlayingFieldResize }) => {
-  const dimensions = usePlayingFieldDimensions();
-
-  useEffect(() => {
-    onPlayingFieldResize(dimensions.field);
-  }, [dimensions, onPlayingFieldResize]);
+  if (!dimensions) return;
 
   return (
     <div className={styles.playingField} style={getPlayingFieldStyle(dimensions.field, dimensions.cell)}>

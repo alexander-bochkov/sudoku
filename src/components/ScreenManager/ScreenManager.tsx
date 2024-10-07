@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { GameScreen, TitleScreen } from 'screens';
-import type { Screen } from 'types';
+import type { Screen } from 'types/screen';
 
 export const ScreenManager = () => {
   const [screen, setScreen] = useState<Screen>('game');

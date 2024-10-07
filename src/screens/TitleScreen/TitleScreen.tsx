@@ -1,6 +1,6 @@
 import { ScreenLayout } from 'components';
 import type { FC } from 'react';
-import type { Screen } from 'types';
+import type { Screen } from 'types/screen';
 import styles from './TitleScreen.module.scss';
 
 type TitleScreenProps = {

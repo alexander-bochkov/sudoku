@@ -2,7 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { GRID, NUMBER_OFFSET_Y, PLAYING_FIELD, SUBGRID } from '../constants';
 import itim from 'assets/fonts/Itim.ttf';
 import type { RefObject } from 'react';
-import type { Coords, Dimensions } from '../types';
+import type { Dimensions } from 'types/playing-field';
+import type { Coords } from '../types';
 
 export const useNumbersDrawing = (canvasRef: RefObject<HTMLCanvasElement>, dimensions: Dimensions) => {
   const [context, setContext] = useState<CanvasRenderingContext2D>();
