@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { PLAYING_FIELD, GRID, SUBGRID } from '../constants';
 import type { RefObject } from 'react';
-import type { Dimensions, LineCoords, LineDirection } from '../types';
+import type { Coords, Dimensions, LineDirection } from '../types';
 
 export const useGridDrawing = (canvasRef: RefObject<HTMLCanvasElement>, dimensions: Dimensions) => {
   const [context, setContext] = useState<CanvasRenderingContext2D>();
@@ -20,7 +20,7 @@ export const useGridDrawing = (canvasRef: RefObject<HTMLCanvasElement>, dimensio
       thickness,
     }: {
       color: string;
-      coords: LineCoords;
+      coords: Coords;
       direction: LineDirection;
       thickness: number;
     }) => {
@@ -39,7 +39,7 @@ export const useGridDrawing = (canvasRef: RefObject<HTMLCanvasElement>, dimensio
   );
 
   const calculateSubgridLineCoords = useCallback(
-    (direction: LineDirection, subgridLineIdx: number, groupIdx: number): LineCoords => {
+    (direction: LineDirection, subgridLineIdx: number, groupIdx: number): Coords => {
       const groupsOffset = groupIdx * dimensions.group;
 
       const cellIdx = subgridLineIdx + 1;
@@ -82,7 +82,7 @@ export const useGridDrawing = (canvasRef: RefObject<HTMLCanvasElement>, dimensio
   );
 
   const calculateGridLineCoords = useCallback(
-    (direction: LineDirection, gridLineIdx: number): LineCoords => {
+    (direction: LineDirection, gridLineIdx: number): Coords => {
       const groupIdx = gridLineIdx + 1;
       const groupsOffset = groupIdx * dimensions.group;
 

@@ -7,6 +7,7 @@ export const PLAYING_FIELD = {
   GROUPS_ON_AXIS: 3,
   MAX_DIMENSION: 370,
   MIN_DIMENSION: 280,
+  NUMBERS_COLOR: '#00416F',
 } as const;
 
 export const GRID = {
@@ -20,3 +21,5 @@ export const SUBGRID = {
   LINES: 2,
   THICKNESS: 1,
 } as const;
+
+export const NUMBER_OFFSET_Y = 2;

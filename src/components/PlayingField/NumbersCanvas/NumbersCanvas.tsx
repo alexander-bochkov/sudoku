@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useNumbersDrawing } from '../hooks';
 import type { FC } from 'react';
 import type { Dimensions } from '../types';
 
@@ -9,6 +10,8 @@ type NumbersCanvasProps = {
 
 export const NumbersCanvas: FC<NumbersCanvasProps> = ({ className, dimensions }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useNumbersDrawing(canvasRef, dimensions);
 
   return <canvas className={className} height={dimensions.field} ref={canvasRef} width={dimensions.field}></canvas>;
 };
