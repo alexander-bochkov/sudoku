@@ -1,8 +1,10 @@
 import { ScreenManager } from 'components';
-import { PlayingFieldProvider } from 'contexts';
+import { BoardContextProvider, PlayingFieldProvider } from 'contexts';
 
 export const App = () => (
-  <PlayingFieldProvider>
-    <ScreenManager />
-  </PlayingFieldProvider>
+  <BoardContextProvider>
+    <PlayingFieldProvider>
+      <ScreenManager />
+    </PlayingFieldProvider>
+  </BoardContextProvider>
 );

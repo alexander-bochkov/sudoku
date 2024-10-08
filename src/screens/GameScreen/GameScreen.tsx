@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Modal, PlayingField, ScreenLayout } from 'components';
-import { usePlayingField } from 'contexts';
+import { useBoardContext } from 'contexts';
 import type { FC } from 'react';
 import type { Screen } from 'types/screen';
 import styles from './GameScreen.module.scss';
@@ -12,7 +12,7 @@ type GameScreenProps = {
 export const GameScreen: FC<GameScreenProps> = ({ onScreenChange }) => {
   const [showPauseModal, setShowPauseModal] = useState<boolean>(false);
 
-  const { dimensions } = usePlayingField();
+  const { dimensions } = useBoardContext();
 
   return (
     <div className={styles.gameScreen}>
@@ -22,7 +22,7 @@ export const GameScreen: FC<GameScreenProps> = ({ onScreenChange }) => {
             heading={<p className={styles.title}>Sudoku</p>}
             content={
               <div className={styles.contentLayout}>
-                <div className={styles.pauseButtonLayout} style={{ width: dimensions.field }}>
+                <div className={styles.pauseButtonLayout} style={{ width: dimensions.board }}>
                   <Button
                     withPause
                     onClick={() => {
@@ -50,7 +50,7 @@ export const GameScreen: FC<GameScreenProps> = ({ onScreenChange }) => {
           {showPauseModal && (
             <Modal
               bottomButton="Return to Main Menu"
-              size={dimensions.field}
+              size={dimensions.board}
               title="Pause"
               topButton="Continue"
               onBottomButtonClick={() => onScreenChange('title')}

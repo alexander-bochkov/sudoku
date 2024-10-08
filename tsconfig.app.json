@@ -13,7 +13,7 @@
       "contexts": ["./src/contexts"],
       "screens": ["./src/screens"],
       "types/*": ["./src/types/*"],
-      "utils": ["./src/utils"]
+      "utils/*": ["./src/utils/*"]
     },
 
     /* Bundler mode */

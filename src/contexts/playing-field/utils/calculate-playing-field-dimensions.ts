@@ -8,7 +8,7 @@ import {
   MIN_SCREEN_EDGES_DISTANCE,
   SUBGRID_LINE_THICKNESS,
 } from 'constants/playing-field';
-import { getGridLinesQuantity, getSubgridLinesQuantity } from 'utils';
+import { getGridLinesQuantity, getSubgridLinesQuantity } from 'utils/index';
 import type { Dimensions } from 'types/playing-field';
 
 const calculateFieldDimension = (screenArea: number, attempt = 1): Dimensions['field'] => {
