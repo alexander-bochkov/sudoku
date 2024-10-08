@@ -1,8 +1,8 @@
 import { ScreenManager } from 'components';
-import { PlayingFieldDimensionsProvider } from 'contexts';
+import { PlayingFieldProvider } from 'contexts';
 
 export const App = () => (
-  <PlayingFieldDimensionsProvider>
+  <PlayingFieldProvider>
     <ScreenManager />
-  </PlayingFieldDimensionsProvider>
+  </PlayingFieldProvider>
 );

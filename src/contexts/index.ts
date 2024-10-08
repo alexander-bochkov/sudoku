@@ -1,1 +1,1 @@
-export * from './playing-field-dimensions';
+export * from './playing-field';

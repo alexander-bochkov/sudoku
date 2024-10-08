@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Modal, PlayingField, ScreenLayout } from 'components';
-import { usePlayingFieldDimensions } from 'contexts';
+import { usePlayingField } from 'contexts';
 import type { FC } from 'react';
 import type { Screen } from 'types/screen';
 import styles from './GameScreen.module.scss';
@@ -12,7 +12,7 @@ type GameScreenProps = {
 export const GameScreen: FC<GameScreenProps> = ({ onScreenChange }) => {
   const [showPauseModal, setShowPauseModal] = useState<boolean>(false);
 
-  const { dimensions } = usePlayingFieldDimensions();
+  const { dimensions } = usePlayingField();
 
   return (
     <div className={styles.gameScreen}>

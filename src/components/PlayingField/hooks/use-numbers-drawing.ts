@@ -1,36 +1,13 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { GRID, NUMBER_OFFSET_Y, PLAYING_FIELD, SUBGRID } from '../constants';
 import itim from 'assets/fonts/Itim.ttf';
 import type { RefObject } from 'react';
-import type { Dimensions } from 'types/playing-field';
+import type { Dimensions, Sudoku } from 'types/playing-field';
 import type { Coords } from '../types';
 
-export const useNumbersDrawing = (canvasRef: RefObject<HTMLCanvasElement>, dimensions: Dimensions) => {
+export const useNumbersDrawing = (canvasRef: RefObject<HTMLCanvasElement>, dimensions: Dimensions, sudoku: Sudoku) => {
   const [context, setContext] = useState<CanvasRenderingContext2D>();
   const [fontLoaded, setFontLoaded] = useState(false);
-
-  const sudoku = useMemo(
-    () => [
-      [1, 2, 3, 4, 5, 6, 7, 8, 9],
-      // eslint-disable-next-line no-sparse-arrays
-      [2, , 3, , 5, , 7, , 9],
-      // eslint-disable-next-line no-sparse-arrays
-      [3, 3, , , , , , ,],
-      // eslint-disable-next-line no-sparse-arrays
-      [4, , , , , , , ,],
-      // eslint-disable-next-line no-sparse-arrays
-      [5, 5, , , , , , ,],
-      // eslint-disable-next-line no-sparse-arrays
-      [6, , , , , , , ,],
-      // eslint-disable-next-line no-sparse-arrays
-      [7, 7, , , , , , ,],
-      // eslint-disable-next-line no-sparse-arrays
-      [8, , , , , , , ,],
-      // eslint-disable-next-line no-sparse-arrays
-      [9, 9, , , , , , ,],
-    ],
-    [],
-  );
 
   const loadFont = async () => {
     const font = new FontFace('Itim', `url(${itim})`);

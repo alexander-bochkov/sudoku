@@ -8,6 +8,7 @@ export const PLAYING_FIELD = {
   MAX_DIMENSION: 370,
   MIN_DIMENSION: 280,
   NUMBERS_COLOR: '#00416F',
+  HOVER_CELL_COLOR: 'rgb(0 149 255 / 30%)',
 } as const;
 
 export const GRID = {

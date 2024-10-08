@@ -3,3 +3,5 @@ export type Dimensions = {
   field: number;
   group: number;
 };
+
+export type Sudoku = (number | undefined)[][];

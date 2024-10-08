@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
-import { PlayingFieldDimensionsContext } from './context';
+import { sudoku as data } from '../../test-data';
+import { PlayingFieldContext } from './context';
 import { calculatePlayingFieldDimensions } from './utils';
 import type { FC, PropsWithChildren } from 'react';
-import type { PlayingFieldDimensionsContextType } from './context';
+import type { PlayingFieldContextType } from './context';
 
-export const PlayingFieldDimensionsProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [dimensions, setDimensions] = useState<PlayingFieldDimensionsContextType['dimensions']>(null);
+export const PlayingFieldProvider: FC<PropsWithChildren> = ({ children }) => {
+  const [dimensions, setDimensions] = useState<PlayingFieldContextType['dimensions']>(null);
+  const [sudoku, setSudoku] = useState<PlayingFieldContextType['sudoku']>(null);
 
   useEffect(() => {
     const dimensions = calculatePlayingFieldDimensions(window.innerWidth, window.innerHeight);
@@ -25,7 +27,11 @@ export const PlayingFieldDimensionsProvider: FC<PropsWithChildren> = ({ children
     };
   }, []);
 
-  const value: PlayingFieldDimensionsContextType = useMemo(() => ({ dimensions }), [dimensions]);
+  useEffect(() => {
+    setSudoku(data);
+  }, []);
 
-  return <PlayingFieldDimensionsContext.Provider value={value}>{children}</PlayingFieldDimensionsContext.Provider>;
+  const value: PlayingFieldContextType = useMemo(() => ({ dimensions, sudoku }), [dimensions, sudoku]);
+
+  return <PlayingFieldContext.Provider value={value}>{children}</PlayingFieldContext.Provider>;
 };
