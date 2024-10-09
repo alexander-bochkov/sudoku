@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
+import { board as boardData } from '../../data/board';
 import { BoardContext } from './context';
-import { getDimensions } from './utils/get-dimensions';
+import { getDimensions } from './utils';
 import type { FC, PropsWithChildren } from 'react';
 import type { BoardContextType } from './context';
 
@@ -9,11 +10,12 @@ export const BoardContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [dimensions, setDimensions] = useState<BoardContextType['dimensions']>(null);
 
   useEffect(() => {
+    setBoard(boardData);
+  }, []);
+
+  useEffect(() => {
     const nextDimensions = getDimensions(window.innerWidth, window.innerHeight);
     setDimensions(nextDimensions);
-
-    // TODO: Remove
-    setBoard(null);
   }, []);
 
   useEffect(() => {
@@ -31,7 +33,7 @@ export const BoardContextProvider: FC<PropsWithChildren> = ({ children }) => {
     };
   }, []);
 
-  const value = useMemo<BoardContextType>(
+  const value = useMemo(
     () => ({
       board,
       dimensions,

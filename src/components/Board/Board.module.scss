@@ -1,10 +1,10 @@
-.playingField {
+.board {
   background: #ffffff;
-  overflow: hidden;
   position: relative;
 }
 
 .canvas {
+  border-radius: inherit;
   inset: 0;
   position: absolute;
 }

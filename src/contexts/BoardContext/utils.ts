@@ -1,14 +1,6 @@
 import { getGridLinesQuantity, getSubgridLinesQuantity } from 'utils/board';
-import {
-  BOARD_MAX_DIMENSION,
-  BOARD_MIN_DIMENSION,
-  CELL_RESIZE_STEP,
-  CELLS_IN_ZONE_ON_AXIS,
-  GRID_LINE_THICKNESS,
-  MIN_SCREEN_EDGES_DISTANCE,
-  SUBGRID_LINE_THICKNESS,
-  ZONES_ON_AXIS,
-} from 'constants/board';
+import { CELLS_IN_ZONE_ON_AXIS, GRID_LINE_THICKNESS, SUBGRID_LINE_THICKNESS, ZONES_ON_AXIS } from 'constants/board';
+import { BOARD_MAX_DIMENSION, BOARD_MIN_DIMENSION, CELL_RESIZE_STEP, MIN_SCREEN_EDGES_DISTANCE } from './constants';
 import type { Dimensions } from 'types/board';
 
 const calculateBoardDimension = (screenArea: number, attempt = 1): Dimensions['board'] => {

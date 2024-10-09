@@ -1,1 +1,0 @@
-export { NumbersCanvas } from './NumbersCanvas';

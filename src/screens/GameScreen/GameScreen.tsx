@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Modal, PlayingField, ScreenLayout } from 'components';
+import { Board, Button, Modal, ScreenLayout } from 'components';
 import { useBoardContext } from 'contexts';
 import type { FC } from 'react';
 import type { Screen } from 'types/screen';
@@ -30,7 +30,7 @@ export const GameScreen: FC<GameScreenProps> = ({ onScreenChange }) => {
                     }}
                   />
                 </div>
-                <PlayingField />
+                <Board />
                 <div className={styles.buttonsLayout}>
                   <Button number={1} onClick={() => {}} />
                   <Button number={2} onClick={() => {}} />
