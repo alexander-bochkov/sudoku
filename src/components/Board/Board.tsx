@@ -12,7 +12,7 @@ export const Board = () => {
   return (
     <div className={styles.board} style={getBoardStyle(dimensions.board, dimensions.cell)}>
       <StaticCanvas className={styles.canvas} dimensions={dimensions} prefilledBoard={board.prefilled} />
-      <HoverCanvas className={styles.canvas} dimensions={dimensions} />
+      <HoverCanvas className={styles.canvas} dimensions={dimensions} prefilledBoard={board.prefilled} />
     </div>
   );
 };
