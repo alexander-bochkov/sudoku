@@ -1,28 +1,29 @@
 import { useEffect } from 'react';
 import { useBoardDrawing } from './hooks/use-board-drawing';
 import { useCanvas } from './hooks/use-canvas';
-import { useGridDrawing } from './hooks/use-grid-drawing';
+
 import type { FC } from 'react';
 import type { Board, Dimensions } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 
-type StaticCanvasProps = {
+type SolutionCanvasProps = {
   className?: string;
   dimensions: Dimensions;
-  prefilledBoard: Nullable<Board>;
+  errorsBoard: Nullable<Board>;
+  solutionBoard: Nullable<Board>;
 };
 
-export const StaticCanvas: FC<StaticCanvasProps> = ({ className, dimensions, prefilledBoard }) => {
+export const SolutionCanvas: FC<SolutionCanvasProps> = ({ className, dimensions, errorsBoard, solutionBoard }) => {
   const { canvasRef, clear, context } = useCanvas();
 
-  const drawGrid = useGridDrawing(context, dimensions);
-  const drawPrefilledBoard = useBoardDrawing(context, dimensions, 'prefilled');
+  const drawErrorsBoard = useBoardDrawing(context, dimensions, 'errors');
+  const drawSolutionBoard = useBoardDrawing(context, dimensions, 'solution');
 
   useEffect(() => {
     clear();
-    drawGrid();
-    drawPrefilledBoard(prefilledBoard);
-  }, [clear, dimensions, drawGrid, drawPrefilledBoard, prefilledBoard]);
+    drawErrorsBoard(errorsBoard);
+    drawSolutionBoard(solutionBoard);
+  }, [clear, drawErrorsBoard, drawSolutionBoard, errorsBoard, solutionBoard]);
 
   return <canvas className={className} height={dimensions.board} ref={canvasRef} width={dimensions.board}></canvas>;
 };

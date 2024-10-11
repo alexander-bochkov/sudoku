@@ -26,7 +26,7 @@ const prefilled: Board = [
 
 const solution: Board = [
   [null, null, null, null, null, null, null, null, null],
-  [null, 7, 8, null, null, null, 7, null, null],
+  [null, 7, 8, null, null, null, null, null, null],
   [null, null, null, null, null, null, null, null, null],
   [null, null, null, null, null, null, null, null, null],
   [null, null, null, null, null, null, null, null, null],

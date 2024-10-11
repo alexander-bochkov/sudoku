@@ -1,14 +1,9 @@
 import { createContext } from 'react';
-import type { Board, Dimensions } from 'types/board';
+import type { Board, BoardVariant, Dimensions } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 
 export type BoardContextType = {
-  board: Nullable<{
-    full: Nullable<Board>;
-    prefilled: Nullable<Board>;
-    solution: Nullable<Board>;
-    errors: Nullable<Board>;
-  }>;
+  board: Nullable<Record<BoardVariant, Nullable<Board>>>;
   dimensions: Nullable<Dimensions>;
 };
 

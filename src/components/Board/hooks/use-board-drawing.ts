@@ -1,12 +1,16 @@
 import { useCallback, useEffect, useState } from 'react';
 import itim from 'assets/fonts/Itim.ttf';
 import { cellIndexToCellCoordinate } from '../utils';
-import { NUMBER_OFFSET_Y, PREFILLED_NUMBER_COLOR } from '../constants';
-import type { Board, Dimensions } from 'types/board';
+import { NUMBER_COLOR, NUMBER_OFFSET_Y } from '../constants';
+import type { Board, BoardVariant, Dimensions } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 import type { Coordinates } from '../types';
 
-export const useBoardDrawing = (context: Nullable<CanvasRenderingContext2D>, dimensions: Dimensions) => {
+export const useBoardDrawing = (
+  context: Nullable<CanvasRenderingContext2D>,
+  dimensions: Dimensions,
+  boardVariant: Exclude<BoardVariant, 'full'>,
+) => {
   const [fontLoaded, setFontLoaded] = useState(false);
 
   const loadFont = async () => {
@@ -26,13 +30,13 @@ export const useBoardDrawing = (context: Nullable<CanvasRenderingContext2D>, dim
 
       const [x, y] = coordinates;
 
-      context.fillStyle = PREFILLED_NUMBER_COLOR;
+      context.fillStyle = NUMBER_COLOR[boardVariant];
       context.font = `${dimensions.cell}px Itim, sans-serif`;
       context.textAlign = 'center';
       context.textBaseline = 'middle';
       context.fillText(String(number), x, y);
     },
-    [context, dimensions.cell, fontLoaded],
+    [boardVariant, context, dimensions.cell, fontLoaded],
   );
 
   const getNumberCoordinates = useCallback(
