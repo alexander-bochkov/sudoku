@@ -10,14 +10,17 @@ export const useActionDrawing = ({
   context,
   dimensions,
   prefilledBoard,
+  selectedCell,
+  setSelectedCell,
 }: {
   clear: () => void;
   context: Nullable<CanvasRenderingContext2D>;
   dimensions: Dimensions;
   prefilledBoard: Nullable<Board>;
+  selectedCell: Nullable<Cell>;
+  setSelectedCell: (cell: Nullable<Cell>) => void;
 }) => {
   const [hoveredCell, setHoveredCell] = useState<Nullable<Cell>>(null);
-  const [selectedCell, setSelectedCell] = useState<Nullable<Cell>>(null);
 
   const drawCell = useCallback(
     (coordinates: Coordinates, color: string) => {
@@ -124,7 +127,7 @@ export const useActionDrawing = ({
 
       setSelectedCell(cell);
     },
-    [getCell, isCellWithPrefilledNumber, isHoveredCell, isSelectedCell],
+    [getCell, isCellWithPrefilledNumber, isHoveredCell, isSelectedCell, setSelectedCell],
   );
 
   useEffect(() => {

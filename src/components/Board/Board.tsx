@@ -6,20 +6,21 @@ import { getBoardStyle } from './utils';
 import styles from './Board.module.scss';
 
 export const Board = () => {
-  const { board, dimensions } = useBoardContext();
+  const { dimensions, selectedCell, setSelectedCell, errors, prefilledBoard, solutionBoard } = useBoardContext();
 
-  if (!board || !dimensions) return;
+  if (!dimensions) return;
 
   return (
     <div className={styles.board} style={getBoardStyle(dimensions.board, dimensions.cell)}>
-      <StaticCanvas className={styles.canvas} dimensions={dimensions} prefilledBoard={board.prefilled} />
-      <SolutionCanvas
+      <StaticCanvas className={styles.canvas} dimensions={dimensions} prefilledBoard={prefilledBoard} />
+      <SolutionCanvas className={styles.canvas} dimensions={dimensions} errors={errors} solutionBoard={solutionBoard} />
+      <ActionCanvas
         className={styles.canvas}
         dimensions={dimensions}
-        errorsBoard={board.errors}
-        solutionBoard={board.solution}
+        prefilledBoard={prefilledBoard}
+        selectedCell={selectedCell}
+        setSelectedCell={setSelectedCell}
       />
-      <ActionCanvas className={styles.canvas} dimensions={dimensions} prefilledBoard={board.prefilled} />
     </div>
   );
 };

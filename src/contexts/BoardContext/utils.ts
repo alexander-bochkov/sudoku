@@ -1,31 +1,26 @@
-import { getGridLinesQuantity, getSubgridLinesQuantity } from 'utils/board';
-import { CELLS_IN_ZONE_ON_AXIS, GRID_LINE_THICKNESS, SUBGRID_LINE_THICKNESS, ZONES_ON_AXIS } from 'constants/board';
-import { BOARD_MAX_DIMENSION, BOARD_MIN_DIMENSION, CELL_RESIZE_STEP, MIN_SCREEN_EDGES_DISTANCE } from './constants';
-import type { Dimensions } from 'types/board';
+import { forEachCell } from 'utils/board';
+import type { Board, Cell } from 'types/board';
+import type { Nullable } from 'types/utility-types';
 
-const calculateBoardDimension = (screenArea: number, attempt = 1): Dimensions['board'] => {
-  if (screenArea <= BOARD_MIN_DIMENSION) return BOARD_MIN_DIMENSION;
-  if (screenArea >= BOARD_MAX_DIMENSION) return BOARD_MAX_DIMENSION;
-
-  const cellsOnAxis = CELLS_IN_ZONE_ON_AXIS * ZONES_ON_AXIS;
-  const boardResizeStep = cellsOnAxis * CELL_RESIZE_STEP;
-  const boardDimension = BOARD_MAX_DIMENSION - boardResizeStep * attempt;
-
-  return screenArea < boardDimension ? calculateBoardDimension(screenArea, ++attempt) : boardDimension;
+export const findGaps = (board: Board): Cell[] => {
+  const gaps: Cell[] = [];
+  forEachCell(board, (cell, value) => !value && gaps.push(cell));
+  return gaps;
 };
 
-const calculateZoneDimension = (board: number): Dimensions['zone'] =>
-  (board - getGridLinesQuantity() * GRID_LINE_THICKNESS) / ZONES_ON_AXIS;
+export const getCellValue = (board: Board, cell: Cell): Nullable<number> => {
+  const { columnIndex, rowIndex } = cell;
+  return board[rowIndex][columnIndex];
+};
 
-const calculateCellDimension = (group: number): Dimensions['cell'] =>
-  (group - getSubgridLinesQuantity() * SUBGRID_LINE_THICKNESS) / CELLS_IN_ZONE_ON_AXIS;
+export const setCellValue = (board: Board, cell: Cell, value: Nullable<number>): void => {
+  const { columnIndex, rowIndex } = cell;
+  board[rowIndex][columnIndex] = value;
+};
 
-export const getDimensions = (screenWidth: number, screenHeight: number): Dimensions => {
-  const availableScreenArea = Math.min(screenWidth, screenHeight) - MIN_SCREEN_EDGES_DISTANCE;
+export const createEmptyBoard = (): Board => Array.from({ length: 9 }, () => new Array(9).fill(null));
 
-  const board = calculateBoardDimension(availableScreenArea);
-  const zone = calculateZoneDimension(board);
-  const cell = calculateCellDimension(zone);
-
-  return { board, zone, cell };
+export const excludeCellAndCreateNewArray = (array: Array<Cell>, cell: Cell) => {
+  const { columnIndex, rowIndex } = cell;
+  return array.filter((item) => !(item.columnIndex === columnIndex && item.rowIndex === rowIndex));
 };

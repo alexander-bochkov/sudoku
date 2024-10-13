@@ -2,15 +2,21 @@ import { useCallback, useEffect, useState } from 'react';
 import itim from 'assets/fonts/Itim.ttf';
 import { cellIndexToCellCoordinate } from '../utils';
 import { NUMBER_COLOR, NUMBER_OFFSET_Y } from '../constants';
-import type { Board, BoardVariant, Dimensions } from 'types/board';
+import type { Board, BoardVariant, Cell, Dimensions } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 import type { Coordinates } from '../types';
 
-export const useBoardDrawing = (
-  context: Nullable<CanvasRenderingContext2D>,
-  dimensions: Dimensions,
-  boardVariant: Exclude<BoardVariant, 'full'>,
-) => {
+export const useBoardDrawing = ({
+  boardVariant,
+  context,
+  dimensions,
+  errors,
+}: {
+  context: Nullable<CanvasRenderingContext2D>;
+  dimensions: Dimensions;
+  boardVariant: Exclude<BoardVariant, 'full'>;
+  errors?: Array<Cell>;
+}) => {
   const [fontLoaded, setFontLoaded] = useState(false);
 
   const loadFont = async () => {
@@ -25,12 +31,12 @@ export const useBoardDrawing = (
   }, []);
 
   const drawNumber = useCallback(
-    (coordinates: Coordinates, number: number) => {
+    (coordinates: Coordinates, number: number, isError?: boolean) => {
       if (!context || !fontLoaded) return;
 
       const [x, y] = coordinates;
 
-      context.fillStyle = NUMBER_COLOR[boardVariant];
+      context.fillStyle = NUMBER_COLOR[isError ? 'error' : boardVariant];
       context.font = `${dimensions.cell}px Itim, sans-serif`;
       context.textAlign = 'center';
       context.textBaseline = 'middle';
@@ -56,10 +62,14 @@ export const useBoardDrawing = (
       row.forEach((number, columnIndex) => {
         if (!number) return;
 
-        drawNumber(getNumberCoordinates(columnIndex, rowIndex), number);
+        const isError =
+          boardVariant === 'solution' &&
+          errors?.some((error) => error.columnIndex === columnIndex && error.rowIndex === rowIndex);
+
+        drawNumber(getNumberCoordinates(columnIndex, rowIndex), number, isError);
       });
     },
-    [drawNumber, getNumberCoordinates],
+    [boardVariant, drawNumber, errors, getNumberCoordinates],
   );
 
   const draw = useCallback(
