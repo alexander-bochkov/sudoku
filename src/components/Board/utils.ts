@@ -1,3 +1,4 @@
+import { getIndexInZone, getZoneIndex } from 'utils/board';
 import { CELLS_IN_ZONE_ON_AXIS, GRID_LINE_THICKNESS, SUBGRID_LINE_THICKNESS } from 'constants/board';
 import type { CSSProperties } from 'react';
 import type { Dimensions } from 'types/board';
@@ -7,12 +8,6 @@ export const getBoardStyle = (board: number, cell: number): CSSProperties => ({
   height: board,
   width: board,
 });
-
-export const getIndexInZone = (elementIndex: number, elementsInZone: number, zoneIndex: number): number =>
-  elementIndex - elementsInZone * zoneIndex;
-
-export const getZoneIndex = (elementIndex: number, elementsInZone: number): number =>
-  parseInt(String(elementIndex / elementsInZone));
 
 export const cellIndexToCellCoordinate = (cellIndex: number, dimensions: Dimensions): number => {
   const zoneIndex = getZoneIndex(cellIndex, CELLS_IN_ZONE_ON_AXIS);

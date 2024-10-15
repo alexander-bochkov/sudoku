@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { forEachCell } from 'utils/board';
 import { BoardContext } from './context';
 import { useDimensions } from './hooks/use-dimensions';
+import { useSudoku } from './hooks/use-sudoku';
 import { createEmptyBoard, findGaps, excludeCellAndCreateNewArray, getCellValue, setCellValue } from './utils';
 import type { FC, PropsWithChildren } from 'react';
 import type { Board, Cell, Status } from 'types/board';
@@ -11,6 +12,8 @@ import { full, prefilled } from '../../data/board';
 
 export const BoardContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const dimensions = useDimensions();
+
+  useSudoku();
 
   const [fullBoard, setFullBoard] = useState<Nullable<Board>>(null);
   const [prefilledBoard, setPrefilledBoard] = useState<Nullable<Board>>(null);
@@ -118,13 +121,6 @@ export const BoardContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
     setSelectedCell(null);
   }, [errors, gaps, isCellWithError, selectedCell, shouldEraseCell, solutionBoard]);
-
-  useEffect(() => {
-    console.log('solutionBoard: ', solutionBoard);
-    console.log('gaps: ', gaps);
-    console.log('errors: ', errors);
-    console.log('status: ', status);
-  }, [errors, gaps, solutionBoard, status]);
 
   useEffect(() => {
     if (status === 'progress' && !gaps && !errors && fullBoard && prefilledBoard && solutionBoard) {

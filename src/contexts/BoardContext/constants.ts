@@ -4,3 +4,5 @@ export const BOARD_MIN_DIMENSION = 280;
 export const BOARD_MAX_DIMENSION = 370;
 
 export const CELL_RESIZE_STEP = 2;
+
+export const OFFSET_STEP = 2;

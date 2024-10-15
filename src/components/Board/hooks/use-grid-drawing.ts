@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
-import { getGridLinesQuantity, getSubgridLinesQuantity } from 'utils/board';
+import { getGridLinesQuantity, getIndexInZone, getSubgridLinesQuantity, getZoneIndex } from 'utils/board';
 import { GRID_LINE_THICKNESS, SUBGRID_LINE_THICKNESS, ZONES_ON_AXIS } from 'constants/board';
-import { getIndexInZone, getZoneIndex } from '../utils';
 import { GRID_LINE_COLOR, SUBGRID_LINE_COLOR } from '../constants';
 import type { Dimensions } from 'types/board';
 import type { Nullable } from 'types/utility-types';
