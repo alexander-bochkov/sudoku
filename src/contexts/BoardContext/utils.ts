@@ -48,7 +48,7 @@ export const createTemplateBoard = (): Board => {
 
     const value = columnIndex + 1;
 
-    board[rowIndex][realColumnIndex] = value;
+    setCellValue(board, { columnIndex: realColumnIndex, rowIndex }, value);
   });
 
   return board;
@@ -94,7 +94,7 @@ const validateColumns = (board: Board): boolean => {
   const columns = createEmptyBoard();
 
   forEachCell(board, ({ columnIndex, rowIndex }, value) => {
-    columns[columnIndex][rowIndex] = value;
+    setCellValue(columns, { columnIndex: rowIndex, rowIndex: columnIndex }, value);
   });
 
   return columns.every(validateBoardFragment('column'));
@@ -113,7 +113,7 @@ const validateZones = (board: Board): boolean => {
     const realRowIndex = zoneIndexX + ZONES_ON_AXIS * zoneIndexY;
     const realColumnIndex = cellIndexInZoneX + CELLS_IN_ZONE_ON_AXIS * cellIndexInZoneY;
 
-    zones[realRowIndex][realColumnIndex] = value;
+    setCellValue(zones, { columnIndex: realColumnIndex, rowIndex: realRowIndex }, value);
   });
 
   return zones.every(validateBoardFragment('zone'));
@@ -137,24 +137,34 @@ const shuffleHorizontal = (board: Board, repeat = 1) => {
       const canBeShuffledWithValueBelow = cellIndexInZoneY !== 2;
       const rowIndexToShuffle = canBeShuffledWithValueBelow ? rowIndex + 1 : rowIndex - 1;
 
-      const shuffleValue = board[rowIndexToShuffle][columnIndex];
+      const shuffleValue = getCellValue(board, { columnIndex, rowIndex: rowIndexToShuffle });
 
       const columnIndexOfSecondBasicValue = board[rowIndex].indexOf(shuffleValue);
-      const secondBasicValue = board[rowIndex][columnIndexOfSecondBasicValue];
-      const secondShuffleValue = board[rowIndexToShuffle][columnIndexOfSecondBasicValue];
+      const secondBasicValue = getCellValue(board, { columnIndex: columnIndexOfSecondBasicValue, rowIndex });
+      const secondShuffleValue = getCellValue(board, {
+        columnIndex: columnIndexOfSecondBasicValue,
+        rowIndex: rowIndexToShuffle,
+      });
 
       const columnIndexOfThirdBasicValue = board[rowIndex].indexOf(secondShuffleValue);
-      const thirdBasicValue = board[rowIndex][columnIndexOfThirdBasicValue];
-      const thirdShuffleValue = board[rowIndexToShuffle][columnIndexOfThirdBasicValue];
+      const thirdBasicValue = getCellValue(board, { columnIndex: columnIndexOfThirdBasicValue, rowIndex });
+      const thirdShuffleValue = getCellValue(board, {
+        columnIndex: columnIndexOfThirdBasicValue,
+        rowIndex: rowIndexToShuffle,
+      });
 
-      board[rowIndex][columnIndex] = shuffleValue;
-      board[rowIndexToShuffle][columnIndex] = basicValue;
+      setCellValue(board, { columnIndex, rowIndex }, shuffleValue);
+      setCellValue(board, { columnIndex, rowIndex: rowIndexToShuffle }, basicValue);
 
-      board[rowIndex][columnIndexOfSecondBasicValue] = secondShuffleValue;
-      board[rowIndexToShuffle][columnIndexOfSecondBasicValue] = secondBasicValue;
+      setCellValue(board, { columnIndex: columnIndexOfSecondBasicValue, rowIndex }, secondShuffleValue);
+      setCellValue(
+        board,
+        { columnIndex: columnIndexOfSecondBasicValue, rowIndex: rowIndexToShuffle },
+        secondBasicValue,
+      );
 
-      board[rowIndex][columnIndexOfThirdBasicValue] = thirdShuffleValue;
-      board[rowIndexToShuffle][columnIndexOfThirdBasicValue] = thirdBasicValue;
+      setCellValue(board, { columnIndex: columnIndexOfThirdBasicValue, rowIndex }, thirdShuffleValue);
+      setCellValue(board, { columnIndex: columnIndexOfThirdBasicValue, rowIndex: rowIndexToShuffle }, thirdBasicValue);
     }
   });
 
@@ -165,7 +175,7 @@ const cloneBoard = (board: Board): Board => {
   const nextBoard = createEmptyBoard();
 
   forEachCell(board, ({ columnIndex, rowIndex }, value) => {
-    nextBoard[rowIndex][columnIndex] = value;
+    setCellValue(nextBoard, { columnIndex, rowIndex }, value);
   });
 
   return nextBoard;
@@ -184,11 +194,11 @@ export const removeNumbers = (board: Board, removeNumbersQuantiry: number): Boar
 
   const maxNumber = CELLS_IN_ZONE_ON_AXIS * ZONES_ON_AXIS;
 
-  const row = Math.floor(Math.random() * maxNumber);
-  const column = Math.floor(Math.random() * maxNumber);
+  const rowIndex = Math.floor(Math.random() * maxNumber);
+  const columnIndex = Math.floor(Math.random() * maxNumber);
 
-  if (nextBoard[row][column]) {
-    nextBoard[row][column] = null;
+  if (getCellValue(nextBoard, { columnIndex, rowIndex })) {
+    setCellValue(nextBoard, { columnIndex, rowIndex }, null);
     return removeNumbers(nextBoard, --removeNumbersQuantiry);
   } else {
     return removeNumbers(nextBoard, removeNumbersQuantiry);

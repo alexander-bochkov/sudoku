@@ -12,10 +12,12 @@ import {
   setCellValue,
   shuffleBoard,
 } from './utils';
+import { NUMBER_TO_REMOVE } from './constants';
 import type { FC, PropsWithChildren } from 'react';
-import type { Board, Cell, Status } from 'types/board';
+import type { Board, Cell } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 import type { BoardContextType } from './context';
+import type { Status } from './types';
 
 export const BoardContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const dimensions = useDimensions();
@@ -34,7 +36,7 @@ export const BoardContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const loadBoards = useCallback(() => {
     const templateBoard = createTemplateBoard();
     const nextFullBoard = shuffleBoard(templateBoard);
-    const nextPrefilledBoard = removeNumbers(nextFullBoard, 30);
+    const nextPrefilledBoard = removeNumbers(nextFullBoard, NUMBER_TO_REMOVE);
     const nextGaps = findGaps(nextPrefilledBoard);
 
     setFullBoard(nextFullBoard);

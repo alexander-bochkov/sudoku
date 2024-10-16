@@ -6,3 +6,5 @@ export const BOARD_MAX_DIMENSION = 370;
 export const CELL_RESIZE_STEP = 2;
 
 export const OFFSET_STEP = 2;
+
+export const NUMBER_TO_REMOVE = 30;
