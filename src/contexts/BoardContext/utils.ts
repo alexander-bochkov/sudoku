@@ -59,17 +59,36 @@ const checkNumber = (fragment: Nullable<number>[], maxNumber: number, number = 1
   return fragment.indexOf(number) === -1 ? false : checkNumber(fragment, maxNumber, ++number);
 };
 
-export const validateBoardFragment = (fragment: Nullable<number>[]): boolean => {
-  const maxNumber = CELLS_IN_ZONE_ON_AXIS * ZONES_ON_AXIS;
+export const validateBoardFragment =
+  (fragmentType: string) =>
+  (fragment: Nullable<number>[], fragmentIndex: number): boolean => {
+    const maxNumber = CELLS_IN_ZONE_ON_AXIS * ZONES_ON_AXIS;
 
-  const hasCorrectLength = fragment.length === maxNumber;
-  const hasValidNumbers = fragment.every((element) => element && element <= maxNumber);
-  const hasAllNumbers = checkNumber(fragment, maxNumber);
+    const hasCorrectLength = fragment.length === maxNumber;
 
-  return hasCorrectLength && hasValidNumbers && hasAllNumbers;
-};
+    if (!hasCorrectLength) {
+      console.error(`Board ${fragmentType} with index ${fragmentIndex} validation error, rule "hasCorrectLength"`);
+      return false;
+    }
 
-const validateRows = (board: Board): boolean => board.every(validateBoardFragment);
+    const hasValidNumbers = fragment.every((element) => element && element <= maxNumber);
+
+    if (!hasValidNumbers) {
+      console.error(`Board ${fragmentType} with index ${fragmentIndex} validation error, rule "hasValidNumbers"`);
+      return false;
+    }
+
+    const hasAllNumbers = checkNumber(fragment, maxNumber);
+
+    if (!hasAllNumbers) {
+      console.error(`Board ${fragmentType} with index ${fragmentIndex} validation error, rule "hasAllNumbers"`);
+      return false;
+    }
+
+    return true;
+  };
+
+const validateRows = (board: Board): boolean => board.every(validateBoardFragment('row'));
 
 const validateColumns = (board: Board): boolean => {
   const columns = createEmptyBoard();
@@ -78,7 +97,7 @@ const validateColumns = (board: Board): boolean => {
     columns[columnIndex][rowIndex] = value;
   });
 
-  return columns.every(validateBoardFragment);
+  return columns.every(validateBoardFragment('column'));
 };
 
 const validateZones = (board: Board): boolean => {
@@ -97,7 +116,81 @@ const validateZones = (board: Board): boolean => {
     zones[realRowIndex][realColumnIndex] = value;
   });
 
-  return zones.every(validateBoardFragment);
+  return zones.every(validateBoardFragment('zone'));
 };
 
 export const validateBoard = (board: Board) => validateRows(board) && validateColumns(board) && validateZones(board);
+
+const shuffleHorizontal = (board: Board, repeat = 1) => {
+  if (!repeat) return;
+
+  const maxNumber = CELLS_IN_ZONE_ON_AXIS * ZONES_ON_AXIS;
+
+  const row = Math.floor(Math.random() * maxNumber);
+  const column = Math.floor(Math.random() * maxNumber);
+
+  forEachCell(board, ({ columnIndex, rowIndex }, basicValue) => {
+    if (rowIndex === row && columnIndex === column) {
+      const zoneIndexY = getZoneIndex(rowIndex, CELLS_IN_ZONE_ON_AXIS);
+      const cellIndexInZoneY = getIndexInZone(rowIndex, CELLS_IN_ZONE_ON_AXIS, zoneIndexY);
+
+      const canBeShuffledWithValueBelow = cellIndexInZoneY !== 2;
+      const rowIndexToShuffle = canBeShuffledWithValueBelow ? rowIndex + 1 : rowIndex - 1;
+
+      const shuffleValue = board[rowIndexToShuffle][columnIndex];
+
+      const columnIndexOfSecondBasicValue = board[rowIndex].indexOf(shuffleValue);
+      const secondBasicValue = board[rowIndex][columnIndexOfSecondBasicValue];
+      const secondShuffleValue = board[rowIndexToShuffle][columnIndexOfSecondBasicValue];
+
+      const columnIndexOfThirdBasicValue = board[rowIndex].indexOf(secondShuffleValue);
+      const thirdBasicValue = board[rowIndex][columnIndexOfThirdBasicValue];
+      const thirdShuffleValue = board[rowIndexToShuffle][columnIndexOfThirdBasicValue];
+
+      board[rowIndex][columnIndex] = shuffleValue;
+      board[rowIndexToShuffle][columnIndex] = basicValue;
+
+      board[rowIndex][columnIndexOfSecondBasicValue] = secondShuffleValue;
+      board[rowIndexToShuffle][columnIndexOfSecondBasicValue] = secondBasicValue;
+
+      board[rowIndex][columnIndexOfThirdBasicValue] = thirdShuffleValue;
+      board[rowIndexToShuffle][columnIndexOfThirdBasicValue] = thirdBasicValue;
+    }
+  });
+
+  shuffleHorizontal(board, --repeat);
+};
+
+const cloneBoard = (board: Board): Board => {
+  const nextBoard = createEmptyBoard();
+
+  forEachCell(board, ({ columnIndex, rowIndex }, value) => {
+    nextBoard[rowIndex][columnIndex] = value;
+  });
+
+  return nextBoard;
+};
+
+export const shuffleBoard = (board: Board): Board => {
+  const nextBoard = cloneBoard(board);
+  shuffleHorizontal(nextBoard, 81);
+  return nextBoard;
+};
+
+export const removeNumbers = (board: Board, removeNumbersQuantiry: number): Board => {
+  if (!removeNumbersQuantiry) return board;
+
+  const nextBoard = cloneBoard(board);
+
+  const maxNumber = CELLS_IN_ZONE_ON_AXIS * ZONES_ON_AXIS;
+
+  const row = Math.floor(Math.random() * maxNumber);
+  const column = Math.floor(Math.random() * maxNumber);
+
+  if (nextBoard[row][column]) {
+    nextBoard[row][column] = null;
+    return removeNumbers(nextBoard, --removeNumbersQuantiry);
+  } else {
+    return removeNumbers(nextBoard, removeNumbersQuantiry);
+  }
+};

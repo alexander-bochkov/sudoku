@@ -2,18 +2,23 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { forEachCell } from 'utils/board';
 import { BoardContext } from './context';
 import { useDimensions } from './hooks/use-dimensions';
-import { useSudoku } from './hooks/use-sudoku';
-import { createEmptyBoard, findGaps, excludeCellAndCreateNewArray, getCellValue, setCellValue } from './utils';
+import {
+  createEmptyBoard,
+  createTemplateBoard,
+  excludeCellAndCreateNewArray,
+  findGaps,
+  getCellValue,
+  removeNumbers,
+  setCellValue,
+  shuffleBoard,
+} from './utils';
 import type { FC, PropsWithChildren } from 'react';
 import type { Board, Cell, Status } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 import type { BoardContextType } from './context';
-import { full, prefilled } from '../../data/board';
 
 export const BoardContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const dimensions = useDimensions();
-
-  useSudoku();
 
   const [fullBoard, setFullBoard] = useState<Nullable<Board>>(null);
   const [prefilledBoard, setPrefilledBoard] = useState<Nullable<Board>>(null);
@@ -27,8 +32,9 @@ export const BoardContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [status, setStatus] = useState<Status>('loading');
 
   const loadBoards = useCallback(() => {
-    const nextFullBoard = full;
-    const nextPrefilledBoard = prefilled;
+    const templateBoard = createTemplateBoard();
+    const nextFullBoard = shuffleBoard(templateBoard);
+    const nextPrefilledBoard = removeNumbers(nextFullBoard, 30);
     const nextGaps = findGaps(nextPrefilledBoard);
 
     setFullBoard(nextFullBoard);
