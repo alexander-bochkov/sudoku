@@ -9,14 +9,14 @@ import type { Nullable } from 'types/utility-types';
 type SolutionCanvasProps = {
   className?: string;
   dimensions: Dimensions;
-  errors: Array<Cell>;
+  errors: Nullable<Array<Cell>>;
   solutionBoard: Nullable<Board>;
 };
 
 export const SolutionCanvas: FC<SolutionCanvasProps> = ({ className, dimensions, errors, solutionBoard }) => {
   const { canvasRef, clear, context } = useCanvas();
 
-  const drawSolutionBoard = useBoardDrawing({ boardVariant: 'solution', context, dimensions, errors });
+  const drawSolutionBoard = useBoardDrawing({ context, dimensions, drawBoardVariant: 'solution', errors });
 
   useEffect(() => {
     clear();

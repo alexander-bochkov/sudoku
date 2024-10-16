@@ -1,21 +1,22 @@
 import { useCallback, useEffect, useState } from 'react';
+import { forEachCell } from 'utils/board';
 import itim from 'assets/fonts/Itim.ttf';
 import { cellIndexToCellCoordinate } from '../utils';
 import { NUMBER_COLOR, NUMBER_OFFSET_Y } from '../constants';
-import type { Board, BoardVariant, Cell, Dimensions } from 'types/board';
+import type { Board, Cell, Dimensions } from 'types/board';
 import type { Nullable } from 'types/utility-types';
-import type { Coordinates } from '../types';
+import type { Coordinates, DrawBoardVariant } from '../types';
 
 export const useBoardDrawing = ({
-  boardVariant,
   context,
   dimensions,
+  drawBoardVariant,
   errors,
 }: {
   context: Nullable<CanvasRenderingContext2D>;
   dimensions: Dimensions;
-  boardVariant: Exclude<BoardVariant, 'full'>;
-  errors?: Array<Cell>;
+  drawBoardVariant: DrawBoardVariant;
+  errors?: Nullable<Array<Cell>>;
 }) => {
   const [fontLoaded, setFontLoaded] = useState(false);
 
@@ -36,13 +37,13 @@ export const useBoardDrawing = ({
 
       const [x, y] = coordinates;
 
-      context.fillStyle = NUMBER_COLOR[isError ? 'error' : boardVariant];
+      context.fillStyle = NUMBER_COLOR[isError ? 'error' : drawBoardVariant];
       context.font = `${dimensions.cell}px Itim, sans-serif`;
       context.textAlign = 'center';
       context.textBaseline = 'middle';
       context.fillText(String(number), x, y);
     },
-    [boardVariant, context, dimensions.cell, fontLoaded],
+    [drawBoardVariant, context, dimensions.cell, fontLoaded],
   );
 
   const getNumberCoordinates = useCallback(
@@ -57,26 +58,21 @@ export const useBoardDrawing = ({
     [dimensions],
   );
 
-  const drawBoard = useCallback(
-    (row: Nullable<number>[], rowIndex: number) => {
-      row.forEach((number, columnIndex) => {
-        if (!number) return;
-
-        const isError =
-          boardVariant === 'solution' &&
-          errors?.some((error) => error.columnIndex === columnIndex && error.rowIndex === rowIndex);
-
-        drawNumber(getNumberCoordinates(columnIndex, rowIndex), number, isError);
-      });
-    },
-    [boardVariant, drawNumber, errors, getNumberCoordinates],
-  );
-
   const draw = useCallback(
     (board: Nullable<Board>) => {
-      board?.forEach(drawBoard);
+      if (!board) return;
+
+      forEachCell(board, ({ columnIndex, rowIndex }, value) => {
+        if (!value) return;
+
+        const isError =
+          drawBoardVariant === 'solution' &&
+          errors?.some((error) => error.columnIndex === columnIndex && error.rowIndex === rowIndex);
+
+        drawNumber(getNumberCoordinates(columnIndex, rowIndex), value, isError);
+      });
     },
-    [drawBoard],
+    [drawBoardVariant, drawNumber, errors, getNumberCoordinates],
   );
 
   return draw;

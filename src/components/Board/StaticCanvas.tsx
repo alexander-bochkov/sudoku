@@ -16,7 +16,7 @@ export const StaticCanvas: FC<StaticCanvasProps> = ({ className, dimensions, pre
   const { canvasRef, clear, context } = useCanvas();
 
   const drawGrid = useGridDrawing(context, dimensions);
-  const drawPrefilledBoard = useBoardDrawing({ boardVariant: 'prefilled', context, dimensions });
+  const drawPrefilledBoard = useBoardDrawing({ context, dimensions, drawBoardVariant: 'prefilled' });
 
   useEffect(() => {
     clear();
