@@ -23,5 +23,12 @@ export const SolutionCanvas: FC<SolutionCanvasProps> = ({ className, dimensions,
     drawSolutionBoard(solutionBoard);
   }, [clear, drawSolutionBoard, solutionBoard]);
 
-  return <canvas className={className} height={dimensions.board} ref={canvasRef} width={dimensions.board}></canvas>;
+  return (
+    <canvas
+      className={className}
+      height={dimensions.board * Math.ceil(window.devicePixelRatio)}
+      ref={canvasRef}
+      width={dimensions.board * Math.ceil(window.devicePixelRatio)}
+    ></canvas>
+  );
 };

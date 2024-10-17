@@ -48,10 +48,15 @@ export const useBoardDrawing = ({
 
   const getNumberCoordinates = useCallback(
     (columnIndex: number, rowIndex: number): Coordinates => {
+      const getYOffset = (): number => {
+        const isSafari = !!navigator.userAgent.match('Safari') && !navigator.userAgent.match('Chrome');
+        return isSafari ? -NUMBER_OFFSET_Y : NUMBER_OFFSET_Y;
+      };
+
       const numberOffset = dimensions.cell / 2;
 
       const x = cellIndexToCellCoordinate(columnIndex, dimensions) + numberOffset;
-      const y = cellIndexToCellCoordinate(rowIndex, dimensions) + numberOffset + NUMBER_OFFSET_Y;
+      const y = cellIndexToCellCoordinate(rowIndex, dimensions) + numberOffset + getYOffset();
 
       return [x, y];
     },

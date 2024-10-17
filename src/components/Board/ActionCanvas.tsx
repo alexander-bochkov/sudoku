@@ -23,5 +23,12 @@ export const ActionCanvas: FC<ActionCanvasProps> = ({
 
   useActionDrawing({ clear, context, dimensions, prefilledBoard, selectedCell, setSelectedCell });
 
-  return <canvas className={className} height={dimensions.board} ref={canvasRef} width={dimensions.board}></canvas>;
+  return (
+    <canvas
+      className={className}
+      height={dimensions.board * Math.ceil(window.devicePixelRatio)}
+      ref={canvasRef}
+      width={dimensions.board * Math.ceil(window.devicePixelRatio)}
+    ></canvas>
+  );
 };

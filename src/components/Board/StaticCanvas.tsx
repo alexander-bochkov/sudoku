@@ -24,5 +24,12 @@ export const StaticCanvas: FC<StaticCanvasProps> = ({ className, dimensions, pre
     drawPrefilledBoard(prefilledBoard);
   }, [clear, dimensions, drawGrid, drawPrefilledBoard, prefilledBoard]);
 
-  return <canvas className={className} height={dimensions.board} ref={canvasRef} width={dimensions.board}></canvas>;
+  return (
+    <canvas
+      className={className}
+      height={dimensions.board * Math.ceil(window.devicePixelRatio)}
+      ref={canvasRef}
+      width={dimensions.board * Math.ceil(window.devicePixelRatio)}
+    ></canvas>
+  );
 };

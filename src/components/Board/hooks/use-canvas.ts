@@ -11,6 +11,10 @@ export const useCanvas = () => {
     if (canvas) {
       const context = canvas.getContext('2d');
       setContext(context);
+
+      if (context) {
+        context.setTransform(Math.ceil(window.devicePixelRatio), 0, 0, Math.ceil(window.devicePixelRatio), 0, 0);
+      }
     }
   }, [canvasRef]);
 
