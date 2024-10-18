@@ -1,23 +1,26 @@
 .screenLayout {
   box-sizing: border-box;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  min-width: 320px;
+  overflow-y: auto;
   padding: 30px 15px;
 
-  &_game {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  &__content {
+    flex-grow: 1;
   }
 }
 
-@media (height >= 720px) and (width >= 720px) {
+// iPhone SE 2020 screen height
+@media screen and (height <= 667px) {
   .screenLayout {
-    &_game {
-      display: block;
+    &__header {
+      display: none;
+
+      &_persistent {
+        display: block;
+      }
     }
   }
-}
-
-.headingWrapper {
-  text-align: center;
 }

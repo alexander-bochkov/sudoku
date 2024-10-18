@@ -4,11 +4,11 @@ import type { FC, ReactElement } from 'react';
 import type { ScreenID } from 'types/screen';
 
 type ScreenProps = {
-  content: ReactElement;
+  component: ReactElement;
   id: ScreenID;
 };
 
-export const Screen: FC<ScreenProps> = ({ content, id }) => {
+export const Screen: FC<ScreenProps> = ({ component, id }) => {
   const { activeScreen } = useScreenContext();
-  return useMemo(() => activeScreen === id && content, [activeScreen, content, id]);
+  return useMemo(() => activeScreen === id && component, [activeScreen, component, id]);
 };
