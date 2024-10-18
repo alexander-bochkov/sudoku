@@ -7,13 +7,12 @@ import type { Board, Dimensions } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 
 type StaticCanvasProps = {
-  className?: string;
   dimensions: Dimensions;
   prefilledBoard: Nullable<Board>;
 };
 
-export const StaticCanvas: FC<StaticCanvasProps> = ({ className, dimensions, prefilledBoard }) => {
-  const { canvasRef, clear, context } = useCanvas();
+export const StaticCanvas: FC<StaticCanvasProps> = ({ dimensions, prefilledBoard }) => {
+  const { canvas, clear, context } = useCanvas();
 
   const drawGrid = useGridDrawing(context, dimensions);
   const drawPrefilledBoard = useBoardDrawing({ context, dimensions, drawBoardVariant: 'prefilled' });
@@ -24,12 +23,5 @@ export const StaticCanvas: FC<StaticCanvasProps> = ({ className, dimensions, pre
     drawPrefilledBoard(prefilledBoard);
   }, [clear, dimensions, drawGrid, drawPrefilledBoard, prefilledBoard]);
 
-  return (
-    <canvas
-      className={className}
-      height={dimensions.board * Math.ceil(window.devicePixelRatio)}
-      ref={canvasRef}
-      width={dimensions.board * Math.ceil(window.devicePixelRatio)}
-    ></canvas>
-  );
+  return canvas;
 };

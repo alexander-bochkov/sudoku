@@ -12,10 +12,9 @@ export const Board = () => {
 
   return (
     <div className={styles.board} style={getBoardStyle(dimensions.board, dimensions.cell)}>
-      <StaticCanvas className={styles.canvas} dimensions={dimensions} prefilledBoard={prefilledBoard} />
-      <SolutionCanvas className={styles.canvas} dimensions={dimensions} errors={errors} solutionBoard={solutionBoard} />
+      <StaticCanvas dimensions={dimensions} prefilledBoard={prefilledBoard} />
+      <SolutionCanvas dimensions={dimensions} errors={errors} solutionBoard={solutionBoard} />
       <ActionCanvas
-        className={styles.canvas}
         dimensions={dimensions}
         prefilledBoard={prefilledBoard}
         selectedCell={selectedCell}
