@@ -1,13 +1,11 @@
 import { ScreenLayout } from 'components';
+import { useScreenContext } from 'contexts';
 import type { FC } from 'react';
-import type { Screen } from 'types/screen';
 import styles from './TitleScreen.module.scss';
 
-type TitleScreenProps = {
-  onScreenChange: (nextScreen: Screen) => void;
-};
+export const TitleScreen: FC = () => {
+  const { onScreenChange } = useScreenContext();
 
-export const TitleScreen: FC<TitleScreenProps> = ({ onScreenChange }) => {
   return (
     <div className={styles.titleScreen}>
       <ScreenLayout

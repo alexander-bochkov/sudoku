@@ -1,18 +1,14 @@
 import { useState } from 'react';
 import { Board, Button, Modal, ScreenLayout } from 'components';
-import { useBoardContext } from 'contexts';
+import { useBoardContext, useScreenContext } from 'contexts';
 import type { FC } from 'react';
-import type { Screen } from 'types/screen';
 import styles from './GameScreen.module.scss';
 
-type GameScreenProps = {
-  onScreenChange: (nextScreen: Screen) => void;
-};
-
-export const GameScreen: FC<GameScreenProps> = ({ onScreenChange }) => {
+export const GameScreen: FC = () => {
   const [showPauseModal, setShowPauseModal] = useState<boolean>(false);
 
   const { dimensions, onNumberSelect, onErase, status, onErrorsCheck, onRestart } = useBoardContext();
+  const { onScreenChange } = useScreenContext();
 
   return (
     <div className={styles.gameScreen}>
@@ -53,7 +49,7 @@ export const GameScreen: FC<GameScreenProps> = ({ onScreenChange }) => {
               size={dimensions.board}
               title="Pause"
               topButton="Continue"
-              onBottomButtonClick={() => onScreenChange('title')}
+              onBottomButtonClick={() => onScreenChange('main-menu')}
               onTopButtonClick={() => setShowPauseModal(false)}
             />
           )}
@@ -68,7 +64,7 @@ export const GameScreen: FC<GameScreenProps> = ({ onScreenChange }) => {
           {status === 'completed' && (
             <Modal
               bottomButton="Return to Main Menu"
-              onBottomButtonClick={() => onScreenChange('title')}
+              onBottomButtonClick={() => onScreenChange('main-menu')}
               onTopButtonClick={onRestart}
               size={dimensions.board}
               title="Done"
