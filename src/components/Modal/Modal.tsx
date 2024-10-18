@@ -17,24 +17,22 @@ export const Modal: FC<ModalProps> = ({
   topButton,
   onBottomButtonClick,
   onTopButtonClick,
-}) => {
-  return (
-    <div className={styles.backdrop}>
-      <div className={styles.modal} style={{ height: size, width: size }}>
-        <p className={styles.title}>{title}</p>
-        <div className={styles.buttonsLayout}>
-          {topButton && (
-            <p className={styles.button} onClick={onTopButtonClick}>
-              {topButton}
-            </p>
-          )}
-          {bottomButton && (
-            <p className={styles.button} onClick={onBottomButtonClick}>
-              {bottomButton}
-            </p>
-          )}
-        </div>
+}) => (
+  <div className={styles.backdrop}>
+    <div className={styles.modal} style={{ height: size, width: size }}>
+      <p className={styles.modal__title}>{title}</p>
+      <div className={styles.modal__buttonsLayout}>
+        {topButton && (
+          <button className={styles.modal__button} onClick={onTopButtonClick}>
+            {topButton}
+          </button>
+        )}
+        {bottomButton && (
+          <button className={styles.modal__button} onClick={onBottomButtonClick}>
+            {bottomButton}
+          </button>
+        )}
       </div>
     </div>
-  );
-};
+  </div>
+);
