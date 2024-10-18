@@ -1,0 +1,9 @@
+{
+  "editor.rulers": [120],
+
+  "stylelint.validate": ["css", "scss"],
+
+  "[css][javascript][json][jsonc][scss][typescript][typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
