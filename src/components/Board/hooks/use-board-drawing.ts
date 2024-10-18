@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { forEachCell } from 'utils/board';
 import itim from 'assets/fonts/Itim.ttf';
-import { cellIndexToCellCoordinate } from '../utils';
-import { NUMBER_COLOR, NUMBER_OFFSET_Y } from '../constants';
+import { cellIndexToCellCoordinate, getNumberOffsetY } from '../utils';
+import { NUMBER_COLOR } from '../constants';
 import type { Board, Cell, Dimensions } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 import type { Coordinates, DrawBoardVariant } from '../types';
@@ -48,15 +48,10 @@ export const useBoardDrawing = ({
 
   const getNumberCoordinates = useCallback(
     (columnIndex: number, rowIndex: number): Coordinates => {
-      const getYOffset = (): number => {
-        const isSafari = !!navigator.userAgent.match('Safari') && !navigator.userAgent.match('Chrome');
-        return isSafari ? -NUMBER_OFFSET_Y : NUMBER_OFFSET_Y;
-      };
-
       const numberOffset = dimensions.cell / 2;
 
       const x = cellIndexToCellCoordinate(columnIndex, dimensions) + numberOffset;
-      const y = cellIndexToCellCoordinate(rowIndex, dimensions) + numberOffset + getYOffset();
+      const y = cellIndexToCellCoordinate(rowIndex, dimensions) + numberOffset + getNumberOffsetY();
 
       return [x, y];
     },

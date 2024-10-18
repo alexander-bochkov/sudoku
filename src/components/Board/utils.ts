@@ -1,13 +1,9 @@
 import { getIndexInZone, getZoneIndex } from 'utils/board';
+import { isSafari } from 'utils/browser';
 import { CELLS_IN_ZONE_ON_AXIS, GRID_LINE_THICKNESS, SUBGRID_LINE_THICKNESS } from 'constants/board';
+import { NUMBER_OFFSET_Y } from './constants';
 import type { CSSProperties } from 'react';
 import type { Dimensions } from 'types/board';
-
-export const getBoardStyle = (board: number, cell: number): CSSProperties => ({
-  borderRadius: cell / 2,
-  height: board,
-  width: board,
-});
 
 export const cellIndexToCellCoordinate = (cellIndex: number, dimensions: Dimensions): number => {
   const zoneIndex = getZoneIndex(cellIndex, CELLS_IN_ZONE_ON_AXIS);
@@ -28,3 +24,11 @@ export const coordinateToCellIndex = (coordinate: number, dimensions: Dimensions
   const cellCoordinate = cellIndexToCellCoordinate(cellIndex, dimensions);
   return coordinate > cellCoordinate ? coordinateToCellIndex(coordinate, dimensions, ++cellIndex) : --cellIndex;
 };
+
+export const getBoardStyle = (board: number, cell: number): CSSProperties => ({
+  borderRadius: cell / 2,
+  height: board,
+  width: board,
+});
+
+export const getNumberOffsetY = () => (isSafari() ? -NUMBER_OFFSET_Y : NUMBER_OFFSET_Y);
