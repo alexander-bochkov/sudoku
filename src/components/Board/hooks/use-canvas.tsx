@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useBoardContext } from 'contexts';
+import { useDevicePixelRatio } from './use-device-pixel-ratio';
 import type { Nullable } from 'types/utility-types';
 import styles from '../Board.module.scss';
 
@@ -7,8 +8,7 @@ export const useCanvas = () => {
   const [context, setContext] = useState<Nullable<CanvasRenderingContext2D>>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const ratio = window.devicePixelRatio;
-
+  const ratio = useDevicePixelRatio();
   const { dimensions } = useBoardContext();
 
   const canvas = useMemo(() => {
@@ -31,10 +31,6 @@ export const useCanvas = () => {
 
     const context = canvas.getContext('2d');
     setContext(context);
-
-    if (!context) return;
-
-    context.setTransform(ratio, 0, 0, ratio, 0, 0);
   }, [canvasRef, ratio]);
 
   const clear = useCallback(() => {
@@ -45,7 +41,8 @@ export const useCanvas = () => {
     } = context;
 
     context.clearRect(0, 0, width, height);
-  }, [context]);
+    context.setTransform(ratio, 0, 0, ratio, 0, 0);
+  }, [context, ratio]);
 
   return useMemo(
     () => ({
