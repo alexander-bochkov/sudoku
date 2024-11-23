@@ -3,26 +3,26 @@ import pause from 'assets/icons/pause.svg';
 import type { FC } from 'react';
 import styles from './Button.module.scss';
 
-type ButtonPropsNumber = {
+interface ButtonPropsNumber {
   number: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
   withEraser?: never;
   withPause?: never;
   onClick: () => void;
-};
+}
 
-type ButtonPropsEraser = {
+interface ButtonPropsEraser {
   number?: never;
   withEraser: boolean;
   withPause?: never;
   onClick: () => void;
-};
+}
 
-type ButtonPropsPause = {
+interface ButtonPropsPause {
   number?: never;
   withEraser?: never;
   withPause: boolean;
   onClick: () => void;
-};
+}
 
 type ButtonProps = ButtonPropsNumber | ButtonPropsEraser | ButtonPropsPause;
 

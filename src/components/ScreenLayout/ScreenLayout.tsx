@@ -2,11 +2,11 @@ import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
 import styles from './ScreenLayout.module.scss';
 
-type ScreenLayoutProps = {
+interface ScreenLayoutProps {
   content: ReactNode;
   header: ReactNode;
   isMenu?: boolean;
-};
+}
 
 export const ScreenLayout: FC<ScreenLayoutProps> = ({ content, header, isMenu }) => (
   <div className={styles.screenLayout}>

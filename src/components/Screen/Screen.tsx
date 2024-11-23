@@ -3,10 +3,10 @@ import { useScreenContext } from 'contexts';
 import type { FC, ReactElement } from 'react';
 import type { ScreenID } from 'types/screen';
 
-type ScreenProps = {
+interface ScreenProps {
   component: ReactElement;
   id: ScreenID;
-};
+}
 
 export const Screen: FC<ScreenProps> = ({ component, id }) => {
   const { activeScreen } = useScreenContext();

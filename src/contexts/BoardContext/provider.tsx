@@ -57,6 +57,7 @@ export const BoardContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const shouldUpdateNumber = useCallback(
     (number: number) =>
       Boolean(
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         selectedCell && (!solutionBoard || (solutionBoard && getCellValue(solutionBoard, selectedCell) !== number)),
       ),
     [selectedCell, solutionBoard],
@@ -85,16 +86,19 @@ export const BoardContextProvider: FC<PropsWithChildren> = ({ children }) => {
       if (!shouldUpdateNumber(number)) return;
 
       const nextSolutionBoard = solutionBoard ? [...solutionBoard] : createEmptyBoard();
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       setCellValue(nextSolutionBoard, selectedCell!, number);
       setSolutionBoard(nextSolutionBoard);
 
       if (isCellWithError()) {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const nextErrors = excludeCellAndCreateNewArray(errors!, selectedCell!);
         const hasErrors = Boolean(nextErrors.length);
         setErrors(hasErrors ? nextErrors : null);
       }
 
       if (isCellWithGap()) {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const nextGaps = excludeCellAndCreateNewArray(gaps!, selectedCell!);
         const hasGaps = Boolean(nextGaps.length);
         setGaps(hasGaps ? nextGaps : null);
@@ -113,17 +117,21 @@ export const BoardContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const onErase = useCallback(() => {
     if (!shouldEraseCell()) return;
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const nextSolutionBoard = [...solutionBoard!];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     setCellValue(nextSolutionBoard, selectedCell!, null);
     setSolutionBoard(nextSolutionBoard);
 
     if (isCellWithError()) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const nextErrors = excludeCellAndCreateNewArray(errors!, selectedCell!);
       const hasErrors = Boolean(nextErrors.length);
       setErrors(hasErrors ? nextErrors : null);
     }
 
     const nextGaps = gaps ? [...gaps] : [];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     nextGaps.push(selectedCell!);
     setGaps(nextGaps);
 

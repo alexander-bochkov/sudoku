@@ -38,8 +38,12 @@ export const Game: FC = () => {
             size={dimensions.board}
             title="Pause"
             topButton="Continue"
-            onBottomButtonClick={() => onScreenChange('main-menu')}
-            onTopButtonClick={() => setShowPauseModal(false)}
+            onBottomButtonClick={() => {
+              onScreenChange('main-menu');
+            }}
+            onTopButtonClick={() => {
+              setShowPauseModal(false);
+            }}
           />
         )}
         {status === 'error' && (
@@ -53,7 +57,9 @@ export const Game: FC = () => {
         {status === 'completed' && (
           <Modal
             bottomButton="Return to Main Menu"
-            onBottomButtonClick={() => onScreenChange('main-menu')}
+            onBottomButtonClick={() => {
+              onScreenChange('main-menu');
+            }}
             onTopButtonClick={onRestart}
             size={dimensions.board}
             title="Done"

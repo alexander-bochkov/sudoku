@@ -16,7 +16,7 @@ export const useBoardDrawing = ({
   context: Nullable<CanvasRenderingContext2D>;
   dimensions: Dimensions;
   drawBoardVariant: DrawBoardVariant;
-  errors?: Nullable<Array<Cell>>;
+  errors?: Nullable<Cell[]>;
 }) => {
   const [fontLoaded, setFontLoaded] = useState(false);
 
@@ -28,7 +28,7 @@ export const useBoardDrawing = ({
   };
 
   useEffect(() => {
-    loadFont();
+    void loadFont();
   }, []);
 
   const drawNumber = useCallback(
@@ -38,7 +38,7 @@ export const useBoardDrawing = ({
       const [x, y] = coordinates;
 
       context.fillStyle = NUMBER_COLOR[isError ? 'error' : drawBoardVariant];
-      context.font = `${dimensions.cell}px Itim, sans-serif`;
+      context.font = `${String(dimensions.cell)}px Itim, sans-serif`;
       context.textAlign = 'center';
       context.textBaseline = 'middle';
       context.fillText(String(number), x, y);

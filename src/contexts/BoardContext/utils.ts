@@ -20,9 +20,9 @@ export const setCellValue = (board: Board, cell: Cell, value: Nullable<number>):
   board[rowIndex][columnIndex] = value;
 };
 
-export const createEmptyBoard = (): Board => Array.from({ length: 9 }, () => new Array(9).fill(null));
+export const createEmptyBoard = (): Board => Array.from({ length: 9 }, () => new Array(9).fill(null) as null[]);
 
-export const excludeCellAndCreateNewArray = (array: Array<Cell>, cell: Cell) => {
+export const excludeCellAndCreateNewArray = (array: Cell[], cell: Cell) => {
   const { columnIndex, rowIndex } = cell;
   return array.filter((item) => !(item.columnIndex === columnIndex && item.rowIndex === rowIndex));
 };
@@ -56,7 +56,7 @@ export const createTemplateBoard = (): Board => {
 
 const checkNumber = (fragment: Nullable<number>[], maxNumber: number, number = 1): boolean => {
   if (number > maxNumber) return true;
-  return fragment.indexOf(number) === -1 ? false : checkNumber(fragment, maxNumber, ++number);
+  return !fragment.includes(number) ? false : checkNumber(fragment, maxNumber, ++number);
 };
 
 export const validateBoardFragment =
@@ -67,21 +67,25 @@ export const validateBoardFragment =
     const hasCorrectLength = fragment.length === maxNumber;
 
     if (!hasCorrectLength) {
-      console.error(`Board ${fragmentType} with index ${fragmentIndex} validation error, rule "hasCorrectLength"`);
+      console.error(
+        `Board ${fragmentType} with index ${String(fragmentIndex)} validation error, rule "hasCorrectLength"`,
+      );
       return false;
     }
 
     const hasValidNumbers = fragment.every((element) => element && element <= maxNumber);
 
     if (!hasValidNumbers) {
-      console.error(`Board ${fragmentType} with index ${fragmentIndex} validation error, rule "hasValidNumbers"`);
+      console.error(
+        `Board ${fragmentType} with index ${String(fragmentIndex)} validation error, rule "hasValidNumbers"`,
+      );
       return false;
     }
 
     const hasAllNumbers = checkNumber(fragment, maxNumber);
 
     if (!hasAllNumbers) {
-      console.error(`Board ${fragmentType} with index ${fragmentIndex} validation error, rule "hasAllNumbers"`);
+      console.error(`Board ${fragmentType} with index ${String(fragmentIndex)} validation error, rule "hasAllNumbers"`);
       return false;
     }
 

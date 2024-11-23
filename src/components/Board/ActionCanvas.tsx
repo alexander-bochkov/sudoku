@@ -4,12 +4,12 @@ import type { FC } from 'react';
 import type { Board, Cell, Dimensions } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 
-type ActionCanvasProps = {
+interface ActionCanvasProps {
   dimensions: Dimensions;
   prefilledBoard: Nullable<Board>;
   selectedCell: Nullable<Cell>;
   setSelectedCell: (cell: Nullable<Cell>) => void;
-};
+}
 
 export const ActionCanvas: FC<ActionCanvasProps> = ({ dimensions, prefilledBoard, selectedCell, setSelectedCell }) => {
   const { canvas, clear, context } = useCanvas();

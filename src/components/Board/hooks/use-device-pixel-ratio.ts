@@ -5,10 +5,12 @@ export const useDevicePixelRatio = () => {
 
   const observeRatioChange = useCallback(
     (callback: () => void) => {
-      const mediaQueryList = window.matchMedia(`(resolution: ${ratio}x)`);
+      const mediaQueryList = window.matchMedia(`(resolution: ${String(ratio)}x)`);
       mediaQueryList.addEventListener('change', callback);
 
-      return () => mediaQueryList.removeEventListener('change', callback);
+      return () => {
+        mediaQueryList.removeEventListener('change', callback);
+      };
     },
     [ratio],
   );

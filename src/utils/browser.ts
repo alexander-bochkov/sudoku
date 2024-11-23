@@ -1,1 +1,1 @@
-export const isSafari = () => !!navigator.userAgent.match('Safari') && !navigator.userAgent.match('Chrome');
+export const isSafari = () => !!/Safari/.exec(navigator.userAgent) && !/Chrome/.exec(navigator.userAgent);

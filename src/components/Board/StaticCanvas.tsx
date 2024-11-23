@@ -6,10 +6,10 @@ import type { FC } from 'react';
 import type { Board, Dimensions } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 
-type StaticCanvasProps = {
+interface StaticCanvasProps {
   dimensions: Dimensions;
   prefilledBoard: Nullable<Board>;
-};
+}
 
 export const StaticCanvas: FC<StaticCanvasProps> = ({ dimensions, prefilledBoard }) => {
   const { canvas, clear, context } = useCanvas();

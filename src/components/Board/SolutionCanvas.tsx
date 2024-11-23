@@ -5,11 +5,11 @@ import type { FC } from 'react';
 import type { Board, Cell, Dimensions } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 
-type SolutionCanvasProps = {
+interface SolutionCanvasProps {
   dimensions: Dimensions;
-  errors: Nullable<Array<Cell>>;
+  errors: Nullable<Cell[]>;
   solutionBoard: Nullable<Board>;
-};
+}
 
 export const SolutionCanvas: FC<SolutionCanvasProps> = ({ dimensions, errors, solutionBoard }) => {
   const { canvas, clear, context } = useCanvas();
