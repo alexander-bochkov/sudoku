@@ -1,4 +1,12 @@
 @font-face {
+  font-family: 'Balsamiq Sans';
+  src:
+    local('Balsamiq Sans'),
+    url('assets/fonts/BalsamiqSans.ttf') format('truetype');
+}
+
+// TODO: Remove after refactoring
+@font-face {
   font-family: Inter;
   src:
     local('Inter'),
