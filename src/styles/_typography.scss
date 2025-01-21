@@ -1,0 +1,77 @@
+@mixin board-text-30 {
+  font-family: Itim, sans-serif;
+  font-size: 30px;
+  line-height: 30px;
+}
+
+@mixin board-text-32 {
+  font-family: Itim, sans-serif;
+  font-size: 32px;
+  line-height: 32px;
+}
+
+@mixin board-text-34 {
+  font-family: Itim, sans-serif;
+  font-size: 34px;
+  line-height: 34px;
+}
+
+@mixin board-text-36 {
+  font-family: Itim, sans-serif;
+  font-size: 36px;
+  line-height: 36px;
+}
+
+@mixin board-text-38 {
+  font-family: Itim, sans-serif;
+  font-size: 38px;
+  line-height: 38px;
+}
+
+@mixin board-text-40 {
+  font-family: Itim, sans-serif;
+  font-size: 40px;
+  line-height: 40px;
+}
+
+@mixin button-text {
+  font-family: Itim, sans-serif;
+  font-size: 38px;
+  line-height: 38px;
+}
+
+@mixin main-menu-item {
+  font-family: 'Balsamiq Sans', sans-serif;
+  font-size: 32px;
+  line-height: 32px;
+}
+
+@mixin main-menu-item-main {
+  font-family: 'Balsamiq Sans', sans-serif;
+  font-size: 38px;
+  line-height: 38px;
+}
+
+@mixin main-menu-title {
+  font-family: Itim, sans-serif;
+  font-size: 76px;
+  line-height: 76px;
+}
+
+@mixin modal-action {
+  font-family: 'Balsamiq Sans', sans-serif;
+  font-size: 24px;
+  line-height: 24px;
+}
+
+@mixin modal-title {
+  font-family: 'Balsamiq Sans', sans-serif;
+  font-size: 38px;
+  line-height: 38px;
+}
+
+@mixin settings-modal-text {
+  font-family: 'Balsamiq Sans', sans-serif;
+  font-size: 20px;
+  line-height: 20px;
+}
