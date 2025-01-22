@@ -6,3 +6,4 @@ export { Screen } from './Screen';
 export { ScreenLayout } from './ScreenLayout';
 export { StartButton } from './StartButton';
 export { Title } from './Title';
+export * from './Icon';

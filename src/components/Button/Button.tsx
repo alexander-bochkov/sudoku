@@ -1,5 +1,4 @@
-import eraser from 'assets/icons/eraser.svg';
-import pause from 'assets/icons/pause.svg';
+import { Icon } from '../Icon';
 import type { FC } from 'react';
 import styles from './Button.module.scss';
 
@@ -29,8 +28,8 @@ type ButtonProps = ButtonPropsNumber | ButtonPropsEraser | ButtonPropsPause;
 export const Button: FC<ButtonProps> = ({ number, withEraser, withPause, onClick }) => {
   const getContent = () => {
     if (number) return number;
-    if (withEraser) return <img src={eraser} />;
-    if (withPause) return <img src={pause} />;
+    if (withEraser) return <Icon name="eraser" size={38} />;
+    if (withPause) return <Icon name="pause" size={38} />;
   };
 
   const content = getContent();
