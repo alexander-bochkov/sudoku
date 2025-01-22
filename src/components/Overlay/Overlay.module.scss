@@ -1,0 +1,9 @@
+@use 'styles/colors';
+@use 'styles/effects';
+
+.overlay {
+  backdrop-filter: effects.$overlay-background-blur;
+  background: colors.$overlay-background;
+  inset: 0;
+  position: fixed;
+}
