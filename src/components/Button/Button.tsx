@@ -1,5 +1,6 @@
 import { Icon } from '../Icon';
 import type { ComponentPropsWithoutRef, FC } from 'react';
+import type { NumberRange } from 'types/board';
 import styles from './Button.module.scss';
 
 interface ButtonPropsIcon {
@@ -10,7 +11,7 @@ interface ButtonPropsIcon {
 
 interface ButtonPropsNumber {
   icon?: never;
-  number: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+  number: NumberRange;
   onClick: () => void;
 }
 

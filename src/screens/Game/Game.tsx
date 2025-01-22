@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Board, Button, ButtonsGroup, Modal, ScreenLayout, Title } from 'components';
+import { Board, Button, Modal, Numpad, ScreenLayout, Title } from 'components';
 import { useBoardContext, useScreenContext } from 'contexts';
 import type { FC } from 'react';
 import styles from './Game.module.scss';
@@ -7,7 +7,7 @@ import styles from './Game.module.scss';
 export const Game: FC = () => {
   const [showPauseModal, setShowPauseModal] = useState<boolean>(false);
 
-  const { dimensions, status, onErrorsCheck, onRestart } = useBoardContext();
+  const { dimensions, status, onErase, onErrorsCheck, onNumberSelect, onRestart } = useBoardContext();
   const { onScreenChange } = useScreenContext();
 
   return (
@@ -27,7 +27,7 @@ export const Game: FC = () => {
                   />
                 </div>
                 <Board />
-                <ButtonsGroup />
+                <Numpad onErase={onErase} onNumberSelect={onNumberSelect} />
               </div>
             </div>
           }

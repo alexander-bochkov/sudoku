@@ -1,5 +1,4 @@
 export { Board } from './Board';
-export { ButtonsGroup } from './ButtonsGroup';
 export { Screen } from './Screen';
 export { ScreenLayout } from './ScreenLayout';
 export { StartButton } from './StartButton';
@@ -7,4 +6,5 @@ export { Title } from './Title';
 export * from './Button';
 export * from './Icon';
 export * from './Modal';
+export * from './Numpad';
 export * from './Overlay';
