@@ -1,42 +1,23 @@
 import { Icon } from '../Icon';
-import type { FC } from 'react';
+import type { ComponentPropsWithoutRef, FC } from 'react';
 import styles from './Button.module.scss';
 
+interface ButtonPropsIcon {
+  icon: ComponentPropsWithoutRef<typeof Icon>['name'];
+  number?: never;
+  onClick: () => void;
+}
+
 interface ButtonPropsNumber {
+  icon?: never;
   number: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-  withEraser?: never;
-  withPause?: never;
   onClick: () => void;
 }
 
-interface ButtonPropsEraser {
-  number?: never;
-  withEraser: boolean;
-  withPause?: never;
-  onClick: () => void;
-}
+type ButtonProps = ButtonPropsIcon | ButtonPropsNumber;
 
-interface ButtonPropsPause {
-  number?: never;
-  withEraser?: never;
-  withPause: boolean;
-  onClick: () => void;
-}
-
-type ButtonProps = ButtonPropsNumber | ButtonPropsEraser | ButtonPropsPause;
-
-export const Button: FC<ButtonProps> = ({ number, withEraser, withPause, onClick }) => {
-  const getContent = () => {
-    if (number) return number;
-    if (withEraser) return <Icon name="eraser" size={38} />;
-    if (withPause) return <Icon name="pause" size={38} />;
-  };
-
-  const content = getContent();
-
-  return (
-    <button className={styles.button} onClick={onClick}>
-      {content}
-    </button>
-  );
-};
+export const Button: FC<ButtonProps> = ({ icon, number, onClick }) => (
+  <button className={styles.button} onClick={onClick}>
+    {number ?? <Icon name={icon} size={38} />}
+  </button>
+);

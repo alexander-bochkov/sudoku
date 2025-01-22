@@ -20,7 +20,7 @@ export const Game: FC = () => {
               <div className={styles.game__contentLayout}>
                 <div className={styles.game__pauseButtonLayout} style={{ width: dimensions.board }}>
                   <Button
-                    withPause
+                    icon="pause"
                     onClick={() => {
                       setShowPauseModal(true);
                     }}

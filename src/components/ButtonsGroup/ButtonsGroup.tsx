@@ -60,7 +60,7 @@ export const ButtonsGroup = () => {
           onNumberSelect(9);
         }}
       />
-      <Button withEraser onClick={onErase} />
+      <Button icon="eraser" onClick={onErase} />
     </div>
   );
 };
