@@ -1,38 +1,42 @@
-import type { FC } from 'react';
+import { getStyleFromDimensions } from 'utils/board';
+import { Overlay } from '../Overlay';
+import type { FC, PropsWithChildren } from 'react';
+import type { Dimensions } from 'types/board';
 import styles from './Modal.module.scss';
 
-interface ModalProps {
-  bottomButton: string;
-  size: number;
-  title: string;
-  topButton?: string;
-  onBottomButtonClick: () => void;
-  onTopButtonClick?: () => void;
+interface ModalAction {
+  callback: () => void;
+  label: string;
 }
 
-export const Modal: FC<ModalProps> = ({
-  bottomButton,
-  size,
+interface ModalProps {
+  dimensions: Dimensions;
+  primaryAction: ModalAction;
+  secondaryAction?: ModalAction;
+  title: string;
+}
+
+export const Modal: FC<PropsWithChildren<ModalProps>> = ({
+  children,
+  dimensions,
+  primaryAction,
+  secondaryAction,
   title,
-  topButton,
-  onBottomButtonClick,
-  onTopButtonClick,
 }) => (
-  <div className={styles.backdrop}>
-    <div className={styles.modal} style={{ height: size, width: size }}>
+  <Overlay>
+    <div className={styles.modal} style={getStyleFromDimensions(dimensions)}>
       <p className={styles.modal__title}>{title}</p>
-      <div className={styles.modal__buttonsLayout}>
-        {topButton && (
-          <button className={styles.modal__button} onClick={onTopButtonClick}>
-            {topButton}
+      <div className={styles.modal__content}>{children}</div>
+      <div className={styles.modal__actionsLayout}>
+        {secondaryAction && (
+          <button className={styles.modal__action} onClick={secondaryAction.callback}>
+            {secondaryAction.label}
           </button>
         )}
-        {bottomButton && (
-          <button className={styles.modal__button} onClick={onBottomButtonClick}>
-            {bottomButton}
-          </button>
-        )}
+        <button className={styles.modal__action} onClick={primaryAction.callback}>
+          {primaryAction.label}
+        </button>
       </div>
     </div>
-  </div>
+  </Overlay>
 );

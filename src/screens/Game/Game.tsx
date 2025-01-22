@@ -34,36 +34,46 @@ export const Game: FC = () => {
         />
         {showPauseModal && (
           <Modal
-            bottomButton="Return to Main Menu"
-            size={dimensions.board}
+            dimensions={dimensions}
+            primaryAction={{
+              callback: () => {
+                onScreenChange('main-menu');
+              },
+              label: 'Return to Main Menu',
+            }}
+            secondaryAction={{
+              callback: () => {
+                setShowPauseModal(false);
+              },
+              label: 'Continue',
+            }}
             title="Pause"
-            topButton="Continue"
-            onBottomButtonClick={() => {
-              onScreenChange('main-menu');
-            }}
-            onTopButtonClick={() => {
-              setShowPauseModal(false);
-            }}
           />
         )}
         {status === 'error' && (
           <Modal
-            bottomButton="Check mistakes"
-            size={dimensions.board}
+            dimensions={dimensions}
+            primaryAction={{
+              callback: onErrorsCheck,
+              label: 'Check mistakes',
+            }}
             title="Oops!"
-            onBottomButtonClick={onErrorsCheck}
           />
         )}
         {status === 'completed' && (
           <Modal
-            bottomButton="Return to Main Menu"
-            onBottomButtonClick={() => {
-              onScreenChange('main-menu');
+            dimensions={dimensions}
+            primaryAction={{
+              callback: () => {
+                onScreenChange('main-menu');
+              },
+              label: 'Return to Main Menu',
             }}
-            onTopButtonClick={onRestart}
-            size={dimensions.board}
+            secondaryAction={{
+              callback: onRestart,
+              label: 'Play again',
+            }}
             title="Done"
-            topButton="Play again"
           />
         )}
       </>

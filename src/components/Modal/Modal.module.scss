@@ -1,45 +1,47 @@
-.backdrop {
-  align-items: center;
-  backdrop-filter: blur(6px);
-  background: rgb(0 149 255 / 30%);
-  display: flex;
-  inset: 0;
-  justify-content: center;
-  min-width: 320px;
-  position: absolute;
-}
+@use 'styles/colors';
+@use 'styles/effects';
+@use 'styles/typography';
 
 .modal {
   align-items: center;
-  background: #00416f;
-  box-shadow: 2px 2px 4px 2px rgb(0 0 0 / 50%);
+  background: colors.$modal-background;
+  box-shadow: effects.$modal-shadow;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  left: 50%;
   padding: 30px 0;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
 
-  &__title {
-    color: #ffffff;
-    font-family: Inter, sans-serif;
-    font-size: 38px;
-    margin: 0;
+  &__action {
+    background: none;
+    border: none;
+    color: colors.$modal-action-color;
+    cursor: pointer;
+    padding: 0;
+
+    @include typography.modal-action;
   }
 
-  &__buttonsLayout {
+  &__actionsLayout {
     align-items: center;
     display: flex;
     flex-direction: column;
     row-gap: 20px;
   }
 
-  &__button {
-    background-color: transparent;
-    border: none;
-    color: #ffffff;
-    cursor: pointer;
-    font-family: Inter, sans-serif;
-    font-size: 24px;
-    padding: 0;
+  &__content {
+    flex-grow: 1;
+    margin: 20px 0;
+    overflow-y: auto;
+  }
+
+  &__title {
+    color: colors.$modal-title-color;
+    margin: 0;
+
+    @include typography.modal-title;
   }
 }

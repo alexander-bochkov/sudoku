@@ -2,7 +2,7 @@ import { useBoardContext } from 'contexts';
 import { ActionCanvas } from './ActionCanvas';
 import { SolutionCanvas } from './SolutionCanvas';
 import { StaticCanvas } from './StaticCanvas';
-import { getBoardStyle } from './utils';
+import { getStyleFromDimensions } from 'utils/board';
 import styles from './Board.module.scss';
 
 export const Board = () => {
@@ -11,7 +11,7 @@ export const Board = () => {
   if (!dimensions) return;
 
   return (
-    <div className={styles.board} style={getBoardStyle(dimensions.board, dimensions.cell)}>
+    <div className={styles.board} style={getStyleFromDimensions(dimensions)}>
       <StaticCanvas dimensions={dimensions} prefilledBoard={prefilledBoard} />
       <SolutionCanvas dimensions={dimensions} errors={errors} solutionBoard={solutionBoard} />
       <ActionCanvas

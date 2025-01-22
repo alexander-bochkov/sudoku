@@ -9,6 +9,6 @@ export interface Cell {
 
 export interface Dimensions {
   board: number;
-  zone: number;
   cell: number;
+  zone: number;
 }
