@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParamsContext } from 'contexts';
 import { Menu, Modal, ScreenLayout } from 'ui';
 import styles from './MainMenu.module.scss';
@@ -7,22 +8,24 @@ export const MainMenu = () => {
   const { dimensions, setScreenId } = useParamsContext();
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
+  const { t } = useTranslation('main-menu');
+
   const items = useMemo(
     () => [
       {
         callback: () => {
           setScreenId('game');
         },
-        label: 'Start game',
+        label: t('start_game'),
       },
       {
         callback: () => {
           setShowSettingsModal(true);
         },
-        label: 'Settings',
+        label: t('settings'),
       },
     ],
-    [setScreenId],
+    [setScreenId, t],
   );
 
   return (

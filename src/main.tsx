@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { Screen } from 'components';
 import { BoardContextProvider, ParamsContextProvider } from 'contexts';
 import { Game, MainMenu } from 'screens';
+import './i18n';
 import './global.scss';
 
 const rootEl = document.getElementById('root');
