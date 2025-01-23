@@ -1,5 +1,6 @@
-import { ScreenLayout, Title, Menu } from 'components';
+import { ScreenLayout, Title } from 'components';
 import { useScreenContext } from 'contexts';
+import { Menu } from 'ui';
 import styles from './MainMenu.module.scss';
 
 export const MainMenu = () => {

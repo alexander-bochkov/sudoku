@@ -6,15 +6,7 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "types": ["vite/client", "vite-plugin-svgr/client"],
-    "paths": {
-      "assets": ["./src/assets"],
-      "components": ["./src/components"],
-      "constants/*": ["./src/constants/*"],
-      "contexts": ["./src/contexts"],
-      "screens": ["./src/screens"],
-      "types/*": ["./src/types/*"],
-      "utils/*": ["./src/utils/*"]
-    },
+    "baseUrl": "src",
 
     /* Bundler mode */
     "moduleResolution": "bundler",

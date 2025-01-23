@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Board, Button, Modal, Numpad, ScreenLayout, Title } from 'components';
+import { Board, ScreenLayout, Title } from 'components';
 import { useBoardContext, useScreenContext } from 'contexts';
+import { Button, Modal, Numpad } from 'ui';
 import type { FC } from 'react';
 import styles from './Game.module.scss';
 
