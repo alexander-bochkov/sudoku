@@ -11,14 +11,14 @@ if (rootEl) {
   createRoot(rootEl).render(
     <StrictMode>
       <ScreenContextProvider>
-        <Screen id="main-menu" component={<MainMenu />} />
+        <Screen content={<MainMenu />} id="main-menu" />
         <Screen
-          id="game"
-          component={
+          content={
             <BoardContextProvider>
               <Game />
             </BoardContextProvider>
           }
+          id="game"
         />
       </ScreenContextProvider>
     </StrictMode>,

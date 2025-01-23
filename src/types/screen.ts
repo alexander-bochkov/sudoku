@@ -1,1 +1,1 @@
-export type ScreenID = 'main-menu' | 'game';
+export type ScreenId = 'main-menu' | 'game';

@@ -1,21 +1,21 @@
 import { useMemo, useState } from 'react';
 import { ScreenContext } from './context';
 import type { FC, PropsWithChildren } from 'react';
-import type { ScreenID } from 'types/screen';
+import type { ScreenId } from 'types/screen';
 import type { ScreenContextType } from './context';
 
-const DEFAULT_SCREEN: ScreenID = 'main-menu';
+const DEFAULT_SCREEN_ID: ScreenId = 'main-menu';
 
 export const ScreenContextProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [activeScreen, setActiveScreen] = useState<ScreenID>(DEFAULT_SCREEN);
+  const [currentScreenId, setCurrentScreenId] = useState<ScreenId>(DEFAULT_SCREEN_ID);
 
   const value = useMemo(
     (): ScreenContextType => ({
-      activeScreen,
-      onScreenChange: setActiveScreen,
+      currentScreenId,
+      onScreenChange: setCurrentScreenId,
     }),
-    [activeScreen],
+    [currentScreenId],
   );
 
-  return <ScreenContext.Provider value={value}>{children}</ScreenContext.Provider>;
+  return <ScreenContext value={value}>{children}</ScreenContext>;
 };
