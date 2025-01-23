@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Board, ScreenLayout, Title } from 'components';
+import { Board } from 'components';
 import { useBoardContext, useScreenContext } from 'contexts';
-import { Button, Modal, Numpad } from 'ui';
+import { Button, Modal, Numpad, ScreenLayout } from 'ui';
 import type { FC } from 'react';
 import styles from './Game.module.scss';
 
@@ -15,7 +15,6 @@ export const Game: FC = () => {
     dimensions && (
       <>
         <ScreenLayout
-          header={<Title />}
           content={
             <div className={styles.game}>
               <div className={styles.game__contentLayout}>

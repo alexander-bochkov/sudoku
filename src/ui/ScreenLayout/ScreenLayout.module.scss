@@ -11,16 +11,3 @@
     flex-grow: 1;
   }
 }
-
-// iPhone SE 2020 screen height
-@media screen and (height <= 667px) {
-  .screenLayout {
-    &__header {
-      display: none;
-
-      &_persistent {
-        display: block;
-      }
-    }
-  }
-}
