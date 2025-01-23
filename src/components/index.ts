@@ -1,10 +1,10 @@
 export { Board } from './Board';
 export { Screen } from './Screen';
 export { ScreenLayout } from './ScreenLayout';
-export { StartButton } from './StartButton';
 export { Title } from './Title';
 export * from './Button';
 export * from './Icon';
+export * from './Menu';
 export * from './Modal';
 export * from './Numpad';
 export * from './Overlay';

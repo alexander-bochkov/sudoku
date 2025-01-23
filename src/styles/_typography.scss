@@ -40,22 +40,22 @@
   line-height: 38px;
 }
 
-@mixin main-menu-item {
+@mixin main-menu-title {
+  font-family: Itim, sans-serif;
+  font-size: 76px;
+  line-height: 76px;
+}
+
+@mixin menu-item {
   font-family: 'Balsamiq Sans', sans-serif;
   font-size: 32px;
   line-height: 32px;
 }
 
-@mixin main-menu-item-main {
+@mixin menu-item-main {
   font-family: 'Balsamiq Sans', sans-serif;
   font-size: 38px;
   line-height: 38px;
-}
-
-@mixin main-menu-title {
-  font-family: Itim, sans-serif;
-  font-size: 76px;
-  line-height: 76px;
 }
 
 @mixin modal-action {
