@@ -1,8 +1,19 @@
+@use 'styles/colors';
+@use 'styles/typography';
+
 .mainMenu {
-  &__startButtonLayout {
+  &__menuLayout {
     left: 50%;
     position: absolute;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -19px);
+  }
+
+  &__title {
+    color: colors.$main-menu-title-color;
+    margin: 0;
+    text-align: center;
+
+    @include typography.main-menu-title;
   }
 }

@@ -1,10 +1,9 @@
 import { createContext } from 'react';
-import type { Board, Cell, Dimensions } from 'types/board';
+import type { Board, Cell } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 import type { Status } from './types';
 
 export interface BoardContextType {
-  dimensions: Nullable<Dimensions>;
   prefilledBoard: Nullable<Board>;
   solutionBoard: Nullable<Board>;
   selectedCell: Nullable<Cell>;

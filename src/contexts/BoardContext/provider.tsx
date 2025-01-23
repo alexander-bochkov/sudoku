@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { forEachCell } from 'utils/board';
+import { useParamsContext } from '../ParamsContext';
 import { BoardContext } from './context';
-import { useDimensions } from './hooks/use-dimensions';
 import {
   createEmptyBoard,
   createTemplateBoard,
@@ -20,8 +20,7 @@ import type { BoardContextType } from './context';
 import type { Status } from './types';
 
 export const BoardContextProvider: FC<PropsWithChildren> = ({ children }) => {
-  const dimensions = useDimensions();
-
+  const { dimensions } = useParamsContext();
   const [fullBoard, setFullBoard] = useState<Nullable<Board>>(null);
   const [prefilledBoard, setPrefilledBoard] = useState<Nullable<Board>>(null);
   const [solutionBoard, setSolutionBoard] = useState<Nullable<Board>>(null);
@@ -173,7 +172,6 @@ export const BoardContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const value = useMemo(
     (): BoardContextType => ({
-      dimensions,
       prefilledBoard,
       solutionBoard,
       selectedCell,
@@ -185,18 +183,7 @@ export const BoardContextProvider: FC<PropsWithChildren> = ({ children }) => {
       onErrorsCheck,
       onRestart,
     }),
-    [
-      dimensions,
-      errors,
-      onErase,
-      onErrorsCheck,
-      onNumberSelect,
-      onRestart,
-      prefilledBoard,
-      selectedCell,
-      solutionBoard,
-      status,
-    ],
+    [errors, onErase, onErrorsCheck, onNumberSelect, onRestart, prefilledBoard, selectedCell, solutionBoard, status],
   );
 
   return <BoardContext.Provider value={value}>{children}</BoardContext.Provider>;

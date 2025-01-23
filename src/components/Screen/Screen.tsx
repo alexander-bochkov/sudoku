@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useScreenContext } from 'contexts';
+import { useParamsContext } from 'contexts';
 import type { FC, ReactElement } from 'react';
 import type { ScreenId } from 'types/screen';
 
@@ -9,6 +9,6 @@ interface ScreenProps {
 }
 
 export const Screen: FC<ScreenProps> = ({ content, id }) => {
-  const { currentScreenId } = useScreenContext();
-  return useMemo(() => currentScreenId === id && content, [content, currentScreenId, id]);
+  const { screenId } = useParamsContext();
+  return useMemo(() => screenId === id && content, [content, screenId, id]);
 };

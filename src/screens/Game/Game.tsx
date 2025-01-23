@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Board } from 'components';
-import { useBoardContext, useScreenContext } from 'contexts';
+import { useBoardContext, useParamsContext } from 'contexts';
 import { Button, Modal, Numpad, ScreenLayout } from 'ui';
 import type { FC } from 'react';
 import styles from './Game.module.scss';
@@ -8,8 +8,8 @@ import styles from './Game.module.scss';
 export const Game: FC = () => {
   const [showPauseModal, setShowPauseModal] = useState<boolean>(false);
 
-  const { dimensions, status, onErase, onErrorsCheck, onNumberSelect, onRestart } = useBoardContext();
-  const { onScreenChange } = useScreenContext();
+  const { status, onErase, onErrorsCheck, onNumberSelect, onRestart } = useBoardContext();
+  const { dimensions, setScreenId } = useParamsContext();
 
   return (
     dimensions && (
@@ -37,7 +37,7 @@ export const Game: FC = () => {
             dimensions={dimensions}
             primaryAction={{
               callback: () => {
-                onScreenChange('main-menu');
+                setScreenId('main-menu');
               },
               label: 'Return to Main Menu',
             }}
@@ -65,7 +65,7 @@ export const Game: FC = () => {
             dimensions={dimensions}
             primaryAction={{
               callback: () => {
-                onScreenChange('main-menu');
+                setScreenId('main-menu');
               },
               label: 'Return to Main Menu',
             }}

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useBoardContext } from 'contexts';
+import { useParamsContext } from 'contexts';
 import { useDevicePixelRatio } from './use-device-pixel-ratio';
 import type { Nullable } from 'types/utility-types';
 import styles from '../Board.module.scss';
@@ -9,7 +9,7 @@ export const useCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const ratio = useDevicePixelRatio();
-  const { dimensions } = useBoardContext();
+  const { dimensions } = useParamsContext();
 
   const canvas = useMemo(() => {
     if (!dimensions) return;

@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Screen } from 'components';
-import { BoardContextProvider, ScreenContextProvider } from 'contexts';
+import { BoardContextProvider, ParamsContextProvider } from 'contexts';
 import { Game, MainMenu } from 'screens';
 import './global.scss';
 
@@ -10,7 +10,7 @@ const rootEl = document.getElementById('root');
 if (rootEl) {
   createRoot(rootEl).render(
     <StrictMode>
-      <ScreenContextProvider>
+      <ParamsContextProvider>
         <Screen content={<MainMenu />} id="main-menu" />
         <Screen
           content={
@@ -20,7 +20,7 @@ if (rootEl) {
           }
           id="game"
         />
-      </ScreenContextProvider>
+      </ParamsContextProvider>
     </StrictMode>,
   );
 }
