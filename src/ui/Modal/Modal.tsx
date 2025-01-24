@@ -5,41 +5,35 @@ import type { PropsWithChildren } from 'react';
 import type { Dimensions } from 'types/board';
 import styles from './Modal.module.scss';
 
-interface ModalAction {
+interface Action {
   callback: () => void;
   label: string;
 }
 
 interface ModalProps {
   dimensions: Dimensions;
-  primaryAction: ModalAction;
-  secondaryAction?: ModalAction;
+  primaryAction: Action;
+  secondaryAction?: Action;
   title: string;
 }
 
-export const Modal = memo(function Modal({
-  children,
-  dimensions,
-  primaryAction,
-  secondaryAction,
-  title,
-}: PropsWithChildren<ModalProps>) {
-  return (
-    <Overlay>
-      <div className={styles.modal} style={getStyleFromDimensions(dimensions)}>
-        <p className={styles.modal__title}>{title}</p>
-        <div className={styles.modal__content}>{children}</div>
-        <div className={styles.modal__actionsLayout}>
-          {secondaryAction && (
-            <button className={styles.modal__action} onClick={secondaryAction.callback}>
-              {secondaryAction.label}
-            </button>
-          )}
-          <button className={styles.modal__action} onClick={primaryAction.callback}>
-            {primaryAction.label}
+const Modal = ({ children, dimensions, primaryAction, secondaryAction, title }: PropsWithChildren<ModalProps>) => (
+  <Overlay>
+    <div className={styles.modal} style={getStyleFromDimensions(dimensions)}>
+      <p className={styles.modal__title}>{title}</p>
+      <div className={styles.modal__content}>{children}</div>
+      <div className={styles.modal__actionsLayout}>
+        {secondaryAction && (
+          <button className={styles.modal__action} onClick={secondaryAction.callback}>
+            {secondaryAction.label}
           </button>
-        </div>
+        )}
+        <button className={styles.modal__action} onClick={primaryAction.callback}>
+          {primaryAction.label}
+        </button>
       </div>
-    </Overlay>
-  );
-});
+    </div>
+  </Overlay>
+);
+
+export default memo(Modal);
