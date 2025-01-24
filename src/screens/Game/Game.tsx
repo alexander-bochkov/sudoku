@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Board } from 'components';
+import { Board, PauseModal } from 'components';
 import { useBoardContext, useParamsContext } from 'contexts';
 import { Button, Modal, Numpad, ScreenLayout } from 'ui';
 import type { FC } from 'react';
@@ -33,21 +33,10 @@ export const Game: FC = () => {
           }
         />
         {showPauseModal && (
-          <Modal
-            dimensions={dimensions}
-            primaryAction={{
-              callback: () => {
-                setScreenId('main-menu');
-              },
-              label: 'Return to Main Menu',
+          <PauseModal
+            onResume={() => {
+              setShowPauseModal(false);
             }}
-            secondaryAction={{
-              callback: () => {
-                setShowPauseModal(false);
-              },
-              label: 'Continue',
-            }}
-            title="Pause"
           />
         )}
         {status === 'error' && (

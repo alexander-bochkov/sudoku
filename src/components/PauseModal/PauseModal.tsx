@@ -1,0 +1,43 @@
+import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useParamsContext } from 'contexts';
+import { Modal } from 'ui';
+import type { FC } from 'react';
+
+interface PauseModalProps {
+  onResume: () => void;
+}
+
+export const PauseModal: FC<PauseModalProps> = ({ onResume }) => {
+  const { t } = useTranslation('pause-modal');
+  const { dimensions, setScreenId } = useParamsContext();
+
+  const primaryAction = useMemo(
+    () => ({
+      callback: () => {
+        setScreenId('main-menu');
+      },
+      label: t('primary_action'),
+    }),
+    [setScreenId, t],
+  );
+
+  const secondaryAction = useMemo(
+    () => ({
+      callback: onResume,
+      label: t('secondary_action'),
+    }),
+    [onResume, t],
+  );
+
+  return (
+    dimensions && (
+      <Modal
+        dimensions={dimensions}
+        primaryAction={primaryAction}
+        secondaryAction={secondaryAction}
+        title={t('title')}
+      />
+    )
+  );
+};
