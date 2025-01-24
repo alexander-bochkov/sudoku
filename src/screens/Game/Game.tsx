@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Board, PauseModal } from 'components';
+import { Board, FinishModal, PauseModal } from 'components';
 import { useBoardContext, useParamsContext } from 'contexts';
 import { Button, Modal, Numpad, ScreenLayout } from 'ui';
 import type { FC } from 'react';
@@ -9,7 +9,7 @@ export const Game: FC = () => {
   const [showPauseModal, setShowPauseModal] = useState<boolean>(false);
 
   const { status, onErase, onErrorsCheck, onNumberSelect, onRestart } = useBoardContext();
-  const { dimensions, setScreenId } = useParamsContext();
+  const { dimensions } = useParamsContext();
 
   return (
     dimensions && (
@@ -49,22 +49,7 @@ export const Game: FC = () => {
             title="Oops!"
           />
         )}
-        {status === 'completed' && (
-          <Modal
-            dimensions={dimensions}
-            primaryAction={{
-              callback: () => {
-                setScreenId('main-menu');
-              },
-              label: 'Return to Main Menu',
-            }}
-            secondaryAction={{
-              callback: onRestart,
-              label: 'Play again',
-            }}
-            title="Done"
-          />
-        )}
+        {status === 'completed' && <FinishModal onRestart={onRestart} />}
       </>
     )
   );
