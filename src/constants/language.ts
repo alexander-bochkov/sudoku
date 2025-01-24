@@ -1,3 +1,5 @@
-export const DEFAULT_LANGUAGE = 'en';
+import type { SupportedLanguage } from 'types/language';
 
-export const SUPPORTED_LANGUAGES = ['de', 'en', 'ru'];
+export const DEFAULT_LANGUAGE: SupportedLanguage = 'en';
+
+export const SUPPORTED_LANGUAGES = ['de', 'en', 'ru'] as const;

@@ -12,6 +12,7 @@ void i18n
     backend: {
       loadPath: '/sudoku/languages/{{lng}}/{{ns}}.json',
     },
+    defaultNS: [],
     detection: {
       convertDetectedLanguage: (lng) => lng.slice(0, 2),
       lookupLocalStorage: 'language',

@@ -10,16 +10,16 @@ interface FinishModalProps {
 
 export const FinishModal: FC<FinishModalProps> = ({ onRestart }) => {
   const { t } = useTranslation('finish-modal');
-  const { dimensions, setScreenId } = useParamsContext();
+  const { changeScreen, dimensions } = useParamsContext();
 
   const primaryAction = useMemo(
     () => ({
       callback: () => {
-        setScreenId('main-menu');
+        changeScreen('main-menu');
       },
       label: t('primary_action'),
     }),
-    [setScreenId, t],
+    [changeScreen, t],
   );
 
   const secondaryAction = useMemo(

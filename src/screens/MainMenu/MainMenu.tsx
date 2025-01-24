@@ -6,7 +6,7 @@ import { Menu, ScreenLayout } from 'ui';
 import styles from './MainMenu.module.scss';
 
 export const MainMenu = () => {
-  const { setScreenId } = useParamsContext();
+  const { changeScreen } = useParamsContext();
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
   const { t } = useTranslation('main-menu');
@@ -15,7 +15,7 @@ export const MainMenu = () => {
     () => [
       {
         callback: () => {
-          setScreenId('game');
+          changeScreen('game');
         },
         label: t('start_game'),
       },
@@ -26,7 +26,7 @@ export const MainMenu = () => {
         label: t('settings'),
       },
     ],
-    [setScreenId, t],
+    [changeScreen, t],
   );
 
   return (

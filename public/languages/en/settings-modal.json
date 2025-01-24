@@ -1,4 +1,7 @@
 {
   "primary_action": "Back",
+  "settings": {
+    "language": "Language"
+  },
   "title": "Settings"
 }

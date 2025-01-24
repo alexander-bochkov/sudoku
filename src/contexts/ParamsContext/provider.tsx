@@ -1,23 +1,26 @@
 import { useMemo, useState } from 'react';
 import { ParamsContext } from './context';
-import { useDimensions } from './hooks';
+import { useDimensions, useLanguage } from './hooks';
 import type { FC, PropsWithChildren } from 'react';
-import type { ScreenId } from 'types/screen';
+import type { Screen } from 'types/screen';
 import type { ParamsContextType } from './context';
 
-const DEFAULT_SCREEN_ID: ScreenId = 'main-menu';
+const DEFAULT_SCREEN: Screen = 'main-menu';
 
 export const ParamsContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const dimensions = useDimensions();
-  const [screenId, setScreenId] = useState<ScreenId>(DEFAULT_SCREEN_ID);
+  const { language, changeLanguage } = useLanguage();
+  const [screen, setScreen] = useState<Screen>(DEFAULT_SCREEN);
 
   const value = useMemo(
     (): ParamsContextType => ({
+      changeLanguage,
+      changeScreen: setScreen,
       dimensions,
-      screenId,
-      setScreenId,
+      language,
+      screen,
     }),
-    [dimensions, screenId],
+    [changeLanguage, dimensions, language, screen],
   );
 
   return <ParamsContext value={value}>{children}</ParamsContext>;

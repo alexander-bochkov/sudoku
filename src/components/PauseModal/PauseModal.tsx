@@ -10,16 +10,16 @@ interface PauseModalProps {
 
 export const PauseModal: FC<PauseModalProps> = ({ onResume }) => {
   const { t } = useTranslation('pause-modal');
-  const { dimensions, setScreenId } = useParamsContext();
+  const { changeScreen, dimensions } = useParamsContext();
 
   const primaryAction = useMemo(
     () => ({
       callback: () => {
-        setScreenId('main-menu');
+        changeScreen('main-menu');
       },
       label: t('primary_action'),
     }),
-    [setScreenId, t],
+    [changeScreen, t],
   );
 
   const secondaryAction = useMemo(

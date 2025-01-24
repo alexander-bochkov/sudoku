@@ -1,0 +1,13 @@
+@use 'styles/colors';
+@use 'styles/typography';
+
+.setting {
+  display: flex;
+  justify-content: space-between;
+
+  &__label {
+    color: colors.$settings-modal-text-color;
+
+    @include typography.settings-modal-text;
+  }
+}

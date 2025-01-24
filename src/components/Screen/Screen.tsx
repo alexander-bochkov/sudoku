@@ -1,14 +1,14 @@
 import { useMemo } from 'react';
 import { useParamsContext } from 'contexts';
-import type { FC, ReactElement } from 'react';
-import type { ScreenId } from 'types/screen';
+import type { FC, ReactNode } from 'react';
+import type { Screen as ScreenName } from 'types/screen';
 
 interface ScreenProps {
-  content: ReactElement;
-  id: ScreenId;
+  content: ReactNode;
+  name: ScreenName;
 }
 
-export const Screen: FC<ScreenProps> = ({ content, id }) => {
-  const { screenId } = useParamsContext();
-  return useMemo(() => screenId === id && content, [content, screenId, id]);
+export const Screen: FC<ScreenProps> = ({ content, name }) => {
+  const { screen } = useParamsContext();
+  return useMemo(() => screen === name && content, [content, name, screen]);
 };
