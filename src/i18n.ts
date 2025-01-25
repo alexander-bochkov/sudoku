@@ -4,13 +4,15 @@ import Backend from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES } from 'constants/language';
 
+const BASE_URL = import.meta.env.VITE_BASE_URL ?? '/';
+
 void i18n
   .use(Backend)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     backend: {
-      loadPath: '/sudoku/translations/{{lng}}/{{ns}}.json',
+      loadPath: `${BASE_URL}translations/{{lng}}/{{ns}}.json`,
     },
     defaultNS: [],
     detection: {
