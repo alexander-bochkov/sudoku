@@ -10,20 +10,20 @@ interface SettingsModalProps {
 }
 
 export const SettingsModal: FC<SettingsModalProps> = ({ onClose }) => {
-  const { t } = useTranslation('settings-modal');
+  const { t } = useTranslation('modals');
   const { dimensions } = useParamsContext();
 
   const primaryAction = useMemo(
     () => ({
       callback: onClose,
-      label: t('primary_action'),
+      label: t('settings_modal.primary_action'),
     }),
     [onClose, t],
   );
 
   return (
     dimensions && (
-      <Modal dimensions={dimensions} primaryAction={primaryAction} title={t('title')}>
+      <Modal dimensions={dimensions} primaryAction={primaryAction} title={t('settings_modal.title')}>
         <Settings />
       </Modal>
     )

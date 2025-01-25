@@ -9,7 +9,7 @@ export const MainMenu = () => {
   const { changeScreen } = useParamsContext();
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
-  const { t } = useTranslation('main-menu');
+  const { t } = useTranslation('menu');
 
   const items = useMemo(
     () => [

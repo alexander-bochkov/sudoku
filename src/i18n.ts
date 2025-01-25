@@ -10,7 +10,7 @@ void i18n
   .use(initReactI18next)
   .init({
     backend: {
-      loadPath: '/sudoku/languages/{{lng}}/{{ns}}.json',
+      loadPath: '/sudoku/translations/{{lng}}/{{ns}}.json',
     },
     defaultNS: [],
     detection: {

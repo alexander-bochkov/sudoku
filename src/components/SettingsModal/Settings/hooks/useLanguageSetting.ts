@@ -17,12 +17,12 @@ const getLanguageOptions = () =>
   }));
 
 export const useLanguageSetting = () => {
-  const { t } = useTranslation('settings-modal');
+  const { t } = useTranslation('modals');
   const { changeLanguage, language } = useParamsContext();
 
   const setting = useMemo(
     () => ({
-      label: t('settings.language'),
+      label: t('settings_modal.settings.language'),
       options: getLanguageOptions(),
       value: language,
       onChange: changeLanguage,
