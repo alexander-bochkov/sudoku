@@ -1,33 +1,33 @@
 import { forEachCell, getIndexInZone, getZoneIndex } from 'utils/board';
 import { CELLS_IN_ZONE_ON_AXIS, ZONES_ON_AXIS } from 'constants/board';
 import { OFFSET_STEP } from './constants';
-import type { Board, Cell } from 'types/board';
+import type { Board_OLD, Cell_OLD } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 
-export const findGaps = (board: Board): Cell[] => {
-  const gaps: Cell[] = [];
+export const findGaps = (board: Board_OLD): Cell_OLD[] => {
+  const gaps: Cell_OLD[] = [];
   forEachCell(board, (cell, value) => !value && gaps.push(cell));
   return gaps;
 };
 
-export const getCellValue = (board: Board, cell: Cell): Nullable<number> => {
+export const getCellValue = (board: Board_OLD, cell: Cell_OLD): Nullable<number> => {
   const { columnIndex, rowIndex } = cell;
   return board[rowIndex][columnIndex];
 };
 
-export const setCellValue = (board: Board, cell: Cell, value: Nullable<number>): void => {
+export const setCellValue = (board: Board_OLD, cell: Cell_OLD, value: Nullable<number>): void => {
   const { columnIndex, rowIndex } = cell;
   board[rowIndex][columnIndex] = value;
 };
 
-export const createEmptyBoard = (): Board => Array.from({ length: 9 }, () => new Array(9).fill(null) as null[]);
+export const createEmptyBoard = (): Board_OLD => Array.from({ length: 9 }, () => new Array(9).fill(null) as null[]);
 
-export const excludeCellAndCreateNewArray = (array: Cell[], cell: Cell) => {
+export const excludeCellAndCreateNewArray = (array: Cell_OLD[], cell: Cell_OLD) => {
   const { columnIndex, rowIndex } = cell;
   return array.filter((item) => !(item.columnIndex === columnIndex && item.rowIndex === rowIndex));
 };
 
-export const createTemplateBoard = (): Board => {
+export const createTemplateBoard = (): Board_OLD => {
   const maxNumber = CELLS_IN_ZONE_ON_AXIS * ZONES_ON_AXIS;
 
   const board = createEmptyBoard();
@@ -92,9 +92,9 @@ export const validateBoardFragment =
     return true;
   };
 
-const validateRows = (board: Board): boolean => board.every(validateBoardFragment('row'));
+const validateRows = (board: Board_OLD): boolean => board.every(validateBoardFragment('row'));
 
-const validateColumns = (board: Board): boolean => {
+const validateColumns = (board: Board_OLD): boolean => {
   const columns = createEmptyBoard();
 
   forEachCell(board, ({ columnIndex, rowIndex }, value) => {
@@ -104,7 +104,7 @@ const validateColumns = (board: Board): boolean => {
   return columns.every(validateBoardFragment('column'));
 };
 
-const validateZones = (board: Board): boolean => {
+const validateZones = (board: Board_OLD): boolean => {
   const zones = createEmptyBoard();
 
   forEachCell(board, ({ columnIndex, rowIndex }, value) => {
@@ -123,9 +123,10 @@ const validateZones = (board: Board): boolean => {
   return zones.every(validateBoardFragment('zone'));
 };
 
-export const validateBoard = (board: Board) => validateRows(board) && validateColumns(board) && validateZones(board);
+export const validateBoard = (board: Board_OLD) =>
+  validateRows(board) && validateColumns(board) && validateZones(board);
 
-const shuffleHorizontal = (board: Board, repeat = 1) => {
+const shuffleHorizontal = (board: Board_OLD, repeat = 1) => {
   if (!repeat) return;
 
   const maxNumber = CELLS_IN_ZONE_ON_AXIS * ZONES_ON_AXIS;
@@ -175,7 +176,7 @@ const shuffleHorizontal = (board: Board, repeat = 1) => {
   shuffleHorizontal(board, --repeat);
 };
 
-const cloneBoard = (board: Board): Board => {
+const cloneBoard = (board: Board_OLD): Board_OLD => {
   const nextBoard = createEmptyBoard();
 
   forEachCell(board, ({ columnIndex, rowIndex }, value) => {
@@ -185,13 +186,13 @@ const cloneBoard = (board: Board): Board => {
   return nextBoard;
 };
 
-export const shuffleBoard = (board: Board): Board => {
+export const shuffleBoard = (board: Board_OLD): Board_OLD => {
   const nextBoard = cloneBoard(board);
   shuffleHorizontal(nextBoard, 81);
   return nextBoard;
 };
 
-export const removeNumbers = (board: Board, removeNumbersQuantiry: number): Board => {
+export const removeNumbers = (board: Board_OLD, removeNumbersQuantiry: number): Board_OLD => {
   if (!removeNumbersQuantiry) return board;
 
   const nextBoard = cloneBoard(board);

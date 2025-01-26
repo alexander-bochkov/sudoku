@@ -29,7 +29,7 @@ export default tseslint.config(
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
     },
     settings: {
       react: { version: 'detect' },

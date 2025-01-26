@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { cellIndexToCellCoordinate, coordinateToCellIndex } from '../utils';
 import { CELL_HOVER_COLOR, CELL_SELECT_COLOR } from '../constants';
-import type { Board, Cell, Dimensions } from 'types/board';
+import type { Board_OLD, Cell_OLD, Dimensions } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 import type { Coordinates } from '../types';
 
@@ -16,11 +16,11 @@ export const useActionDrawing = ({
   clear: () => void;
   context: Nullable<CanvasRenderingContext2D>;
   dimensions: Dimensions;
-  prefilledBoard: Nullable<Board>;
-  selectedCell: Nullable<Cell>;
-  setSelectedCell: (cell: Nullable<Cell>) => void;
+  prefilledBoard: Nullable<Board_OLD>;
+  selectedCell: Nullable<Cell_OLD>;
+  setSelectedCell: (cell: Nullable<Cell_OLD>) => void;
 }) => {
-  const [hoveredCell, setHoveredCell] = useState<Nullable<Cell>>(null);
+  const [hoveredCell, setHoveredCell] = useState<Nullable<Cell_OLD>>(null);
 
   const drawCell = useCallback(
     (coordinates: Coordinates, color: string) => {
@@ -39,7 +39,7 @@ export const useActionDrawing = ({
   );
 
   const getCellCoordinates = useCallback(
-    ({ columnIndex, rowIndex }: Cell): Coordinates => {
+    ({ columnIndex, rowIndex }: Cell_OLD): Coordinates => {
       const x = cellIndexToCellCoordinate(columnIndex, dimensions);
       const y = cellIndexToCellCoordinate(rowIndex, dimensions);
       return [x, y];
@@ -64,24 +64,24 @@ export const useActionDrawing = ({
   }, [redraw]);
 
   const isCellWithPrefilledNumber = useCallback(
-    ({ columnIndex, rowIndex }: Cell) => Boolean(prefilledBoard?.[rowIndex][columnIndex]),
+    ({ columnIndex, rowIndex }: Cell_OLD) => Boolean(prefilledBoard?.[rowIndex][columnIndex]),
     [prefilledBoard],
   );
 
   const isHoveredCell = useCallback(
-    ({ columnIndex, rowIndex }: Cell) =>
+    ({ columnIndex, rowIndex }: Cell_OLD) =>
       Boolean(hoveredCell && hoveredCell.columnIndex === columnIndex && hoveredCell.rowIndex === rowIndex),
     [hoveredCell],
   );
 
   const isSelectedCell = useCallback(
-    ({ columnIndex, rowIndex }: Cell) =>
+    ({ columnIndex, rowIndex }: Cell_OLD) =>
       Boolean(selectedCell && selectedCell.columnIndex === columnIndex && selectedCell.rowIndex === rowIndex),
     [selectedCell],
   );
 
   const getCell = useCallback(
-    (coordinateX: number, coordinateY: number): Cell => {
+    (coordinateX: number, coordinateY: number): Cell_OLD => {
       const columnIndex = coordinateToCellIndex(coordinateX, dimensions);
       const rowIndex = coordinateToCellIndex(coordinateY, dimensions);
 

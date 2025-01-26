@@ -1,9 +1,9 @@
 import { CELLS_IN_ZONE_ON_AXIS, ZONES_ON_AXIS } from 'constants/board';
 import type { CSSProperties } from 'react';
-import type { Board, Cell, Dimensions } from 'types/board';
+import type { Board_OLD, Cell_OLD, Dimensions } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 
-export const forEachCell = (board: Board, callback: (cell: Cell, value: Nullable<number>) => void): void => {
+export const forEachCell = (board: Board_OLD, callback: (cell: Cell_OLD, value: Nullable<number>) => void): void => {
   board.forEach((row, rowIndex) => {
     row.forEach((value, columnIndex) => {
       callback({ columnIndex, rowIndex }, value);

@@ -1,0 +1,75 @@
+@use 'styles/colors';
+@use 'styles/typography';
+
+.board {
+  background: colors.$board-background;
+  border-collapse: collapse;
+  overflow: hidden;
+
+  &__row {
+    border-bottom: 1px solid colors.$board-subgrid-background;
+
+    &:nth-child(3n + 3) {
+      border-bottom: 2px solid colors.$board-grid-background;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__cell {
+    border-right: 1px solid colors.$board-subgrid-background;
+    padding: 0;
+
+    &:nth-child(3n + 3) {
+      border-right: 2px solid colors.$board-grid-background;
+    }
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  &__button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+
+    @include typography.board-text;
+
+    &:hover {
+      background: colors.$board-cell-color-hover;
+    }
+
+    &:active {
+      background: colors.$board-cell-color-selected;
+    }
+
+    &:disabled {
+      background: none;
+      cursor: default;
+    }
+
+    &_selected {
+      background: colors.$board-cell-color-selected;
+    }
+
+    &_correct {
+      color: colors.$board-text-color-correct;
+    }
+
+    &_error {
+      color: colors.$board-text-color-error;
+    }
+
+    &_prefilled {
+      color: colors.$board-text-color-prefilled;
+    }
+
+    &_solution {
+      color: colors.$board-text-color-solution;
+    }
+  }
+}

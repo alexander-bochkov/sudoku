@@ -2,13 +2,13 @@ import { useEffect } from 'react';
 import { useBoardDrawing } from './hooks/use-board-drawing';
 import { useCanvas } from './hooks/use-canvas';
 import type { FC } from 'react';
-import type { Board, Cell, Dimensions } from 'types/board';
+import type { Board_OLD, Cell_OLD, Dimensions } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 
 interface SolutionCanvasProps {
   dimensions: Dimensions;
-  errors: Nullable<Cell[]>;
-  solutionBoard: Nullable<Board>;
+  errors: Nullable<Cell_OLD[]>;
+  solutionBoard: Nullable<Board_OLD>;
 }
 
 export const SolutionCanvas: FC<SolutionCanvasProps> = ({ dimensions, errors, solutionBoard }) => {

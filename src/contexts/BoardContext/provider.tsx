@@ -14,21 +14,21 @@ import {
 } from './utils';
 import { NUMBER_TO_REMOVE } from './constants';
 import type { FC, PropsWithChildren } from 'react';
-import type { Board, Cell } from 'types/board';
+import type { Board_OLD, Cell_OLD } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 import type { BoardContextType } from './context';
 import type { Status } from './types';
 
 export const BoardContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const { dimensions } = useParamsContext();
-  const [fullBoard, setFullBoard] = useState<Nullable<Board>>(null);
-  const [prefilledBoard, setPrefilledBoard] = useState<Nullable<Board>>(null);
-  const [solutionBoard, setSolutionBoard] = useState<Nullable<Board>>(null);
+  const [fullBoard, setFullBoard] = useState<Nullable<Board_OLD>>(null);
+  const [prefilledBoard, setPrefilledBoard] = useState<Nullable<Board_OLD>>(null);
+  const [solutionBoard, setSolutionBoard] = useState<Nullable<Board_OLD>>(null);
 
-  const [selectedCell, setSelectedCell] = useState<Nullable<Cell>>(null);
+  const [selectedCell, setSelectedCell] = useState<Nullable<Cell_OLD>>(null);
 
-  const [errors, setErrors] = useState<Nullable<Cell[]>>(null);
-  const [gaps, setGaps] = useState<Nullable<Cell[]>>(null);
+  const [errors, setErrors] = useState<Nullable<Cell_OLD[]>>(null);
+  const [gaps, setGaps] = useState<Nullable<Cell_OLD[]>>(null);
 
   const [status, setStatus] = useState<Status>('loading');
 
@@ -139,7 +139,7 @@ export const BoardContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     if (status === 'progress' && !gaps && !errors && fullBoard && prefilledBoard && solutionBoard) {
-      const nextErrors: Cell[] = [];
+      const nextErrors: Cell_OLD[] = [];
 
       forEachCell(fullBoard, (cell, value) => {
         if (!value || getCellValue(prefilledBoard, cell)) return;

@@ -3,7 +3,7 @@ import { forEachCell } from 'utils/board';
 import itim from 'assets/fonts/Itim.ttf';
 import { cellIndexToCellCoordinate, getNumberOffsetY } from '../utils';
 import { NUMBER_COLOR } from '../constants';
-import type { Board, Cell, Dimensions } from 'types/board';
+import type { Board_OLD, Cell_OLD, Dimensions } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 import type { Coordinates, DrawBoardVariant } from '../types';
 
@@ -16,7 +16,7 @@ export const useBoardDrawing = ({
   context: Nullable<CanvasRenderingContext2D>;
   dimensions: Dimensions;
   drawBoardVariant: DrawBoardVariant;
-  errors?: Nullable<Cell[]>;
+  errors?: Nullable<Cell_OLD[]>;
 }) => {
   const [fontLoaded, setFontLoaded] = useState(false);
 
@@ -59,7 +59,7 @@ export const useBoardDrawing = ({
   );
 
   const draw = useCallback(
-    (board: Nullable<Board>) => {
+    (board: Nullable<Board_OLD>) => {
       if (!board) return;
 
       forEachCell(board, ({ columnIndex, rowIndex }, value) => {
