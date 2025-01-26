@@ -9,7 +9,7 @@ export const MainMenu = () => {
   const { changeScreen } = useParamsContext();
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
-  const { t } = useTranslation('menu');
+  const { t } = useTranslation('common');
 
   const items = useMemo(
     () => [
@@ -17,13 +17,13 @@ export const MainMenu = () => {
         callback: () => {
           changeScreen('game');
         },
-        label: t('start_game'),
+        label: t('menu.start_game'),
       },
       {
         callback: () => {
           setShowSettingsModal(true);
         },
-        label: t('settings'),
+        label: t('menu.settings'),
       },
     ],
     [changeScreen, t],

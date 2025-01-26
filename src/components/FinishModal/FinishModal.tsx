@@ -9,7 +9,7 @@ interface FinishModalProps {
 }
 
 export const FinishModal: FC<FinishModalProps> = ({ onRestart }) => {
-  const { t } = useTranslation('modals');
+  const { t } = useTranslation('common');
   const { changeScreen, dimensions } = useParamsContext();
 
   const primaryAction = useMemo(
@@ -17,7 +17,7 @@ export const FinishModal: FC<FinishModalProps> = ({ onRestart }) => {
       callback: () => {
         changeScreen('main-menu');
       },
-      label: t('finish_modal.primary_action'),
+      label: t('modals.finish_modal.primary_action'),
     }),
     [changeScreen, t],
   );
@@ -25,7 +25,7 @@ export const FinishModal: FC<FinishModalProps> = ({ onRestart }) => {
   const secondaryAction = useMemo(
     () => ({
       callback: onRestart,
-      label: t('finish_modal.secondary_action'),
+      label: t('modals.finish_modal.secondary_action'),
     }),
     [onRestart, t],
   );
@@ -36,7 +36,7 @@ export const FinishModal: FC<FinishModalProps> = ({ onRestart }) => {
         dimensions={dimensions}
         primaryAction={primaryAction}
         secondaryAction={secondaryAction}
-        title={t('finish_modal.title')}
+        title={t('modals.finish_modal.title')}
       />
     )
   );

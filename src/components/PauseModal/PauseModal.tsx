@@ -9,7 +9,7 @@ interface PauseModalProps {
 }
 
 export const PauseModal: FC<PauseModalProps> = ({ onResume }) => {
-  const { t } = useTranslation('modals');
+  const { t } = useTranslation('common');
   const { changeScreen, dimensions } = useParamsContext();
 
   const primaryAction = useMemo(
@@ -17,7 +17,7 @@ export const PauseModal: FC<PauseModalProps> = ({ onResume }) => {
       callback: () => {
         changeScreen('main-menu');
       },
-      label: t('pause_modal.primary_action'),
+      label: t('modals.pause_modal.primary_action'),
     }),
     [changeScreen, t],
   );
@@ -25,7 +25,7 @@ export const PauseModal: FC<PauseModalProps> = ({ onResume }) => {
   const secondaryAction = useMemo(
     () => ({
       callback: onResume,
-      label: t('pause_modal.secondary_action'),
+      label: t('modals.pause_modal.secondary_action'),
     }),
     [onResume, t],
   );
@@ -36,7 +36,7 @@ export const PauseModal: FC<PauseModalProps> = ({ onResume }) => {
         dimensions={dimensions}
         primaryAction={primaryAction}
         secondaryAction={secondaryAction}
-        title={t('pause_modal.title')}
+        title={t('modals.pause_modal.title')}
       />
     )
   );
