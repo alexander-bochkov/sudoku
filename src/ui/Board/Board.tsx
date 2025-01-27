@@ -1,8 +1,7 @@
 import { memo } from 'react';
-import { getStyleFromDimensions } from 'utils/board';
 import { Cell } from './Cell';
 import { Row } from './Row';
-import type { Board as BoardType, Cell as CellType, Coords, Dimensions } from 'types/board';
+import type { Board as BoardType, Cell as CellType, Coords } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 import styles from './Board.module.scss';
 
@@ -14,13 +13,12 @@ const getCellKey = (cell: Nullable<CellType>, rowIdx: number, cellIdx: number) =
 
 interface BoardProps {
   board: BoardType;
-  dimensions: Dimensions;
   selectedCell: Nullable<Coords>;
   onCellSelect: (selectedCell: Coords) => void;
 }
 
-const Board = ({ board, dimensions, selectedCell, onCellSelect }: BoardProps) => (
-  <table className={styles.board} style={getStyleFromDimensions(dimensions)}>
+const Board = ({ board, selectedCell, onCellSelect }: BoardProps) => (
+  <table className={styles.board}>
     <tbody>
       {board.map((row, rowIdx) => (
         <Row key={getRowKey(row, rowIdx)}>
@@ -28,7 +26,6 @@ const Board = ({ board, dimensions, selectedCell, onCellSelect }: BoardProps) =>
             <Cell
               cell={cell}
               cellIdx={cellIdx}
-              dimensions={dimensions}
               key={getCellKey(cell, rowIdx, cellIdx)}
               rowIdx={rowIdx}
               selectedCell={selectedCell}

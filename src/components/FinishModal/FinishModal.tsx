@@ -10,7 +10,7 @@ interface FinishModalProps {
 
 export const FinishModal: FC<FinishModalProps> = ({ onRestart }) => {
   const { t } = useTranslation('common');
-  const { changeScreen, dimensions } = useParamsContext();
+  const { changeScreen } = useParamsContext();
 
   const primaryAction = useMemo(
     () => ({
@@ -31,13 +31,6 @@ export const FinishModal: FC<FinishModalProps> = ({ onRestart }) => {
   );
 
   return (
-    dimensions && (
-      <Modal
-        dimensions={dimensions}
-        primaryAction={primaryAction}
-        secondaryAction={secondaryAction}
-        title={t('modals.finish_modal.title')}
-      />
-    )
+    <Modal primaryAction={primaryAction} secondaryAction={secondaryAction} title={t('modals.finish_modal.title')} />
   );
 };

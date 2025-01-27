@@ -10,7 +10,7 @@ interface PauseModalProps {
 
 export const PauseModal: FC<PauseModalProps> = ({ onResume }) => {
   const { t } = useTranslation('common');
-  const { changeScreen, dimensions } = useParamsContext();
+  const { changeScreen } = useParamsContext();
 
   const primaryAction = useMemo(
     () => ({
@@ -31,13 +31,6 @@ export const PauseModal: FC<PauseModalProps> = ({ onResume }) => {
   );
 
   return (
-    dimensions && (
-      <Modal
-        dimensions={dimensions}
-        primaryAction={primaryAction}
-        secondaryAction={secondaryAction}
-        title={t('modals.pause_modal.title')}
-      />
-    )
+    <Modal primaryAction={primaryAction} secondaryAction={secondaryAction} title={t('modals.pause_modal.title')} />
   );
 };

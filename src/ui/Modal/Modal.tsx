@@ -1,8 +1,6 @@
 import { memo } from 'react';
-import { getStyleFromDimensions } from 'utils/board';
 import { Overlay } from '../Overlay';
 import type { PropsWithChildren } from 'react';
-import type { Dimensions } from 'types/board';
 import styles from './Modal.module.scss';
 
 interface Action {
@@ -11,15 +9,14 @@ interface Action {
 }
 
 interface ModalProps {
-  dimensions: Dimensions;
   primaryAction: Action;
   secondaryAction?: Action;
   title: string;
 }
 
-const Modal = ({ children, dimensions, primaryAction, secondaryAction, title }: PropsWithChildren<ModalProps>) => (
+const Modal = ({ children, primaryAction, secondaryAction, title }: PropsWithChildren<ModalProps>) => (
   <Overlay>
-    <div className={styles.modal} style={getStyleFromDimensions(dimensions)}>
+    <div className={styles.modal}>
       <p className={styles.modal__title}>{title}</p>
       <div className={styles.modal__content}>{children}</div>
       <div className={styles.modal__actionsLayout}>

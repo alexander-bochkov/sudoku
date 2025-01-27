@@ -1,4 +1,5 @@
 @use 'styles/colors';
+@use 'styles/dimensions';
 @use 'styles/effects';
 @use 'styles/typography';
 
@@ -14,6 +15,12 @@
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
+
+  @include dimensions.media using ($board, $zone, $cell) {
+    border-radius: calc($cell / 2);
+    height: $board;
+    width: $board;
+  }
 
   &__action {
     background: none;

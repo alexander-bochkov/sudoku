@@ -41,7 +41,6 @@ export const Game: FC = () => {
         )}
         {status === 'error' && (
           <Modal
-            dimensions={dimensions}
             primaryAction={{
               callback: onErrorsCheck,
               label: 'Check mistakes',

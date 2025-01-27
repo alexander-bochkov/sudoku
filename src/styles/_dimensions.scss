@@ -1,0 +1,62 @@
+@use 'sass:list';
+@use 'sass:map';
+
+$dimensions-list: (
+    board: 280px,
+    zone: 92px,
+    cell: 30px,
+  ),
+  (
+    board: 298px,
+    zone: 98px,
+    cell: 32px,
+  ),
+  (
+    board: 316px,
+    zone: 104px,
+    cell: 34px,
+  ),
+  (
+    board: 334px,
+    zone: 110px,
+    cell: 36px,
+  ),
+  (
+    board: 352px,
+    zone: 116px,
+    cell: 38px,
+  ),
+  (
+    board: 370px,
+    zone: 122px,
+    cell: 40px,
+  );
+$min-screen-edges-distance: 30px;
+
+@function get-available-screen-area($dimensions) {
+  $board: map.get($dimensions, board);
+
+  @return calc($board + $min-screen-edges-distance);
+}
+
+@mixin media() {
+  $first-item: list.nth($dimensions-list, 1);
+
+  @media screen and (width < get-available-screen-area($first-item)) {
+    $board: map.get($first-item, board);
+    $zone: map.get($first-item, zone);
+    $cell: map.get($first-item, cell);
+
+    @content ($board, $zone, $cell);
+  }
+
+  @each $dimensions in $dimensions-list {
+    @media screen and (width >= get-available-screen-area($dimensions)) {
+      $board: map.get($dimensions, board);
+      $zone: map.get($dimensions, zone);
+      $cell: map.get($dimensions, cell);
+
+      @content ($board, $zone, $cell);
+    }
+  }
+}
