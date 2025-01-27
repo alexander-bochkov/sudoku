@@ -29,13 +29,6 @@
     border-right: 1px solid colors.$board-subgrid-background;
     padding: 0;
 
-    @include dimensions.media using ($board, $zone, $cell) {
-      font-size: $cell;
-      height: $cell;
-      line-height: $cell;
-      width: $cell;
-    }
-
     &:nth-child(3n + 3) {
       border-right: 2px solid colors.$board-grid-background;
     }
@@ -50,6 +43,13 @@
     border: none;
     cursor: pointer;
     padding: 0;
+
+    @include dimensions.media using ($board, $zone, $cell) {
+      font-size: $cell;
+      height: $cell;
+      line-height: $cell;
+      width: $cell;
+    }
 
     @include typography.board-text;
 

@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { memo } from 'react';
-import type { Cell as CellType, Coords } from 'types/board';
+import type { Cell as CellType, CellCoords } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 import styles from '../Board.module.scss';
 
@@ -8,8 +8,8 @@ interface CellProps {
   cell: Nullable<CellType>;
   cellIdx: number;
   rowIdx: number;
-  selectedCell: Nullable<Coords>;
-  onSelect: (selectedCell: Coords) => void;
+  selectedCell: Nullable<CellCoords>;
+  onSelect: (selectedCell: CellCoords) => void;
 }
 
 const Cell = ({ cell, cellIdx, rowIdx, selectedCell, onSelect }: CellProps) => {
