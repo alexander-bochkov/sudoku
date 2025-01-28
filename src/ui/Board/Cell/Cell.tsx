@@ -27,7 +27,7 @@ const Cell = ({ cell, cellIdx, rowIdx, selectedCell, onSelect }: CellProps) => {
         type="button"
         value={cell?.value}
         onClick={() => {
-          onSelect({ cellIdx, rowIdx });
+          onSelect({ rowIdx, cellIdx });
         }}
       />
     </td>

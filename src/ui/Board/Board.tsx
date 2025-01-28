@@ -14,10 +14,10 @@ const getCellKey = (cell: Nullable<CellType>, rowIdx: number, cellIdx: number) =
 interface BoardProps {
   board: BoardType;
   selectedCell: Nullable<CellCoords>;
-  onCellSelect: (selectedCell: CellCoords) => void;
+  onSelect: (selectedCell: CellCoords) => void;
 }
 
-const Board = ({ board, selectedCell, onCellSelect }: BoardProps) => (
+const Board = ({ board, selectedCell, onSelect }: BoardProps) => (
   <table className={styles.board}>
     <tbody>
       {board.map((row, rowIdx) => (
@@ -29,7 +29,7 @@ const Board = ({ board, selectedCell, onCellSelect }: BoardProps) => (
               key={getCellKey(cell, rowIdx, cellIdx)}
               rowIdx={rowIdx}
               selectedCell={selectedCell}
-              onSelect={onCellSelect}
+              onSelect={onSelect}
             />
           ))}
         </Row>

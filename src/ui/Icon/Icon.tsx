@@ -1,5 +1,4 @@
 import { ICONS } from './constants';
-import type { FC } from 'react';
 import styles from './Icon.module.scss';
 
 interface IconProps {
@@ -7,7 +6,7 @@ interface IconProps {
   size: 20 | 38 | 72;
 }
 
-export const Icon: FC<IconProps> = ({ name, size }) => {
+export const Icon = ({ name, size }: IconProps) => {
   const Icon = ICONS[name];
   return <Icon className={styles.icon} height={size} width={size} />;
 };

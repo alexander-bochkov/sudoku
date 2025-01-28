@@ -21,7 +21,7 @@ export const Game = () => {
                     }}
                   />
                 </div>
-                <Board board={board} selectedCell={selectedCell} onCellSelect={changeSelectedCell} />
+                <Board board={board} selectedCell={selectedCell} onSelect={changeSelectedCell} />
                 <Numpad onClick={onNumpadClick} />
               </div>
             </div>

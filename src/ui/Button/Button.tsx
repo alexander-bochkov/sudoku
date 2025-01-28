@@ -1,5 +1,5 @@
 import { Icon } from '../Icon';
-import type { ComponentPropsWithoutRef, FC } from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
 import type { NumberRange } from 'types/board';
 import styles from './Button.module.scss';
 
@@ -17,7 +17,7 @@ interface NumericButtonProps {
 
 type ButtonProps = IconicButtonProps | NumericButtonProps;
 
-export const Button: FC<ButtonProps> = ({ icon, number, onClick }) => (
+export const Button = ({ icon, number, onClick }: ButtonProps) => (
   <button className={styles.button} onClick={onClick}>
     {number ?? <Icon name={icon} size={38} />}
   </button>

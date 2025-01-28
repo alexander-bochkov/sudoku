@@ -1,18 +1,5 @@
 import type { Nullable } from './utility-types';
 
-export type Board_OLD = Nullable<number>[][];
-
-export interface Cell_OLD {
-  columnIndex: number;
-  rowIndex: number;
-}
-
-export interface Dimensions {
-  board: number;
-  cell: number;
-  zone: number;
-}
-
 export type Board = Nullable<Cell>[][];
 
 export interface Cell {

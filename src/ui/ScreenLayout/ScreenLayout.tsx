@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import styles from './ScreenLayout.module.scss';
 
 interface ScreenLayoutProps {
@@ -6,7 +6,7 @@ interface ScreenLayoutProps {
   header?: ReactNode;
 }
 
-export const ScreenLayout: FC<ScreenLayoutProps> = ({ content, header }) => (
+export const ScreenLayout = ({ content, header }: ScreenLayoutProps) => (
   <div className={styles.screenLayout}>
     {header && <div>{header}</div>}
     <div className={styles.screenLayout__content}>{content}</div>
