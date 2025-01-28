@@ -1,26 +1,71 @@
 import { CELLS_IN_ZONE, START_NUMBER, ZONES } from './constants';
 import type { BoardMatrix } from '../../types';
 
-const getCellIdxInZone = (cellIdx: number, zoneIdx: number) => cellIdx - CELLS_IN_ZONE * zoneIdx;
+export const getCellIdxInZone = (cellIdx: number) => cellIdx % CELLS_IN_ZONE;
 
 const getZoneIdx = (cellIdx: number) => Math.floor(cellIdx / CELLS_IN_ZONE);
 
-export const generateTemplateMatrix = () => {
+export const generateBasicMatrix = () => {
   const emptyMartix = Array.from({ length: 9 }, () => new Array<null>(9).fill(null));
 
-  const templateMatrix = emptyMartix.map((row, rowIdx) =>
+  const basicMatrix = emptyMartix.map((row, rowIdx) =>
     row.map((_, cellIdx) => {
       const zoneOffset = rowIdx % ZONES;
       const zoneCurrentIdx = getZoneIdx(cellIdx);
       const zoneTargetIdx = (zoneCurrentIdx + zoneOffset) % ZONES;
 
       const cellOffset = getZoneIdx(rowIdx);
-      const cellCurrentIdxInZone = getCellIdxInZone(cellIdx, zoneCurrentIdx);
+      const cellCurrentIdxInZone = getCellIdxInZone(cellIdx);
       const cellTargetIdxInZone = (cellCurrentIdxInZone + cellOffset) % CELLS_IN_ZONE;
 
       return START_NUMBER + cellTargetIdxInZone + zoneTargetIdx * CELLS_IN_ZONE;
     }),
   ) as BoardMatrix;
 
-  return templateMatrix;
+  return basicMatrix;
+};
+
+export const shuffle = (matrix: BoardMatrix, steps: number) => {
+  const getSecondaryRowIdx = (rowIdx: number) =>
+    getCellIdxInZone(rowIdx) === CELLS_IN_ZONE - 1 ? rowIdx - 1 : rowIdx + 1;
+
+  const findDuplicateIdx = (array: number[], prevIdx: number) =>
+    array.findIndex((value, idx) => value === array[prevIdx] && idx !== prevIdx);
+
+  const shuffleOnce = (a: number[], b: number[], idx: number) => {
+    [b[idx], a[idx]] = [a[idx], b[idx]];
+  };
+
+  const shuffleStep = (a: number[], b: number[], idx: number, firstStep = false) => {
+    const shuffleIdx = firstStep ? idx : findDuplicateIdx(a, idx);
+
+    if (shuffleIdx !== -1) {
+      shuffleOnce(a, b, shuffleIdx);
+      shuffleStep(a, b, shuffleIdx);
+    }
+  };
+
+  const vertical = (matrix: BoardMatrix, step: number) => {
+    if (!step) return matrix;
+
+    const targetRowIdx = Math.floor(Math.random() * 9);
+    const targetCellIdx = Math.floor(Math.random() * 9);
+
+    const primaryRow = [...matrix[targetRowIdx]];
+
+    const secondaryRowIdx = getSecondaryRowIdx(targetRowIdx);
+    const secondaryRow = [...matrix[secondaryRowIdx]];
+
+    shuffleStep(primaryRow, secondaryRow, targetCellIdx, true);
+
+    const shuffledMatrix = matrix.map((row, rowIdx) => {
+      if (rowIdx === targetRowIdx) return primaryRow;
+      if (rowIdx === secondaryRowIdx) return secondaryRow;
+      return row;
+    });
+
+    return vertical(shuffledMatrix, step - 1);
+  };
+
+  return vertical(matrix, steps);
 };
