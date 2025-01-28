@@ -1,13 +1,32 @@
-import { useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { GameContext } from './context';
 import { useBoard, useSelectedCell, useStatus } from './hooks';
 import type { PropsWithChildren } from 'react';
+import type { NumberRange } from 'types/board';
+import type { Nullable } from 'types/utility-types';
 
 export const GameContextProvider = ({ children }: PropsWithChildren) => {
   const { changeSelectedCell, selectedCell } = useSelectedCell();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { changeStatus, status } = useStatus();
-  const { board } = useBoard();
+  const { board, createBoard, updateCell } = useBoard();
+
+  useEffect(() => {
+    changeStatus('loading');
+    createBoard();
+    changeStatus('playing');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleNumpadClick = useCallback(
+    (value: Nullable<NumberRange>) => {
+      if (!selectedCell) return;
+
+      updateCell(selectedCell, value ? { type: 'solution', value } : value);
+
+      changeSelectedCell(null);
+    },
+    [changeSelectedCell, selectedCell, updateCell],
+  );
 
   const value = useMemo(
     () => ({
@@ -15,8 +34,9 @@ export const GameContextProvider = ({ children }: PropsWithChildren) => {
       changeSelectedCell,
       selectedCell,
       status,
+      onNumpadClick: handleNumpadClick,
     }),
-    [board, changeSelectedCell, selectedCell, status],
+    [board, changeSelectedCell, handleNumpadClick, selectedCell, status],
   );
 
   return <GameContext value={value}>{children}</GameContext>;
