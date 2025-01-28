@@ -7,7 +7,7 @@
     "finish_modal": {
       "primary_action": "Return to menu",
       "secondary_action": "Play again",
-      "title": "Finished"
+      "title": "Solved!"
     },
     "pause_modal": {
       "primary_action": "Return to menu",

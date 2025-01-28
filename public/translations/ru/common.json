@@ -1,9 +1,25 @@
 {
+  "menu": {
+    "settings": "Настройки",
+    "start_game": "Начать игру"
+  },
   "modals": {
+    "finish_modal": {
+      "primary_action": "Вернуться в меню",
+      "secondary_action": "Сыграть ещё раз ",
+      "title": "Решено!"
+    },
+    "pause_modal": {
+      "primary_action": "Вернуться в меню",
+      "secondary_action": "Продолжить",
+      "title": "Пауза"
+    },
     "settings_modal": {
+      "primary_action": "Назад",
       "settings": {
         "language": "Язык"
-      }
+      },
+      "title": "Настройки"
     }
   }
 }
