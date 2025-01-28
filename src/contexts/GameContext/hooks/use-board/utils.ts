@@ -1,4 +1,5 @@
 import { CELLS_IN_ZONE, START_NUMBER, ZONES } from './constants';
+import type { Board } from 'types/board';
 import type { BoardMatrix } from '../../types';
 
 export const getCellIdxInZone = (cellIdx: number) => cellIdx % CELLS_IN_ZONE;
@@ -29,14 +30,14 @@ export const shuffle = (matrix: BoardMatrix, steps: number) => {
   const getSecondaryRowIdx = (rowIdx: number) =>
     getCellIdxInZone(rowIdx) === CELLS_IN_ZONE - 1 ? rowIdx - 1 : rowIdx + 1;
 
-  const findDuplicateIdx = (array: number[], prevIdx: number) =>
+  const findDuplicateIdx = (array: unknown[], prevIdx: number) =>
     array.findIndex((value, idx) => value === array[prevIdx] && idx !== prevIdx);
 
-  const shuffleOnce = (a: number[], b: number[], idx: number) => {
+  const shuffleOnce = (a: unknown[], b: unknown[], idx: number) => {
     [b[idx], a[idx]] = [a[idx], b[idx]];
   };
 
-  const shuffleStep = (a: number[], b: number[], idx: number, firstStep = false) => {
+  const shuffleStep = (a: unknown[], b: unknown[], idx: number, firstStep = false) => {
     const shuffleIdx = firstStep ? idx : findDuplicateIdx(a, idx);
 
     if (shuffleIdx !== -1) {
@@ -69,3 +70,6 @@ export const shuffle = (matrix: BoardMatrix, steps: number) => {
 
   return vertical(matrix, steps);
 };
+
+export const convertMatrixToBoard = (matrix: BoardMatrix): Board =>
+  matrix.map((row) => row.map((cell) => (cell ? { type: 'prefilled', value: cell } : cell)));
