@@ -1,6 +1,6 @@
 import { CELLS_IN_ZONE, START_NUMBER, ZONES } from './constants';
-import type { Board, CellCoords } from 'types/board';
-import type { BoardMatrix } from '../../types';
+import type { Board, CellCoords, NumberRange } from 'types/board';
+import type { BoardMatrix, FullMatrix } from '../../types';
 
 export const getCellIdxInZone = (cellIdx: number) => cellIdx % CELLS_IN_ZONE;
 
@@ -21,23 +21,23 @@ export const generateBasicMatrix = () => {
 
       return START_NUMBER + cellTargetIdxInZone + zoneTargetIdx * CELLS_IN_ZONE;
     }),
-  ) as BoardMatrix;
+  ) as FullMatrix;
 
   return basicMatrix;
 };
 
-export const shuffle = (matrix: BoardMatrix, steps: number) => {
+export const shuffle = (matrix: FullMatrix, steps: number) => {
   const getSecondaryRowIdx = (rowIdx: number) =>
     getCellIdxInZone(rowIdx) === CELLS_IN_ZONE - 1 ? rowIdx - 1 : rowIdx + 1;
 
-  const findDuplicateIdx = (array: unknown[], prevIdx: number) =>
+  const findDuplicateIdx = (array: NumberRange[], prevIdx: number) =>
     array.findIndex((value, idx) => value === array[prevIdx] && idx !== prevIdx);
 
-  const shuffleOnce = (a: unknown[], b: unknown[], idx: number) => {
+  const shuffleOnce = (a: NumberRange[], b: NumberRange[], idx: number) => {
     [b[idx], a[idx]] = [a[idx], b[idx]];
   };
 
-  const shuffleStep = (a: unknown[], b: unknown[], idx: number, firstStep = false) => {
+  const shuffleStep = (a: NumberRange[], b: NumberRange[], idx: number, firstStep = false) => {
     const shuffleIdx = firstStep ? idx : findDuplicateIdx(a, idx);
 
     if (shuffleIdx !== -1) {
@@ -46,7 +46,7 @@ export const shuffle = (matrix: BoardMatrix, steps: number) => {
     }
   };
 
-  const vertical = (matrix: BoardMatrix, step: number) => {
+  const vertical = (matrix: FullMatrix, step: number) => {
     if (!step) return matrix;
 
     const targetRowIdx = Math.floor(Math.random() * 9);
@@ -74,7 +74,7 @@ export const shuffle = (matrix: BoardMatrix, steps: number) => {
 export const convertMatrixToBoard = (matrix: BoardMatrix): Board =>
   matrix.map((row) => row.map((cell) => (cell ? { type: 'prefilled', value: cell } : cell)));
 
-export const removeNumbers = (matrix: BoardMatrix, quantity: number) => {
+export const removeNumbers = (matrix: FullMatrix, quantity: number): BoardMatrix => {
   const shouldRemoveNumber = (removableNumbers: CellCoords[], rowIdx: number, cellIdx: number) =>
     removableNumbers.some((coords) => coords.rowIdx === rowIdx && coords.cellIdx === cellIdx);
 

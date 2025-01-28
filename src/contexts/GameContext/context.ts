@@ -5,10 +5,12 @@ import type { Status } from './types';
 
 interface GameContext {
   board: Nullable<Board>;
-  changeSelectedCell: (nextSelectedCell: CellCoords) => void;
+  changeSelectedCell: (selectedCell: CellCoords) => void;
   selectedCell: Nullable<CellCoords>;
   status: Status;
   onNumpadClick: (value: Nullable<NumberRange>) => void;
+  onPause: (pause: boolean) => void;
+  onRestart: () => void;
 }
 
 export const GameContext = createContext<Nullable<GameContext>>(null);

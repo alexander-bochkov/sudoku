@@ -1,54 +1,40 @@
-import { useState } from 'react';
-import { Board, FinishModal, PauseModal } from 'components';
-import { useBoardContext, useParamsContext } from 'contexts';
-import { Button, Modal, Numpad, ScreenLayout } from 'ui';
-import type { FC } from 'react';
+import { FinishModal, PauseModal } from 'components';
+import { useGameContext } from 'contexts';
+import { Button, Board, Numpad, ScreenLayout } from 'ui';
 import styles from './Game.module.scss';
 
-export const Game: FC = () => {
-  const [showPauseModal, setShowPauseModal] = useState<boolean>(false);
-
-  const { status, onErase, onErrorsCheck, onNumberSelect, onRestart } = useBoardContext();
-  const { dimensions } = useParamsContext();
+export const Game = () => {
+  const { board, changeSelectedCell, selectedCell, status, onNumpadClick, onPause, onRestart } = useGameContext();
 
   return (
-    dimensions && (
+    board && (
       <>
         <ScreenLayout
           content={
             <div className={styles.game}>
               <div className={styles.game__contentLayout}>
-                <div className={styles.game__pauseButtonLayout} style={{ width: dimensions.board }}>
+                <div className={styles.game__pauseButtonLayout}>
                   <Button
                     icon="pause"
                     onClick={() => {
-                      setShowPauseModal(true);
+                      onPause(true);
                     }}
                   />
                 </div>
-                <Board />
-                <Numpad onErase={onErase} onNumberSelect={onNumberSelect} />
+                <Board board={board} selectedCell={selectedCell} onCellSelect={changeSelectedCell} />
+                <Numpad onClick={onNumpadClick} />
               </div>
             </div>
           }
         />
-        {showPauseModal && (
+        {status === 'paused' && (
           <PauseModal
             onResume={() => {
-              setShowPauseModal(false);
+              onPause(false);
             }}
           />
         )}
-        {status === 'error' && (
-          <Modal
-            primaryAction={{
-              callback: onErrorsCheck,
-              label: 'Check mistakes',
-            }}
-            title="Oops!"
-          />
-        )}
-        {status === 'completed' && <FinishModal onRestart={onRestart} />}
+        {status === 'finished' && <FinishModal onRestart={onRestart} />}
       </>
     )
   );

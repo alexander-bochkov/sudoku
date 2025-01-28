@@ -1,3 +1,5 @@
+@use 'styles/dimensions';
+
 .game {
   display: flex;
   flex-direction: column;
@@ -14,7 +16,10 @@
   &__pauseButtonLayout {
     display: flex;
     justify-content: end;
-    width: 100%;
+
+    @include dimensions.media using ($board, $zone, $cell) {
+      width: $board;
+    }
   }
 }
 

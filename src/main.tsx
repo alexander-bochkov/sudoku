@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Screen } from 'components';
-import { BoardContextProvider, GameContextProvider, ParamsContextProvider } from 'contexts';
+import { GameContextProvider, ParamsContextProvider } from 'contexts';
 import { Game, MainMenu } from 'screens';
 import './i18n';
 import './global.scss';
@@ -16,9 +16,7 @@ if (rootEl) {
         <Screen
           content={
             <GameContextProvider>
-              <BoardContextProvider>
-                <Game />
-              </BoardContextProvider>
+              <Game />
             </GameContextProvider>
           }
           name="game"
