@@ -7,16 +7,16 @@ export const GameContextProvider = ({ children }: PropsWithChildren) => {
   const { changeSelectedCell, selectedCell } = useSelectedCell();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { changeStatus, status } = useStatus();
-
-  useBoard();
+  const { board } = useBoard();
 
   const value = useMemo(
     () => ({
+      board,
       changeSelectedCell,
       selectedCell,
       status,
     }),
-    [changeSelectedCell, selectedCell, status],
+    [board, changeSelectedCell, selectedCell, status],
   );
 
   return <GameContext value={value}>{children}</GameContext>;
