@@ -44,14 +44,14 @@
     cursor: pointer;
     padding: 0;
 
+    @include typography.board-text;
+
     @include dimensions.media using ($board, $zone, $cell) {
       font-size: $cell;
       height: $cell;
       line-height: $cell;
       width: $cell;
     }
-
-    @include typography.board-text;
 
     &:hover {
       background: colors.$board-cell-color-hover;
