@@ -1,9 +1,25 @@
 {
+  "menu": {
+    "settings": "Einstellungen",
+    "start_game": "Spiel starten"
+  },
   "modals": {
+    "finish_modal": {
+      "primary_action": "Zurück zum Menü",
+      "secondary_action": "Spielt noch einmal",
+      "title": "Geschäft!"
+    },
+    "pause_modal": {
+      "primary_action": "Zurück zum Menü",
+      "secondary_action": "Spielt weiter",
+      "title": "Pause"
+    },
     "settings_modal": {
+      "primary_action": "Zurück",
       "settings": {
         "language": "Sprache"
-      }
+      },
+      "title": "Einstellungen"
     }
   }
 }
