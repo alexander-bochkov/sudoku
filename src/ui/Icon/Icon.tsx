@@ -1,4 +1,5 @@
 import { ICONS } from './constants';
+
 import styles from './Icon.module.scss';
 
 interface IconProps {

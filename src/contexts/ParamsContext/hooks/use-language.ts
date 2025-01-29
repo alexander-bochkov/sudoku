@@ -1,6 +1,8 @@
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { SUPPORTED_LANGUAGES } from 'constants/language';
+
 import type { SupportedLanguage } from 'types/language';
 
 export const useLanguage = () => {

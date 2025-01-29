@@ -1,8 +1,10 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { SettingsModal } from 'components';
 import { useParamsContext } from 'contexts';
 import { Menu, ScreenLayout } from 'ui';
+
 import styles from './MainMenu.module.scss';
 
 export const MainMenu = () => {

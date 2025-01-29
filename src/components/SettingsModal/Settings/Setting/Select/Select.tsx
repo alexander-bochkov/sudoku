@@ -1,5 +1,7 @@
 import { Icon } from 'ui';
+
 import type { Setting } from '../../types';
+
 import styles from './Select.module.scss';
 
 type SelectProps<T> = Omit<Setting<T>, 'label'>;

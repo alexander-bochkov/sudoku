@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { memo } from 'react';
+
 import styles from './Menu.module.scss';
 
 const MAIN_ITEM_INDEX = 0;

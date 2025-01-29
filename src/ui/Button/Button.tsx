@@ -1,6 +1,8 @@
 import { Icon } from '../Icon';
+
 import type { ComponentPropsWithoutRef } from 'react';
 import type { NumberRange } from 'types/board';
+
 import styles from './Button.module.scss';
 
 interface IconicButtonProps {

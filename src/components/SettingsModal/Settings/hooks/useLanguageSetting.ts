@@ -1,7 +1,9 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { SUPPORTED_LANGUAGES } from 'constants/language';
 import { useParamsContext } from 'contexts';
+
 import type { SupportedLanguage } from 'types/language';
 
 const LANGUAGES: Record<SupportedLanguage, string> = {

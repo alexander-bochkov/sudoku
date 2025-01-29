@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
+
 import type { CellCoords } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 

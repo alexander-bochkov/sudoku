@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+
 import styles from './ScreenLayout.module.scss';
 
 interface ScreenLayoutProps {

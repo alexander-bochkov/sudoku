@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
+
 import { useLanguageSetting } from './hooks';
 import { Setting } from './Setting';
+
 import styles from './Settings.module.scss';
 
 export const Settings = () => {

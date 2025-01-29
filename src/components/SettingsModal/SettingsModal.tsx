@@ -1,7 +1,10 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { Modal } from 'ui';
+
 import { Settings } from './Settings';
+
 import type { FC } from 'react';
 
 interface SettingsModalProps {

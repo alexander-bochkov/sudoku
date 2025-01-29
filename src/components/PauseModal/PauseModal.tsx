@@ -1,7 +1,9 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { useParamsContext } from 'contexts';
 import { Modal } from 'ui';
+
 import type { FC } from 'react';
 
 interface PauseModalProps {

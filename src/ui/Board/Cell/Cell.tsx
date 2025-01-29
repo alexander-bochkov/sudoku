@@ -1,7 +1,9 @@
 import clsx from 'clsx';
 import { memo } from 'react';
+
 import type { Cell as CellType, CellCoords } from 'types/board';
 import type { Nullable } from 'types/utility-types';
+
 import styles from '../Board.module.scss';
 
 interface CellProps {

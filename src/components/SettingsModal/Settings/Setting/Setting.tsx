@@ -1,5 +1,7 @@
 import { Select } from './Select';
+
 import type { Setting as SettingProps } from '../types';
+
 import styles from './Setting.module.scss';
 
 export const Setting = <T,>({ label, ...rest }: SettingProps<T>) => (

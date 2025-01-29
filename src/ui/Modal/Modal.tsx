@@ -1,6 +1,9 @@
 import { memo } from 'react';
+
 import { Overlay } from '../Overlay';
+
 import type { PropsWithChildren } from 'react';
+
 import styles from './Modal.module.scss';
 
 interface Action {

@@ -1,6 +1,7 @@
 import { CELLS_IN_ZONE, START_NUMBER, ZONES } from './constants';
-import type { Board, CellCoords, NumberRange } from 'types/board';
+
 import type { BoardMatrix, FullMatrix } from '../../types';
+import type { Board, CellCoords, NumberRange } from 'types/board';
 
 export const getCellIdxInZone = (cellIdx: number) => cellIdx % CELLS_IN_ZONE;
 

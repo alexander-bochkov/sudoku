@@ -1,9 +1,11 @@
 import { useCallback, useMemo, useState } from 'react';
+
 import { REMOVE_NUMBERS_QUANTITY, SHUFFLE_STEPS } from './constants';
 import { convertMatrixToBoard, generateBasicMatrix, removeNumbers, shuffle } from './utils';
+
+import type { FullMatrix } from '../../types';
 import type { Board, Cell, CellCoords } from 'types/board';
 import type { Nullable } from 'types/utility-types';
-import type { FullMatrix } from '../../types';
 
 export const useBoard = () => {
   const [board, setBoard] = useState<Nullable<Board>>(null);

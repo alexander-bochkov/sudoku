@@ -1,7 +1,9 @@
 import { createContext } from 'react';
+
 import { Board, CellCoords, NumberRange } from 'types/board';
-import type { Nullable } from 'types/utility-types';
+
 import type { Status } from './types';
+import type { Nullable } from 'types/utility-types';
 
 interface GameContext {
   board: Nullable<Board>;

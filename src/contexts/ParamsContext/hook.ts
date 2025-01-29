@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+
 import { ParamsContext } from './context';
 
 export const useParamsContext = () => {

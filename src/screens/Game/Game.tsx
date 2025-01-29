@@ -1,6 +1,7 @@
 import { FinishModal, PauseModal } from 'components';
 import { useGameContext } from 'contexts';
-import { Button, Board, Numpad, ScreenLayout } from 'ui';
+import { Board, Button, Numpad, ScreenLayout } from 'ui';
+
 import styles from './Game.module.scss';
 
 export const Game = () => {

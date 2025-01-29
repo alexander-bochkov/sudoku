@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+
 import { GameContext } from './context';
 import { useBoard, useSelectedCell } from './hooks';
+
+import type { Status } from './types';
 import type { PropsWithChildren } from 'react';
 import type { Cell, NumberRange } from 'types/board';
 import type { Nullable } from 'types/utility-types';
-import type { Status } from './types';
 
 export const GameContextProvider = ({ children }: PropsWithChildren) => {
   const { board, changeBoard, changeCell, createBoard, fullMatrix } = useBoard();

@@ -1,8 +1,11 @@
 import { memo } from 'react';
+
 import { Cell } from './Cell';
 import { Row } from './Row';
+
 import type { Board as BoardType, Cell as CellType, CellCoords } from 'types/board';
 import type { Nullable } from 'types/utility-types';
+
 import styles from './Board.module.scss';
 
 const getRowKey = (row: Nullable<CellType>[], rowIdx: number) =>
