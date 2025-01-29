@@ -20,7 +20,7 @@ export const useBoard = () => {
     setFullMatrix(fullMatrix);
   }, [basicMatrix]);
 
-  const updateCell = useCallback((cellCoords: CellCoords, value: Nullable<Cell>) => {
+  const changeCell = useCallback((cellCoords: CellCoords, value: Nullable<Cell>) => {
     setBoard((prevBoard) => {
       if (!prevBoard) return prevBoard;
 
@@ -33,5 +33,8 @@ export const useBoard = () => {
     });
   }, []);
 
-  return useMemo(() => ({ board, createBoard, fullMatrix, updateCell }), [board, createBoard, fullMatrix, updateCell]);
+  return useMemo(
+    () => ({ board, changeBoard: setBoard, changeCell, createBoard, fullMatrix }),
+    [board, createBoard, fullMatrix, changeCell],
+  );
 };

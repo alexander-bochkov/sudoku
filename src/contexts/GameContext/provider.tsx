@@ -2,43 +2,40 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { GameContext } from './context';
 import { useBoard, useSelectedCell } from './hooks';
 import type { PropsWithChildren } from 'react';
-import type { NumberRange } from 'types/board';
+import type { Cell, NumberRange } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 import type { Status } from './types';
 
 export const GameContextProvider = ({ children }: PropsWithChildren) => {
-  const { board, createBoard, fullMatrix, updateCell } = useBoard();
+  const { board, changeBoard, changeCell, createBoard, fullMatrix } = useBoard();
   const { changeSelectedCell, selectedCell } = useSelectedCell();
   const [status, setStatus] = useState<Status>('playing');
 
-  const shouldCheckBoard = useMemo(
-    () => (board ? board.every((row) => row.every((cell) => cell && cell.type !== 'error')) : false),
-    [board],
-  );
+  const shouldCheckSolution = useMemo(() => {
+    if (!board || status === 'finished') return false;
+    return board.every((row) => row.every((cell) => cell && cell.type !== 'error'));
+  }, [board, status]);
 
-  const checkBoard = useCallback(() => {
+  const checkSolution = useCallback(() => {
     if (!board || !fullMatrix) return;
 
-    const isSolutionCorrect = board.every((row) =>
+    const nextBoard = board.map((row, rowIdx) =>
+      row.map((cell, cellIdx) => {
+        if (!cell || cell.type === 'correct' || cell.type === 'prefilled') return cell;
+        return { ...cell, type: (cell.value === fullMatrix[rowIdx][cellIdx] ? 'correct' : 'error') as Cell['type'] };
+      }),
+    );
+
+    changeBoard(nextBoard);
+
+    const isSolved = nextBoard.every((row) =>
       row.every((cell) => cell && (cell.type === 'correct' || cell.type === 'prefilled')),
     );
 
-    if (isSolutionCorrect) {
+    if (isSolved) {
       setStatus('finished');
-      return;
     }
-
-    board.forEach((row, rowIdx) => {
-      row.forEach((cell, cellIdx) => {
-        if (!cell || cell.type === 'correct' || cell.type === 'prefilled') return;
-
-        updateCell(
-          { rowIdx, cellIdx },
-          { ...cell, type: cell.value === fullMatrix[rowIdx][cellIdx] ? 'correct' : 'error' },
-        );
-      });
-    });
-  }, [board, fullMatrix, updateCell]);
+  }, [board, changeBoard, fullMatrix]);
 
   useEffect(() => {
     createBoard();
@@ -46,18 +43,19 @@ export const GameContextProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   useEffect(() => {
-    if (shouldCheckBoard) checkBoard();
-  }, [checkBoard, shouldCheckBoard]);
+    if (shouldCheckSolution) {
+      checkSolution();
+    }
+  }, [checkSolution, shouldCheckSolution]);
 
   const handleNumpadClick = useCallback(
     (value: Nullable<NumberRange>) => {
-      if (!selectedCell) return;
-
-      updateCell(selectedCell, value ? { type: 'solution', value } : value);
-
-      changeSelectedCell(null);
+      if (selectedCell) {
+        changeCell(selectedCell, value ? { type: 'solution', value } : value);
+        changeSelectedCell(null);
+      }
     },
-    [changeSelectedCell, selectedCell, updateCell],
+    [changeCell, changeSelectedCell, selectedCell],
   );
 
   const handlePause = useCallback((pause: boolean) => {
