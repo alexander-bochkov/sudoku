@@ -37,6 +37,7 @@ export default tseslint.config(
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
       '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
+      'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
       'import/newline-after-import': ['error', { count: 1 }],
       'import/order': [
         'error',
