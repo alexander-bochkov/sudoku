@@ -54,8 +54,10 @@
       width: $cell;
     }
 
-    &:hover {
-      background: colors.$board-cell-color-hover;
+    @media (hover: hover) {
+      &:hover {
+        background: colors.$button-color-hover;
+      }
     }
 
     &:active {
