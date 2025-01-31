@@ -1,6 +1,8 @@
 import clsx from 'clsx';
 import { memo } from 'react';
 
+import { SPACE } from 'constants/characters';
+
 import type { Cell as CellType, CellCoords } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 
@@ -27,7 +29,8 @@ const Cell = ({ cell, cellIdx, rowIdx, selectedCell, onSelect }: CellProps) => {
         })}
         disabled={isDisabled}
         type="button"
-        value={cell?.value}
+        // Space is used to fix cell height in Safari
+        value={cell?.value ?? SPACE}
         onClick={() => {
           onSelect({ rowIdx, cellIdx });
         }}
