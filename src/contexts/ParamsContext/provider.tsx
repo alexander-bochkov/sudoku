@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react';
 
+import { Loader } from 'ui';
+
 import { ParamsContext } from './context';
 import { useLanguage } from './hooks';
 
@@ -9,7 +11,8 @@ import type { Screen } from 'types/screen';
 const DEFAULT_SCREEN: Screen = 'main-menu';
 
 export const ParamsContextProvider = ({ children }: PropsWithChildren) => {
-  const { changeLanguage, language } = useLanguage();
+  const [showLoader, setShowLoader] = useState(false);
+  const { changeLanguage, language } = useLanguage(setShowLoader);
   const [screen, setScreen] = useState<Screen>(DEFAULT_SCREEN);
 
   const value = useMemo(
@@ -22,5 +25,10 @@ export const ParamsContextProvider = ({ children }: PropsWithChildren) => {
     [changeLanguage, language, screen],
   );
 
-  return <ParamsContext value={value}>{children}</ParamsContext>;
+  return (
+    <ParamsContext value={value}>
+      {children}
+      {showLoader && <Loader />}
+    </ParamsContext>
+  );
 };
