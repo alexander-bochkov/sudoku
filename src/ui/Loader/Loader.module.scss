@@ -1,0 +1,24 @@
+.loaderLayout {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.loader {
+  animation-duration: 800ms;
+  animation-iteration-count: infinite;
+  animation-name: spin;
+  animation-timing-function: linear;
+  height: 72px;
+  width: 72px;
+
+  @keyframes spin {
+    from {
+      transform: rotate(0);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

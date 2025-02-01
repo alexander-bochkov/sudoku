@@ -1,6 +1,7 @@
 export * from './Board';
 export * from './Button';
 export * from './Icon';
+export * from './Loader';
 export * from './Menu';
 export * from './Modal';
 export * from './Numpad';
