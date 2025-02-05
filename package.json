@@ -12,7 +12,8 @@
     "preview": "vite preview",
     "start": "vite",
     "stylelint": "stylelint \"**/*.{css,scss}\"",
-    "typescript": "tsc --noEmit"
+    "typescript": "tsc --noEmit",
+    "tools:validate-matrix": "jiti ./tools/validate-matrix.ts"
   },
   "dependencies": {
     "clsx": "2.1.1",
