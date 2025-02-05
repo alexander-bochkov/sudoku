@@ -7,7 +7,6 @@ import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES } from 'constants/language';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL ?? '/';
 
-// eslint-disable-next-line import/no-named-as-default-member
 void i18n
   .use(Backend)
   .use(LanguageDetector)

@@ -13,8 +13,8 @@ export default tseslint.config(
   {
     extends: [
       js.configs.recommended,
-      ...tseslint.configs.strictTypeChecked,
-      ...tseslint.configs.stylisticTypeChecked,
+      tseslint.configs.strictTypeChecked,
+      tseslint.configs.stylisticTypeChecked,
       importPlugin.flatConfigs.recommended,
       importPlugin.flatConfigs.typescript,
     ],
@@ -39,6 +39,7 @@ export default tseslint.config(
       '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
       'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
       'import/newline-after-import': ['error', { count: 1 }],
+      'import/no-named-as-default-member': ['off'],
       'import/no-useless-path-segments': ['error', { noUselessIndex: true }],
       'import/order': [
         'error',
