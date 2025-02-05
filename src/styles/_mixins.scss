@@ -1,0 +1,31 @@
+@use 'sass:list';
+@use 'sass:map';
+@use './dimensions';
+
+@function get-available-screen-area($dimension) {
+  $board: map.get($dimension, board);
+
+  @return calc($board + dimensions.$min-screen-edges-distance);
+}
+
+@mixin media() {
+  $min-dimension: list.nth(dimensions.$dimensions, 1);
+
+  @media screen and (width < get-available-screen-area($min-dimension)) {
+    $board: map.get($min-dimension, board);
+    $zone: map.get($min-dimension, zone);
+    $cell: map.get($min-dimension, cell);
+
+    @content ($board, $zone, $cell);
+  }
+
+  @each $dimension in dimensions.$dimensions {
+    @media screen and (width >= get-available-screen-area($dimension)) {
+      $board: map.get($dimension, board);
+      $zone: map.get($dimension, zone);
+      $cell: map.get($dimension, cell);
+
+      @content ($board, $zone, $cell);
+    }
+  }
+}

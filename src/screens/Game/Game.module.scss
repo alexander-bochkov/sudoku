@@ -1,4 +1,4 @@
-@use 'styles/dimensions';
+@use 'styles/mixins';
 
 .game {
   display: flex;
@@ -17,7 +17,7 @@
     display: flex;
     justify-content: end;
 
-    @include dimensions.media using ($board, $zone, $cell) {
+    @include mixins.media using ($board, $zone, $cell) {
       width: $board;
     }
   }
