@@ -6,4 +6,4 @@ export * from './Menu';
 export * from './Modal';
 export * from './Numpad';
 export * from './Overlay';
-export * from './ScreenLayout';
+export * from './Screen';

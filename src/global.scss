@@ -4,5 +4,6 @@
 body {
   background-color: colors.$app-background;
   margin: 0;
+  overscroll-behavior: none;
   user-select: none;
 }

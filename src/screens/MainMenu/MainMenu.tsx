@@ -1,9 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { SettingsModal } from 'components';
 import { useParamsContext } from 'contexts';
-import { Menu, ScreenLayout } from 'ui';
+import { Menu, Screen } from 'ui';
 
 import styles from './MainMenu.module.scss';
 
@@ -13,34 +13,27 @@ export const MainMenu = () => {
 
   const { t } = useTranslation('common');
 
-  const items = useMemo(
-    () => [
-      {
-        callback: () => {
-          changeScreen('game');
-        },
-        label: t('menu.start_game'),
+  const menuItems = [
+    {
+      callback: () => {
+        changeScreen('game');
       },
-      {
-        callback: () => {
-          setShowSettingsModal(true);
-        },
-        label: t('menu.settings'),
+      label: t('menu.start_game'),
+    },
+    {
+      callback: () => {
+        setShowSettingsModal(true);
       },
-    ],
-    [changeScreen, t],
-  );
+      label: t('menu.settings'),
+    },
+  ];
 
   return (
-    <>
-      <ScreenLayout
-        header={<h1 className={styles.mainMenu__title}>Sudoku</h1>}
-        content={
-          <div className={styles.mainMenu__menuLayout}>
-            <Menu items={items} />
-          </div>
-        }
-      />
+    <Screen>
+      <h1 className={styles.mainMenu__title}>Sudoku</h1>
+      <div className={styles.mainMenu__menuLayout}>
+        <Menu items={menuItems} />
+      </div>
       {showSettingsModal && (
         <SettingsModal
           onClose={() => {
@@ -48,6 +41,6 @@ export const MainMenu = () => {
           }}
         />
       )}
-    </>
+    </Screen>
   );
 };
