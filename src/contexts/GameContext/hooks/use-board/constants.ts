@@ -1,6 +1,7 @@
 import type { Matrix } from '../../types';
 
 export const CELLS_IN_ZONE = 3;
+export const CELLS_ON_AXIS = 9;
 
 export const SHUFFLE_STEPS = 81;
 

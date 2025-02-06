@@ -1,55 +1,75 @@
-import { CELLS_IN_ZONE } from './constants';
+import { CELLS_IN_ZONE, CELLS_ON_AXIS } from './constants';
 
-import type { BoardMatrix, Matrix } from '../../types';
+import type { BoardMatrix, Matrix, ShuffleDirection } from '../../types';
 import type { Board, CellCoords, NumberRange } from 'types/board';
 
-export const getCellIdxInZone = (cellIdx: number) => cellIdx % CELLS_IN_ZONE;
-
-export const getZoneIdx = (cellIdx: number) => Math.floor(cellIdx / CELLS_IN_ZONE);
-
 export const shuffle = (matrix: Matrix, steps: number) => {
-  const getSecondaryRowIdx = (rowIdx: number) =>
-    getCellIdxInZone(rowIdx) === CELLS_IN_ZONE - 1 ? rowIdx - 1 : rowIdx + 1;
+  const calculateLocalIdx = (idx: number) => idx % CELLS_IN_ZONE;
+  const calculateZoneIdx = (idx: number) => Math.floor(idx / CELLS_IN_ZONE);
 
-  const findDuplicateIdx = (array: NumberRange[], prevIdx: number) =>
-    array.findIndex((value, idx) => value === array[prevIdx] && idx !== prevIdx);
+  const flipMatrix = (matrix: Matrix) => matrix.map((row, rowIdx) => row.map((_, cellIdx) => matrix[cellIdx][rowIdx]));
 
-  const shuffleOnce = (a: NumberRange[], b: NumberRange[], idx: number) => {
-    [b[idx], a[idx]] = [a[idx], b[idx]];
+  const getSecondaryRowIdx = (primaryRowIdx: number) => {
+    const nextRowIdx = primaryRowIdx + 1;
+    const nextLocalRowIdx = calculateLocalIdx(nextRowIdx);
+
+    const zoneIdx = calculateZoneIdx(primaryRowIdx);
+    const rowIdxOffset = zoneIdx * CELLS_IN_ZONE;
+
+    return nextLocalRowIdx + rowIdxOffset;
   };
 
-  const shuffleStep = (a: NumberRange[], b: NumberRange[], idx: number, firstStep = false) => {
-    const shuffleIdx = firstStep ? idx : findDuplicateIdx(a, idx);
+  const findDuplicateIdx = (row: NumberRange[], targetIdx: number) =>
+    row.findIndex((value, idx) => value === row[targetIdx] && idx !== targetIdx);
 
-    if (shuffleIdx !== -1) {
-      shuffleOnce(a, b, shuffleIdx);
-      shuffleStep(a, b, shuffleIdx);
-    }
+  const shuffleOnce = (rowA: NumberRange[], rowB: NumberRange[], idx: number) => {
+    [rowB[idx], rowA[idx]] = [rowA[idx], rowB[idx]];
   };
 
-  const vertical = (matrix: Matrix, step: number) => {
+  const shuffleRows = (primaryRow: NumberRange[], secondaryRow: NumberRange[], idx: number, firstIteration = false) => {
+    const shuffleIdx = firstIteration ? idx : findDuplicateIdx(primaryRow, idx);
+
+    if (shuffleIdx === -1) return;
+
+    shuffleOnce(primaryRow, secondaryRow, shuffleIdx);
+    shuffleRows(primaryRow, secondaryRow, shuffleIdx);
+  };
+
+  const shuffleStep = (direction: ShuffleDirection, matrix: Matrix, step: number) => {
     if (!step) return matrix;
 
-    const targetRowIdx = Math.floor(Math.random() * 9);
-    const targetCellIdx = Math.floor(Math.random() * 9);
+    const targetMatrix = direction === 'vertical' ? matrix : flipMatrix(matrix);
 
-    const primaryRow = [...matrix[targetRowIdx]];
+    const targetRowIdx = Math.floor(Math.random() * CELLS_ON_AXIS);
+    const targetCellIdx = Math.floor(Math.random() * CELLS_ON_AXIS);
+
+    const primaryRow = [...targetMatrix[targetRowIdx]];
 
     const secondaryRowIdx = getSecondaryRowIdx(targetRowIdx);
-    const secondaryRow = [...matrix[secondaryRowIdx]];
+    const secondaryRow = [...targetMatrix[secondaryRowIdx]];
 
-    shuffleStep(primaryRow, secondaryRow, targetCellIdx, true);
+    shuffleRows(primaryRow, secondaryRow, targetCellIdx, true);
 
-    const shuffledMatrix = matrix.map((row, rowIdx) => {
+    const shuffledMatrix = targetMatrix.map((row, rowIdx) => {
       if (rowIdx === targetRowIdx) return primaryRow;
       if (rowIdx === secondaryRowIdx) return secondaryRow;
       return row;
     });
 
-    return vertical(shuffledMatrix, step - 1);
+    const resultMatrix = direction === 'vertical' ? shuffledMatrix : flipMatrix(shuffledMatrix);
+
+    return shuffleStep(direction, resultMatrix, step - 1);
   };
 
-  return vertical(matrix, steps);
+  const isVerticalFirst = Boolean(Math.floor(Math.random() * 2));
+
+  const firstDirection = isVerticalFirst ? 'vertical' : 'horizontal';
+  const secondDirection = isVerticalFirst ? 'horizontal' : 'vertical';
+
+  const shuffledInFirstDirectionMatrix = shuffleStep(firstDirection, matrix, steps);
+  const shuffledInSecondDirectionMatrix = shuffleStep(secondDirection, shuffledInFirstDirectionMatrix, steps);
+
+  return shuffledInSecondDirectionMatrix;
 };
 
 export const convertMatrixToBoard = (matrix: BoardMatrix): Board =>

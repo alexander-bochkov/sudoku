@@ -1,6 +1,3 @@
-// import { MATRIX_TEMPLATE, SHUFFLE_STEPS } from '../src/contexts/GameContext/hooks/use-board/constants';
-// import { shuffle } from '../src/contexts/GameContext/hooks/use-board/utils';
-
 const CELLS_IN_ZONE = 3;
 const NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -54,5 +51,3 @@ export const validateMatrix = (matrix: number[][]) => {
 
   return validateRows() && validateColumns() && validateZones();
 };
-
-// console.log(validateMatrix(shuffle(MATRIX_TEMPLATE, SHUFFLE_STEPS) as number[][]));
