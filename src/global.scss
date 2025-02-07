@@ -1,9 +1,12 @@
 @use 'styles/colors';
 @use 'styles/fonts';
 
+html {
+  overscroll-behavior: none;
+}
+
 body {
   background-color: colors.$app-background;
   margin: 0;
-  overscroll-behavior: none;
   user-select: none;
 }

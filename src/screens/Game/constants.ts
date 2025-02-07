@@ -1,11 +1,9 @@
-import type { Matrix } from '../../types';
+import type { Matrix, Status } from './types';
 
 export const CELLS_IN_ZONE = 3;
 export const CELLS_ON_AXIS = 9;
 
-export const SHUFFLE_STEPS = 81;
-
-export const REMOVE_NUMBERS_QUANTITY = 30;
+export const DEFAULT_STATUS: Status = 'playing';
 
 export const MATRIX_TEMPLATE: Matrix = [
   [1, 2, 3, 4, 5, 6, 7, 8, 9],
@@ -18,3 +16,7 @@ export const MATRIX_TEMPLATE: Matrix = [
   [6, 4, 5, 9, 7, 8, 3, 1, 2],
   [9, 7, 8, 3, 1, 2, 6, 4, 5],
 ];
+
+export const REMOVE_NUMBERS_QUANTITY = 30;
+
+export const SHUFFLE_STEPS = 81;

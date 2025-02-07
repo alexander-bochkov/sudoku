@@ -1,7 +1,35 @@
 import { CELLS_IN_ZONE, CELLS_ON_AXIS } from './constants';
 
-import type { BoardMatrix, Matrix, ShuffleDirection } from '../../types';
-import type { Board, CellCoords, NumberRange } from 'types/board';
+import type { Matrix, PrefilledMatrix, ShuffleDirection } from './types';
+import type { Board, Coords, NumberRange } from 'types/board';
+
+export const convertMatrixToBoard = (matrix: PrefilledMatrix): Board =>
+  matrix.map((row) => row.map((cell) => (cell ? { type: 'prefilled', value: cell } : cell)));
+
+export const removeNumbers = (matrix: Matrix, quantity: number): PrefilledMatrix => {
+  const shouldRemoveNumber = (removableNumbers: Coords[], rowIdx: number, cellIdx: number) =>
+    removableNumbers.some((coords) => coords.rowIdx === rowIdx && coords.cellIdx === cellIdx);
+
+  const generateRemovableNumbers = (quantity: number, removableNumbers: Coords[] = []) => {
+    if (!quantity) return removableNumbers;
+
+    const rowIdx = Math.floor(Math.random() * CELLS_ON_AXIS);
+    const cellIdx = Math.floor(Math.random() * CELLS_ON_AXIS);
+
+    if (shouldRemoveNumber(removableNumbers, rowIdx, cellIdx)) {
+      return generateRemovableNumbers(quantity, removableNumbers);
+    }
+
+    removableNumbers.push({ rowIdx, cellIdx });
+    return generateRemovableNumbers(quantity - 1, removableNumbers);
+  };
+
+  const removableNumbers = generateRemovableNumbers(quantity);
+
+  return matrix.map((row, rowIdx) =>
+    row.map((cell, cellIdx) => (shouldRemoveNumber(removableNumbers, rowIdx, cellIdx) ? null : cell)),
+  );
+};
 
 export const shuffle = (matrix: Matrix, steps: number) => {
   const calculateLocalIdx = (idx: number) => idx % CELLS_IN_ZONE;
@@ -70,32 +98,4 @@ export const shuffle = (matrix: Matrix, steps: number) => {
   const shuffledInSecondDirectionMatrix = shuffleStep(secondDirection, shuffledInFirstDirectionMatrix, steps);
 
   return shuffledInSecondDirectionMatrix;
-};
-
-export const convertMatrixToBoard = (matrix: BoardMatrix): Board =>
-  matrix.map((row) => row.map((cell) => (cell ? { type: 'prefilled', value: cell } : cell)));
-
-export const removeNumbers = (matrix: Matrix, quantity: number): BoardMatrix => {
-  const shouldRemoveNumber = (removableNumbers: CellCoords[], rowIdx: number, cellIdx: number) =>
-    removableNumbers.some((coords) => coords.rowIdx === rowIdx && coords.cellIdx === cellIdx);
-
-  const generateRemovableNumbers = (quantity: number, removableNumbers: CellCoords[] = []) => {
-    if (!quantity) return removableNumbers;
-
-    const rowIdx = Math.floor(Math.random() * 9);
-    const cellIdx = Math.floor(Math.random() * 9);
-
-    if (shouldRemoveNumber(removableNumbers, rowIdx, cellIdx)) {
-      return generateRemovableNumbers(quantity, removableNumbers);
-    }
-
-    removableNumbers.push({ rowIdx, cellIdx });
-    return generateRemovableNumbers(quantity - 1, removableNumbers);
-  };
-
-  const removableNumbers = generateRemovableNumbers(quantity);
-
-  return matrix.map((row, rowIdx) =>
-    row.map((cell, cellIdx) => (shouldRemoveNumber(removableNumbers, rowIdx, cellIdx) ? null : cell)),
-  );
 };
