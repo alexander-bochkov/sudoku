@@ -1,19 +1,17 @@
 @use 'styles/colors';
 @use 'styles/typography';
 
-.mainMenu {
-  &__menuLayout {
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -19px);
-  }
+.title {
+  color: colors.$main-menu-title-color;
+  margin: 0;
+  text-align: center;
 
-  &__title {
-    color: colors.$main-menu-title-color;
-    margin: 0;
-    text-align: center;
+  @include typography.main-menu-title;
+}
 
-    @include typography.main-menu-title;
-  }
+.menuLayout {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -19px);
 }

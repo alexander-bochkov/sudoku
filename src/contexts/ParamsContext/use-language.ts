@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import type { SupportedLanguage } from 'types/language';
 
-export const useLanguage = (setLoader: (showLoader: boolean) => void) => {
+export const useLanguage = (setLoader: (loader: boolean) => void) => {
   const { i18n } = useTranslation();
 
   const setLanguage = (language: SupportedLanguage) => {

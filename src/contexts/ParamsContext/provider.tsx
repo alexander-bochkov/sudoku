@@ -13,7 +13,6 @@ const DEFAULT_SCREEN: ScreenID = 'main_menu';
 export const ParamsContextProvider = ({ children }: PropsWithChildren) => {
   const [loader, setLoader] = useState(false);
   const [screen, setScreen] = useState<ScreenID>(DEFAULT_SCREEN);
-
   const [language, setLanguage] = useLanguage(setLoader);
 
   return (

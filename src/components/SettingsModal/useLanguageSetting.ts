@@ -1,10 +1,10 @@
-import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { SUPPORTED_LANGUAGES } from 'constants/language';
 import { useParamsContext } from 'contexts';
 
 import type { SupportedLanguage } from 'types/language';
+import type { Setting } from 'types/settings';
 
 const LANGUAGES: Record<SupportedLanguage, string> = {
   de: 'Deutsch',
@@ -18,19 +18,14 @@ const getLanguageOptions = () =>
     value: language,
   }));
 
-export const useLanguageSetting = () => {
-  const { t } = useTranslation('common');
-  const { changeLanguage, language } = useParamsContext();
+export const useLanguageSetting = (): Setting<SupportedLanguage> => {
+  const { language, setLanguage } = useParamsContext();
+  const { t } = useTranslation();
 
-  const setting = useMemo(
-    () => ({
-      label: t('modals.settings_modal.settings.language'),
-      options: getLanguageOptions(),
-      value: language,
-      onChange: changeLanguage,
-    }),
-    [changeLanguage, language, t],
-  );
-
-  return setting;
+  return {
+    label: t('modals.settings_modal.settings.language'),
+    options: getLanguageOptions(),
+    value: language,
+    onChange: setLanguage,
+  };
 };

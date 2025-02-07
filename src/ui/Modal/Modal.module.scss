@@ -3,6 +3,12 @@
 @use 'styles/mixins';
 @use 'styles/typography';
 
+.modalLayout {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
 .modal {
   align-items: center;
   background: colors.$modal-background;
@@ -10,11 +16,7 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  left: 50%;
   padding: 30px 0;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
 
   @include mixins.media using ($board, $zone, $cell) {
     border-radius: calc($cell / 2);

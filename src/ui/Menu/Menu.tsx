@@ -1,24 +1,23 @@
 import clsx from 'clsx';
-import { memo } from 'react';
 
 import styles from './Menu.module.scss';
 
-const MAIN_ITEM_INDEX = 0;
+const MAIN_ITEM_IDX = 0;
 
-interface Item {
+type Item = {
   callback: () => void;
   label: string;
-}
+};
 
-interface MenuProps {
+type MenuProps = {
   items: Item[];
-}
+};
 
-const Menu = ({ items }: MenuProps) => (
+export const Menu = ({ items }: MenuProps) => (
   <div className={styles.menu}>
-    {items.map(({ callback, label }, index) => (
+    {items.map(({ callback, label }, idx) => (
       <button
-        className={clsx(styles.menu__item, { [styles.menu__item_main]: index === MAIN_ITEM_INDEX })}
+        className={clsx(styles.menu__item, { [styles.menu__item_main]: idx === MAIN_ITEM_IDX })}
         key={label}
         onClick={callback}
       >
@@ -27,5 +26,3 @@ const Menu = ({ items }: MenuProps) => (
     ))}
   </div>
 );
-
-export default memo(Menu);

@@ -1,24 +1,22 @@
-import { memo } from 'react';
-
 import { Overlay } from '../Overlay';
 
 import type { PropsWithChildren } from 'react';
 
 import styles from './Modal.module.scss';
 
-interface Action {
+type Action = {
   callback: () => void;
   label: string;
-}
+};
 
-interface ModalProps {
+type ModalProps = {
   primaryAction: Action;
   secondaryAction?: Action;
   title: string;
-}
+};
 
-const Modal = ({ children, primaryAction, secondaryAction, title }: PropsWithChildren<ModalProps>) => (
-  <Overlay>
+export const Modal = ({ children, primaryAction, secondaryAction, title }: PropsWithChildren<ModalProps>) => (
+  <Overlay className={styles.modalLayout}>
     <div className={styles.modal}>
       <p className={styles.modal__title}>{title}</p>
       <div className={styles.modal__content}>{children}</div>
@@ -35,5 +33,3 @@ const Modal = ({ children, primaryAction, secondaryAction, title }: PropsWithChi
     </div>
   </Overlay>
 );
-
-export default memo(Modal);

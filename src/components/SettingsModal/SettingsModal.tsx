@@ -1,30 +1,27 @@
-import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Modal } from 'ui';
+import { Modal, Settings } from 'ui';
 
-import { Settings } from './Settings';
+import { useLanguageSetting } from './useLanguageSetting';
 
-import type { FC } from 'react';
-
-interface SettingsModalProps {
+type SettingsModalProps = {
   onClose: () => void;
-}
+};
 
-export const SettingsModal: FC<SettingsModalProps> = ({ onClose }) => {
-  const { t } = useTranslation('common');
+export const SettingsModal = ({ onClose }: SettingsModalProps) => {
+  const languageSetting = useLanguageSetting();
+  const { t } = useTranslation();
 
-  const primaryAction = useMemo(
-    () => ({
-      callback: onClose,
-      label: t('modals.settings_modal.primary_action'),
-    }),
-    [onClose, t],
-  );
+  const primaryAction = {
+    callback: onClose,
+    label: t('modals.settings_modal.primary_action'),
+  };
+
+  const settings = [languageSetting];
 
   return (
     <Modal primaryAction={primaryAction} title={t('modals.settings_modal.title')}>
-      <Settings />
+      <Settings items={settings} />
     </Modal>
   );
 };

@@ -3,20 +3,22 @@ import { useTranslation } from 'react-i18next';
 
 import { SettingsModal } from 'components';
 import { useParamsContext } from 'contexts';
-import { Menu, Screen } from 'ui';
+import { Menu } from 'ui';
 
 import styles from './MainMenu.module.scss';
 
+const TITLE = 'Sudoku';
+
 export const MainMenu = () => {
-  const { changeScreen } = useParamsContext();
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
-  const { t } = useTranslation('common');
+  const { setScreen } = useParamsContext();
+  const { t } = useTranslation();
 
   const menuItems = [
     {
       callback: () => {
-        changeScreen('game');
+        setScreen('game');
       },
       label: t('menu.start_game'),
     },
@@ -29,9 +31,9 @@ export const MainMenu = () => {
   ];
 
   return (
-    <Screen>
-      <h1 className={styles.mainMenu__title}>Sudoku</h1>
-      <div className={styles.mainMenu__menuLayout}>
+    <>
+      <h1 className={styles.title}>{TITLE}</h1>
+      <div className={styles.menuLayout}>
         <Menu items={menuItems} />
       </div>
       {showSettingsModal && (
@@ -41,6 +43,6 @@ export const MainMenu = () => {
           }}
         />
       )}
-    </Screen>
+    </>
   );
 };

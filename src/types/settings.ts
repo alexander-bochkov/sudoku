@@ -1,11 +1,11 @@
-interface Option<T> {
+type Option<T> = {
   label: string;
   value: T;
-}
+};
 
-export interface Setting<T> {
+export type Setting<T> = {
   label: string;
   options: Option<T>[];
   value: T;
   onChange: (value: T) => void;
-}
+};

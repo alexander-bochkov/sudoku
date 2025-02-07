@@ -1,0 +1,42 @@
+@use 'styles/colors';
+@use 'styles/typography';
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  margin: 0 24px 0 30px;
+  row-gap: 10px;
+
+  &__settingLayout {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__label {
+    color: colors.$settings-modal-text-color;
+
+    @include typography.settings-modal-text;
+  }
+
+  &__select {
+    display: flex;
+  }
+
+  &__selectControl {
+    background: none;
+    border: none;
+    cursor: pointer;
+    height: 20px;
+    padding: 0;
+    width: 20px;
+  }
+
+  &__selectLabel {
+    color: colors.$settings-modal-text-color;
+    margin: 0;
+    text-align: center;
+    width: 76px;
+
+    @include typography.settings-modal-text;
+  }
+}

@@ -1,20 +1,24 @@
+import { Suspense } from 'react';
+
 import { Screen } from 'components';
 import { ParamsContextProvider } from 'contexts';
-import { Screen as ScreenUI } from 'ui';
+import { MainMenu } from 'screens';
+import { Loader, Screen as ScreenUI } from 'ui';
 
-// import { Suspense } from 'react';
 // import { GameContextProvider } from 'contexts';
-// import { Game, MainMenu } from 'screens';
-// import { Loader } from 'ui';
+// import { Game } from 'screens';
 
 export const App = () => (
-  <ParamsContextProvider>
-    {/* <Suspense fallback={<Loader />}> */}
-    <ScreenUI>
-      <Screen id="main_menu">MAIN_MENU</Screen>
-      <Screen id="game">GAME</Screen>
-    </ScreenUI>
-  </ParamsContextProvider>
+  <Suspense fallback={<Loader />}>
+    <ParamsContextProvider>
+      <ScreenUI>
+        <Screen id="main_menu">
+          <MainMenu />
+        </Screen>
+        <Screen id="game">GAME</Screen>
+      </ScreenUI>
+    </ParamsContextProvider>
+  </Suspense>
 );
 
 {
