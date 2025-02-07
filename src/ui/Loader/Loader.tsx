@@ -5,8 +5,6 @@ import styles from './Loader.module.scss';
 
 export const Loader = () => (
   <Overlay className={styles.loaderLayout}>
-    <div className={styles.loader}>
-      <Icon name="spinner" size={72} />
-    </div>
+    <Icon className={styles.loader} name="spinner" size={72} />
   </Overlay>
 );

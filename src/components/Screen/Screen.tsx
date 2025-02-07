@@ -1,16 +1,13 @@
-import { useMemo } from 'react';
-
 import { useParamsContext } from 'contexts';
 
-import type { FC, ReactNode } from 'react';
-import type { Screen as ScreenName } from 'types/screen';
+import type { PropsWithChildren } from 'react';
+import type { ScreenID } from 'types/screen';
 
-interface ScreenProps {
-  content: ReactNode;
-  name: ScreenName;
-}
+type ScreenProps = {
+  id: ScreenID;
+};
 
-export const Screen: FC<ScreenProps> = ({ content, name }) => {
+export const Screen = ({ children, id }: PropsWithChildren<ScreenProps>) => {
   const { screen } = useParamsContext();
-  return useMemo(() => screen === name && content, [content, name, screen]);
+  return screen === id && children;
 };

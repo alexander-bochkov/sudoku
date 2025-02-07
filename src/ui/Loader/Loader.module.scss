@@ -5,10 +5,7 @@
 }
 
 .loader {
-  animation-duration: 800ms;
-  animation-iteration-count: infinite;
-  animation-name: spin;
-  animation-timing-function: linear;
+  animation: spin 800ms linear infinite;
   height: 72px;
   width: 72px;
 

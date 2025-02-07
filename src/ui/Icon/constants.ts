@@ -10,4 +10,4 @@ export const ICONS = {
   eraser,
   pause,
   spinner,
-} as const;
+};

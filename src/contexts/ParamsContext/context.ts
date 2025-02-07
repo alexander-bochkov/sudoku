@@ -1,14 +1,14 @@
 import { createContext } from 'react';
 
 import type { SupportedLanguage } from 'types/language';
-import type { Screen } from 'types/screen';
+import type { ScreenID } from 'types/screen';
 import type { Nullable } from 'types/utility-types';
 
-interface ParamsContext {
-  changeLanguage: (language: SupportedLanguage) => void;
-  changeScreen: (screen: Screen) => void;
+type ParamsContext = {
   language: SupportedLanguage;
-  screen: Screen;
-}
+  setLanguage: (language: SupportedLanguage) => void;
+  screen: ScreenID;
+  setScreen: (screen: ScreenID) => void;
+};
 
 export const ParamsContext = createContext<Nullable<ParamsContext>>(null);
