@@ -1,36 +1,27 @@
-import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useParamsContext } from 'contexts';
 import { Modal } from 'ui';
 
-import type { FC } from 'react';
-
-interface FinishModalProps {
+type FinishModalProps = {
   onRestart: () => void;
-}
+};
 
-export const FinishModal: FC<FinishModalProps> = ({ onRestart }) => {
-  const { t } = useTranslation('common');
-  const { changeScreen } = useParamsContext();
+export const FinishModal = ({ onRestart }: FinishModalProps) => {
+  const { t } = useTranslation();
+  const { setScreen } = useParamsContext();
 
-  const primaryAction = useMemo(
-    () => ({
-      callback: () => {
-        changeScreen('main-menu');
-      },
-      label: t('modals.finish_modal.primary_action'),
-    }),
-    [changeScreen, t],
-  );
+  const primaryAction = {
+    callback: () => {
+      setScreen('main_menu');
+    },
+    label: t('modals.finish_modal.primary_action'),
+  };
 
-  const secondaryAction = useMemo(
-    () => ({
-      callback: onRestart,
-      label: t('modals.finish_modal.secondary_action'),
-    }),
-    [onRestart, t],
-  );
+  const secondaryAction = {
+    callback: onRestart,
+    label: t('modals.finish_modal.secondary_action'),
+  };
 
   return (
     <Modal primaryAction={primaryAction} secondaryAction={secondaryAction} title={t('modals.finish_modal.title')} />

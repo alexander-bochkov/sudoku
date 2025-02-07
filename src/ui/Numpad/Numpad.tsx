@@ -7,9 +7,9 @@ import styles from './Numpad.module.scss';
 
 const NUMERIC_BUTTONS: NumberRange[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-interface NumpadProps {
+type NumpadProps = {
   onClick: (value: Nullable<NumberRange>) => void;
-}
+};
 
 export const Numpad = ({ onClick }: NumpadProps) => (
   <div className={styles.numpad}>

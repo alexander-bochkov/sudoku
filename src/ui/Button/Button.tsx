@@ -5,17 +5,17 @@ import type { NumberRange } from 'types/board';
 
 import styles from './Button.module.scss';
 
-interface IconicButtonProps {
+type IconicButtonProps = {
   icon: ComponentPropsWithoutRef<typeof Icon>['name'];
   number?: never;
   onClick: () => void;
-}
+};
 
-interface NumericButtonProps {
+type NumericButtonProps = {
   icon?: never;
   number: NumberRange;
   onClick: () => void;
-}
+};
 
 type ButtonProps = IconicButtonProps | NumericButtonProps;
 

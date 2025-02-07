@@ -1,30 +1,25 @@
 @use 'styles/mixins';
 
-.game {
+.contentLayout {
+  align-items: center;
   display: flex;
   flex-direction: column;
   height: 100%;
   justify-content: center;
+  row-gap: 20px;
+}
 
-  &__contentLayout {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    row-gap: 20px;
-  }
+.pauseLayout {
+  display: flex;
+  justify-content: end;
 
-  &__pauseButtonLayout {
-    display: flex;
-    justify-content: end;
-
-    @include mixins.media using ($board, $zone, $cell) {
-      width: $board;
-    }
+  @include mixins.media using ($board, $zone, $cell) {
+    width: $board;
   }
 }
 
 @media screen and (width <= 1024px) {
-  .game {
+  .contentLayout {
     justify-content: flex-end;
   }
 }

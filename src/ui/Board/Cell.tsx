@@ -1,22 +1,21 @@
 import clsx from 'clsx';
-import { memo } from 'react';
 
 import { SPACE } from 'constants/characters';
 
-import type { Cell as CellType, CellCoords } from 'types/board';
+import type { Cell as ICell, Coords } from 'types/board';
 import type { Nullable } from 'types/utility-types';
 
-import styles from '../Board.module.scss';
+import styles from './Board.module.scss';
 
-interface CellProps {
-  cell: Nullable<CellType>;
+type CellProps = {
+  cell: Nullable<ICell>;
   cellIdx: number;
   rowIdx: number;
-  selectedCell: Nullable<CellCoords>;
-  onSelect: (selectedCell: CellCoords) => void;
-}
+  selectedCell: Nullable<Coords>;
+  onSelect: (selectedCell: Coords) => void;
+};
 
-const Cell = ({ cell, cellIdx, rowIdx, selectedCell, onSelect }: CellProps) => {
+export const Cell = ({ cell, cellIdx, rowIdx, selectedCell, onSelect }: CellProps) => {
   const isDisabled = cell?.type === 'correct' || cell?.type === 'prefilled';
   const isSelected = rowIdx === selectedCell?.rowIdx && cellIdx === selectedCell.cellIdx;
 
@@ -38,5 +37,3 @@ const Cell = ({ cell, cellIdx, rowIdx, selectedCell, onSelect }: CellProps) => {
     </td>
   );
 };
-
-export default memo(Cell);

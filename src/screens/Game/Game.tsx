@@ -1,6 +1,6 @@
 import { FinishModal, PauseModal } from 'components';
 import { useGameContext } from 'contexts';
-import { Board, Button, Numpad, Screen } from 'ui';
+import { Board, Button, Numpad } from 'ui';
 
 import styles from './Game.module.scss';
 
@@ -9,20 +9,18 @@ export const Game = () => {
 
   return (
     board && (
-      <Screen>
-        <div className={styles.game}>
-          <div className={styles.game__contentLayout}>
-            <div className={styles.game__pauseButtonLayout}>
-              <Button
-                icon="pause"
-                onClick={() => {
-                  onPause(true);
-                }}
-              />
-            </div>
-            <Board board={board} selectedCell={selectedCell} onSelect={changeSelectedCell} />
-            <Numpad onClick={onNumpadClick} />
+      <>
+        <div className={styles.contentLayout}>
+          <div className={styles.pauseLayout}>
+            <Button
+              icon="pause"
+              onClick={() => {
+                onPause(true);
+              }}
+            />
           </div>
+          <Board board={board} selectedCell={selectedCell} onSelect={changeSelectedCell} />
+          <Numpad onClick={onNumpadClick} />
         </div>
         {status === 'paused' && (
           <PauseModal
@@ -32,7 +30,7 @@ export const Game = () => {
           />
         )}
         {status === 'finished' && <FinishModal onRestart={onRestart} />}
-      </Screen>
+      </>
     )
   );
 };
