@@ -1,34 +1,107 @@
 import { CELLS_IN_ZONE, CELLS_ON_AXIS } from './constants';
 
 import type { Matrix, PrefilledMatrix, ShuffleDirection } from './types';
-import type { Board, Coords, NumberRange } from 'types/board';
+import type { Board, NumberRange } from 'types/board';
+
+export const cloneMatrix = (matrix: Matrix | PrefilledMatrix) => matrix.map((row) => row.map((cell) => cell));
 
 export const convertMatrixToBoard = (matrix: PrefilledMatrix): Board =>
   matrix.map((row) => row.map((cell) => (cell ? { type: 'prefilled', value: cell } : cell)));
 
+const hasNumberInRow = (matrix: PrefilledMatrix, rowIdx: number, value: number) => {
+  return matrix[rowIdx].some((matrixValue) => matrixValue === value);
+};
+
+const hasNumberInColumn = (matrix: PrefilledMatrix, cellIdx: number, value: number) => {
+  const columns = matrix.map((row, rowIdx) => row.map((_, cellIdx) => matrix[cellIdx][rowIdx]));
+  return columns[cellIdx].some((matrixValue) => matrixValue === value);
+};
+
+const hasNumberInZone = (matrix: PrefilledMatrix, rowIdx: number, cellIdx: number, value: number) => {
+  const zones = matrix.map((row, rowIdx) =>
+    row.map((_, cellIdx) => {
+      const zoneIdxX = Math.floor(cellIdx / CELLS_IN_ZONE);
+      const zoneIdxY = Math.floor(rowIdx / CELLS_IN_ZONE);
+
+      const cellIdxInZoneX = cellIdx % CELLS_IN_ZONE;
+      const cellIdxInZoneY = rowIdx % CELLS_IN_ZONE;
+
+      const targetRowIdx = zoneIdxX + zoneIdxY * CELLS_IN_ZONE;
+      const targetCellIdx = cellIdxInZoneX + cellIdxInZoneY * CELLS_IN_ZONE;
+
+      return matrix[targetRowIdx][targetCellIdx];
+    }),
+  );
+
+  const zoneIdxX = Math.floor(cellIdx / CELLS_IN_ZONE);
+  const zoneIdxY = Math.floor(rowIdx / CELLS_IN_ZONE);
+
+  const targetRowIdx = zoneIdxX + zoneIdxY * CELLS_IN_ZONE;
+
+  return zones[targetRowIdx].some((matrixValue) => matrixValue === value);
+};
+
+const hasUniqueSolution = (matrix: PrefilledMatrix) => {
+  let solutions = 0;
+
+  const solveMatrix = (matrix: PrefilledMatrix) => {
+    for (let rowIdx = 0; rowIdx < CELLS_ON_AXIS; rowIdx++) {
+      for (let cellIdx = 0; cellIdx < CELLS_ON_AXIS; cellIdx++) {
+        if (!matrix[rowIdx][cellIdx]) {
+          for (let value = 1; value <= CELLS_ON_AXIS; value++) {
+            if (
+              !hasNumberInRow(matrix, rowIdx, value) &&
+              !hasNumberInColumn(matrix, cellIdx, value) &&
+              !hasNumberInZone(matrix, rowIdx, cellIdx, value)
+            ) {
+              matrix[rowIdx][cellIdx] = value as NumberRange;
+
+              if (solveMatrix(matrix)) return true;
+
+              matrix[rowIdx][cellIdx] = null;
+            }
+          }
+
+          return false;
+        }
+      }
+    }
+
+    solutions++;
+
+    return solutions > 1;
+  };
+
+  solveMatrix(matrix);
+
+  return solutions === 1;
+};
+
 export const removeNumbers = (matrix: Matrix, quantity: number): PrefilledMatrix => {
-  const shouldRemoveNumber = (removableNumbers: Coords[], rowIdx: number, cellIdx: number) =>
-    removableNumbers.some((coords) => coords.rowIdx === rowIdx && coords.cellIdx === cellIdx);
+  const prefilledMatrix = cloneMatrix(matrix);
 
-  const generateRemovableNumbers = (quantity: number, removableNumbers: Coords[] = []) => {
-    if (!quantity) return removableNumbers;
-
+  for (let i = 0; i < quantity; i++) {
     const rowIdx = Math.floor(Math.random() * CELLS_ON_AXIS);
     const cellIdx = Math.floor(Math.random() * CELLS_ON_AXIS);
 
-    if (shouldRemoveNumber(removableNumbers, rowIdx, cellIdx)) {
-      return generateRemovableNumbers(quantity, removableNumbers);
+    if (!prefilledMatrix[rowIdx][cellIdx]) {
+      i = i - 1;
+      continue;
     }
 
-    removableNumbers.push({ rowIdx, cellIdx });
-    return generateRemovableNumbers(quantity - 1, removableNumbers);
-  };
+    const value = prefilledMatrix[rowIdx][cellIdx];
 
-  const removableNumbers = generateRemovableNumbers(quantity);
+    prefilledMatrix[rowIdx][cellIdx] = null;
 
-  return matrix.map((row, rowIdx) =>
-    row.map((cell, cellIdx) => (shouldRemoveNumber(removableNumbers, rowIdx, cellIdx) ? null : cell)),
-  );
+    if (hasUniqueSolution(cloneMatrix(prefilledMatrix))) {
+      continue;
+    }
+
+    prefilledMatrix[rowIdx][cellIdx] = value;
+    i = i - 1;
+  }
+
+  return prefilledMatrix;
 };
 
 export const shuffle = (matrix: Matrix, steps: number) => {
