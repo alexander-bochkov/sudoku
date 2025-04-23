@@ -13,3 +13,5 @@ export type Coords = {
   rowIdx: number;
   cellIdx: number;
 };
+
+export type Difficulty = 'easy' | 'medium' | 'hard';

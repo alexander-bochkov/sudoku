@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import { FinishModal, PauseModal } from 'components';
+import { useParamsContext } from 'contexts';
 import { Board, Button, Numpad } from 'ui';
 
 import { DEFAULT_STATUS } from './constants';
@@ -14,13 +15,15 @@ import type { Nullable } from 'types/utility-types';
 import styles from './Game.module.scss';
 
 export const Game = () => {
+  const { difficulty } = useParamsContext();
+
   const [status, setStatus] = useState<Status>(DEFAULT_STATUS);
   const [selectedCell, setSelectedCell] = useSelectedCell();
 
   const { board, createBoard, matrix, setBoard, setCell } = useBoard();
 
   useEffect(() => {
-    createBoard();
+    createBoard(difficulty);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -64,7 +67,7 @@ export const Game = () => {
   };
 
   const handleRestart = () => {
-    createBoard();
+    createBoard(difficulty);
     setStatus('playing');
   };
 

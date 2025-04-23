@@ -2,7 +2,7 @@ import { Icon } from '../Icon';
 
 import type { Setting } from 'types/settings';
 
-import styles from './Settings.module.scss';
+import styles from './Select.module.scss';
 
 type SelectProps<T> = {
   options: Setting<T>['options'];
@@ -26,12 +26,12 @@ export const Select = <T,>({ options, value, onChange }: SelectProps<T>) => {
   const label = options.find((option) => option.value === value)?.label;
 
   return (
-    <div className={styles.settings__select}>
-      <button className={styles.settings__selectControl} onClick={handlePrevious}>
+    <div className={styles.select}>
+      <button className={styles.select__control} onClick={handlePrevious}>
         <Icon name="arrowLeft" size={20} />
       </button>
-      <p className={styles.settings__selectLabel}>{label}</p>
-      <button className={styles.settings__selectControl} onClick={handleNext}>
+      <p className={styles.select__label}>{label}</p>
+      <button className={styles.select__control} onClick={handleNext}>
         <Icon name="arrowRight" size={20} />
       </button>
     </div>

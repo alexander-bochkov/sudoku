@@ -17,7 +17,17 @@
     "settings_modal": {
       "primary_action": "Zurück",
       "settings": {
-        "language": "Sprache"
+        "difficulty": {
+          "label": "Schwierigkeitsgrad",
+          "options": {
+            "easy": "Einfach",
+            "medium": "Mittelgroß",
+            "hard": "Schwierig"
+          }
+        },
+        "language": {
+          "label": "Sprache"
+        }
       },
       "title": "Einstellungen"
     }

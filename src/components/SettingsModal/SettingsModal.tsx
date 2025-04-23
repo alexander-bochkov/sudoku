@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
-import { Modal, Settings } from 'ui';
+import { Modal, Setting, Settings } from 'ui';
 
+import { useDifficultySetting } from './useDifficultySetting';
 import { useLanguageSetting } from './useLanguageSetting';
 
 type SettingsModalProps = {
@@ -9,7 +10,9 @@ type SettingsModalProps = {
 };
 
 export const SettingsModal = ({ onClose }: SettingsModalProps) => {
+  const difficultySetting = useDifficultySetting();
   const languageSetting = useLanguageSetting();
+
   const { t } = useTranslation();
 
   const primaryAction = {
@@ -17,11 +20,12 @@ export const SettingsModal = ({ onClose }: SettingsModalProps) => {
     label: t('modals.settings_modal.primary_action'),
   };
 
-  const settings = [languageSetting];
-
   return (
     <Modal primaryAction={primaryAction} title={t('modals.settings_modal.title')}>
-      <Settings items={settings} />
+      <Settings>
+        <Setting {...languageSetting} />
+        <Setting {...difficultySetting} />
+      </Settings>
     </Modal>
   );
 };

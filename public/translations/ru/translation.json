@@ -17,7 +17,17 @@
     "settings_modal": {
       "primary_action": "Назад",
       "settings": {
-        "language": "Язык"
+        "difficulty": {
+          "label": "Уровень сложности",
+          "options": {
+            "easy": "Лёгкий",
+            "medium": "Средний",
+            "hard": "Тяжёлый"
+          }
+        },
+        "language": {
+          "label": "Язык"
+        }
       },
       "title": "Настройки"
     }

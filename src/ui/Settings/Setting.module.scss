@@ -1,0 +1,15 @@
+@use 'styles/colors';
+@use 'styles/typography';
+
+.setting {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+
+  &__label {
+    color: colors.$settings-modal-text-color;
+
+    @include typography.settings-modal-text;
+  }
+}

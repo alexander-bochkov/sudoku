@@ -17,6 +17,4 @@ export const MATRIX_TEMPLATE: Matrix = [
   [9, 7, 8, 3, 1, 2, 6, 4, 5],
 ];
 
-export const REMOVE_NUMBERS_QUANTITY = 30;
-
 export const SHUFFLE_STEPS = 81;

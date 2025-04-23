@@ -23,7 +23,7 @@ export const useLanguageSetting = (): Setting<SupportedLanguage> => {
   const { t } = useTranslation();
 
   return {
-    label: t('modals.settings_modal.settings.language'),
+    label: t('modals.settings_modal.settings.language.label'),
     options: getLanguageOptions(),
     value: language,
     onChange: setLanguage,
