@@ -11,6 +11,7 @@
 
 .modal {
   align-items: center;
+  animation: bounce 0.3s ease;
   background: colors.$modal-background;
   box-shadow: effects.$modal-shadow;
   box-sizing: border-box;
@@ -53,5 +54,23 @@
     padding: 0;
 
     @include typography.modal-action;
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(0.8);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  70% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }
