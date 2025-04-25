@@ -1,3 +1,9 @@
+@mixin board-suggestion {
+  font-family: Itim, sans-serif;
+  font-size: 14px;
+  line-height: 14px;
+}
+
 @mixin board-text {
   font-family: Itim, sans-serif;
 }
@@ -43,4 +49,10 @@
   font-family: 'Balsamiq Sans', sans-serif;
   font-size: 20px;
   line-height: 20px;
+}
+
+@mixin suggestion {
+  font-family: Itim, sans-serif;
+  font-size: 30px;
+  line-height: 30px;
 }

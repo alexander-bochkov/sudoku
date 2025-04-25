@@ -6,7 +6,7 @@ import type { Board, NumberRange } from 'types/board';
 export const cloneMatrix = (matrix: Matrix | PrefilledMatrix) => matrix.map((row) => row.map((cell) => cell));
 
 export const convertMatrixToBoard = (matrix: PrefilledMatrix): Board =>
-  matrix.map((row) => row.map((cell) => (cell ? { type: 'prefilled', value: cell } : cell)));
+  matrix.map((row) => row.map((cell) => (cell ? { type: 'prefilled', value: cell } : { value: cell })));
 
 const hasNumberInRow = (matrix: PrefilledMatrix, rowIdx: number, value: number) => {
   return matrix[rowIdx].some((matrixValue) => matrixValue === value);

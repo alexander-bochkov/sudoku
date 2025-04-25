@@ -28,6 +28,7 @@
   &__cell {
     border-right: 1px solid colors.$board-subgrid-background;
     padding: 0;
+    position: relative;
 
     &:nth-child(3n + 3) {
       border-right: 2px solid colors.$board-grid-background;
@@ -44,6 +45,7 @@
     border-radius: 0;
     cursor: pointer;
     padding: 0;
+    position: relative;
 
     @include typography.board-text;
 
@@ -87,6 +89,39 @@
 
     &_solution {
       color: colors.$board-text-color-solution;
+    }
+  }
+
+  &__suggestion {
+    align-items: center;
+    color: colors.$board-suggestion-color;
+    display: flex;
+    height: 14px;
+    justify-content: center;
+    pointer-events: none;
+    position: absolute;
+    width: 14px;
+
+    @include typography.board-suggestion;
+
+    &_topLeft {
+      left: 0;
+      top: 0;
+    }
+
+    &_topRight {
+      right: 0;
+      top: 0;
+    }
+
+    &_bottomLeft {
+      bottom: 0;
+      left: 0;
+    }
+
+    &_bottomRight {
+      bottom: 0;
+      right: 0;
     }
   }
 }

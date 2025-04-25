@@ -26,14 +26,14 @@ export const useBoard = () => {
     setMatrix(matrix);
   };
 
-  const setCell = (coords: Coords, value: Nullable<Cell>) => {
+  const setCell = (updatedCell: Cell, coords: Coords) => {
     setBoard((prevBoard) => {
       if (!prevBoard) return prevBoard;
 
       return prevBoard.map((row, rowIdx) =>
         row.map((cell, cellIdx) => {
           const shouldUpdateCell = rowIdx === coords.rowIdx && cellIdx === coords.cellIdx;
-          return shouldUpdateCell ? value : cell;
+          return shouldUpdateCell ? updatedCell : cell;
         }),
       );
     });

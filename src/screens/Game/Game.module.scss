@@ -9,12 +9,17 @@
   row-gap: 20px;
 }
 
-.pauseLayout {
+.topLayout {
+  align-items: flex-end;
   display: flex;
   justify-content: end;
 
   @include mixins.media using ($board, $zone, $cell) {
     width: $board;
+  }
+
+  &_twoElements {
+    justify-content: space-between;
   }
 }
 
