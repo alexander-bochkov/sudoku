@@ -6,7 +6,9 @@ html {
 }
 
 body {
-  background-color: colors.$app-background;
+  background:
+    url('assets/images/stars.png') 0 0 / 200px,
+    linear-gradient(colors.$background-gradient-top, colors.$background-gradient-bottom);
   margin: 0;
   user-select: none;
 }
