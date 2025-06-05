@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
+import { Route, Routes } from 'react-router';
 
-import { Screen } from 'components';
+import { ROUTES } from 'constants/routes';
 import { ParamsContextProvider } from 'contexts';
 import { Game, MainMenu } from 'screens';
 import { Loader } from 'ui';
@@ -8,12 +9,10 @@ import { Loader } from 'ui';
 export const App = () => (
   <Suspense fallback={<Loader />}>
     <ParamsContextProvider>
-      <Screen id="main_menu">
-        <MainMenu />
-      </Screen>
-      <Screen id="game">
-        <Game />
-      </Screen>
+      <Routes>
+        <Route path={ROUTES.MAIN_MENU} element={<MainMenu />} />
+        <Route path={ROUTES.GAME} element={<Game />} />
+      </Routes>
     </ParamsContextProvider>
   </Suspense>
 );

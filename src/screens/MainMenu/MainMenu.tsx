@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 
 import { SettingsModal } from 'components';
-import { useParamsContext } from 'contexts';
+import { ROUTES } from 'constants/routes';
 import { Menu } from 'ui';
 
 import styles from './MainMenu.module.scss';
@@ -12,13 +13,13 @@ const TITLE = 'Sudoku';
 export const MainMenu = () => {
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
-  const { setScreen } = useParamsContext();
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   const menuItems = [
     {
       callback: () => {
-        setScreen('game');
+        void navigate(ROUTES.GAME);
       },
       label: t('menu.start_game'),
     },

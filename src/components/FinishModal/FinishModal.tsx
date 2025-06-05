@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 
-import { useParamsContext } from 'contexts';
+import { ROUTES } from 'constants/routes';
 import { Modal } from 'ui';
 
 type FinishModalProps = {
@@ -8,12 +9,12 @@ type FinishModalProps = {
 };
 
 export const FinishModal = ({ onRestart }: FinishModalProps) => {
+  const navigate = useNavigate();
   const { t } = useTranslation();
-  const { setScreen } = useParamsContext();
 
   const primaryAction = {
     callback: () => {
-      setScreen('main_menu');
+      void navigate(ROUTES.MAIN_MENU);
     },
     label: t('modals.finish_modal.primary_action'),
   };

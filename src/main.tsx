@@ -1,5 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { MemoryRouter } from 'react-router';
 
 import { App } from './App';
 import './i18n';
@@ -11,6 +12,8 @@ const rootEl = document.getElementById('root')!;
 
 createRoot(rootEl).render(
   <StrictMode>
-    <App />
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>
   </StrictMode>,
 );
