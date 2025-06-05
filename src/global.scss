@@ -9,6 +9,17 @@ body {
   background:
     url('assets/images/stars.png') 0 0 / 200px,
     linear-gradient(colors.$background-gradient-top, colors.$background-gradient-bottom);
+  height: 100svh;
   margin: 0;
   user-select: none;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  inset: 0;
+  overflow-y: auto;
+  padding: calc(env(safe-area-inset-top) + 18px) calc(env(safe-area-inset-right) + 18px)
+    calc(env(safe-area-inset-bottom) + 18px) calc(env(safe-area-inset-left) + 18px);
+  position: absolute;
 }
