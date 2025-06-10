@@ -11,6 +11,7 @@
       "components": ["./src/components"],
       "constants/*": ["./src/constants/*"],
       "contexts": ["./src/contexts"],
+      "localization": ["./src/localization"],
       "screens": ["./src/screens"],
       "types/*": ["./src/types/*"],
       "ui": ["./src/ui"]
@@ -30,5 +31,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "types"]
+  "include": ["src"]
 }
