@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
 import { SUPPORTED_LANGUAGES } from 'constants/language';
-import { useParamsContext } from 'contexts';
 
 import type { SupportedLanguage } from 'types/language';
 import type { Setting } from 'types/settings';
@@ -19,13 +18,15 @@ const getLanguageOptions = () =>
   }));
 
 export const useLanguageSetting = (): Setting<SupportedLanguage> => {
-  const { language, setLanguage } = useParamsContext();
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   return {
     label: t('modals.settings_modal.settings.language.label'),
     options: getLanguageOptions(),
-    value: language,
-    onChange: setLanguage,
+    // If a language detected by i18next-browser-languagedetector isn't supported, the default language will be used
+    value: i18n.language as SupportedLanguage,
+    onChange: (language: SupportedLanguage) => {
+      void i18n.changeLanguage(language);
+    },
   };
 };
