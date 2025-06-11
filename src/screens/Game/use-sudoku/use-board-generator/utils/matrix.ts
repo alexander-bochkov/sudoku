@@ -24,5 +24,6 @@ export const flattenBlocks = (matrix: Matrix): Matrix =>
     }),
   );
 
+// TODO: rename to transpose
 export const rotate = (matrix: Matrix): Matrix =>
   matrix.map((row, rowIdx) => row.map((_, colIdx) => matrix[colIdx][rowIdx]));

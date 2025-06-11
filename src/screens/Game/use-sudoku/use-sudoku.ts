@@ -12,6 +12,7 @@ type Status = 'IDLE' | 'GENERATING' | 'SOLVED';
 const DEFAULT_STATUS: Status = 'IDLE';
 
 export const useSudoku = () => {
+  // TODO: think about replacing useState<Board> with useReducer
   const [board, setBoard] = useState<Nullable<Board>>(null);
   const [matrix, setMatrix] = useState<Nullable<Matrix>>(null);
   const [status, setStatus] = useState<Status>(DEFAULT_STATUS);

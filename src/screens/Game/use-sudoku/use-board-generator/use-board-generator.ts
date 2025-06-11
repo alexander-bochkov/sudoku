@@ -4,6 +4,7 @@ import type { BoardGenerationHandler, BoardGeneratorInputMessage } from './types
 import type { Nullable } from 'types/utility-types';
 
 export const useBoardGenerator = (handler: BoardGenerationHandler) => {
+  // TODO: replace useState with useRef
   const [worker, setWorker] = useState<Nullable<Worker>>(null);
 
   useEffect(() => {

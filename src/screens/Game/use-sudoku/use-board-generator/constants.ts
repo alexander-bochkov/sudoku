@@ -6,6 +6,7 @@ export const BOARD_SIZE = 9;
 
 export const CELLS_COUNT = 81;
 
+// TODO: rename to CLUES_MAP or something similar
 export const DIFFICULTY: Record<Difficulty, number> = {
   easy: 50,
   medium: 40,
