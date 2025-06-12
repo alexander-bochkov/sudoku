@@ -1,7 +1,2 @@
-# Directories
 dist
 node_modules
-
-# Files
-tsconfig.app.tsbuildinfo
-tsconfig.node.tsbuildinfo
