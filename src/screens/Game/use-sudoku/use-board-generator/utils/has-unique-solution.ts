@@ -1,21 +1,21 @@
 import { BLOCK_SIZE, BOARD_SIZE } from '../constants';
 
-import { flattenBlocks, getBlockIdx, rotate } from './matrix';
+import { calculateBlockIdx, flattenBlocks, transpose } from './matrix';
 
 import type { Digit, Matrix } from 'types/sudoku';
 
 const hasDigitInRow = (matrix: Matrix, rowIdx: number, digit: Digit) => matrix[rowIdx].some((value) => value === digit);
 
 const hasDigitInColumn = (matrix: Matrix, colIdx: number, digit: Digit) => {
-  const columns = rotate(matrix);
+  const columns = transpose(matrix);
   return columns[colIdx].some((value) => value === digit);
 };
 
 const hasDigitInBlock = (matrix: Matrix, rowIdx: number, colIdx: number, digit: Digit) => {
   const blocks = flattenBlocks(matrix);
 
-  const blockIdxX = getBlockIdx(colIdx);
-  const blockIdxY = getBlockIdx(rowIdx);
+  const blockIdxX = calculateBlockIdx(colIdx);
+  const blockIdxY = calculateBlockIdx(rowIdx);
 
   const searchIdx = blockIdxX + blockIdxY * BLOCK_SIZE;
   return blocks[searchIdx].some((value) => value === digit);

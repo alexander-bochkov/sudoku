@@ -1,6 +1,6 @@
 import { BLOCK_SIZE, BOARD_SIZE } from '../constants';
 
-import { clone, getBlockIdx, getLocalIdx, rotate } from './matrix';
+import { calculateBlockIdx, calculateLocalIdx, clone, transpose } from './matrix';
 
 import type { Matrix } from 'types/sudoku';
 
@@ -22,9 +22,9 @@ const shuffleRows = (rowA: Matrix[number], rowB: Matrix[number], idx: number, fi
 
 const getSecondRowIdx = (rowIdx: number) => {
   const nextRowIdx = rowIdx + 1;
-  const nextLocalIdx = getLocalIdx(nextRowIdx);
+  const nextLocalIdx = calculateLocalIdx(nextRowIdx);
 
-  const blockIdx = getBlockIdx(rowIdx);
+  const blockIdx = calculateBlockIdx(rowIdx);
   const offset = blockIdx * BLOCK_SIZE;
 
   return nextLocalIdx + offset;
@@ -34,9 +34,9 @@ export const shuffle = (template: Matrix, swaps: number) => {
   let matrix = clone(template);
 
   for (let i = 0; i < swaps; i++) {
-    const isHorizontally = Boolean(Math.floor(Math.random() * 2));
+    const shouldShuffleColumns = Boolean(Math.floor(Math.random() * 2));
 
-    isHorizontally && (matrix = rotate(matrix));
+    shouldShuffleColumns && (matrix = transpose(matrix));
 
     const rowIdx = Math.floor(Math.random() * BOARD_SIZE);
     const colIdx = Math.floor(Math.random() * BOARD_SIZE);
@@ -46,7 +46,7 @@ export const shuffle = (template: Matrix, swaps: number) => {
 
     shuffleRows(firstRow, secondRow, colIdx, true);
 
-    isHorizontally && (matrix = rotate(matrix));
+    shouldShuffleColumns && (matrix = transpose(matrix));
   }
 
   return matrix;

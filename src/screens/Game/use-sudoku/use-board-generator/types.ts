@@ -1,6 +1,8 @@
 import type { Board, Difficulty, Matrix } from 'types/sudoku';
 
-export type BoardGeneratorInputMessage = Difficulty;
+export type BoardGeneratorInputMessage = {
+  difficulty: Difficulty;
+};
 
 export type BoardGeneratorOutputMessage = {
   board: Board;

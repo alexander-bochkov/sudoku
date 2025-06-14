@@ -12,12 +12,11 @@ type Status = 'IDLE' | 'GENERATING' | 'SOLVED';
 const DEFAULT_STATUS: Status = 'IDLE';
 
 export const useSudoku = () => {
-  // TODO: think about replacing useState<Board> with useReducer
   const [board, setBoard] = useState<Nullable<Board>>(null);
   const [matrix, setMatrix] = useState<Nullable<Matrix>>(null);
   const [status, setStatus] = useState<Status>(DEFAULT_STATUS);
 
-  const handleBoardGeneration: BoardGenerationHandler = useCallback(({ data: { board, matrix } }) => {
+  const handleBoardGeneration = useCallback<BoardGenerationHandler>(({ data: { board, matrix } }) => {
     setBoard(board);
     setMatrix(matrix);
     setStatus('IDLE');
@@ -34,13 +33,13 @@ export const useSudoku = () => {
   };
 
   const setCell = (cell: Cell, coords: Coordinates) => {
-    setBoard((prevBoard) =>
-      !prevBoard
-        ? prevBoard
-        : prevBoard.map((row, rowIdx) =>
-            row.map((prevCell, colIdx) => (coords.rowIdx === rowIdx && coords.colIdx === colIdx ? cell : prevCell)),
-          ),
-    );
+    setBoard((prevBoard) => {
+      if (!prevBoard) return prevBoard;
+
+      return prevBoard.map((row, rowIdx) =>
+        row.map((prevCell, colIdx) => (coords.rowIdx === rowIdx && coords.colIdx === colIdx ? cell : prevCell)),
+      );
+    });
   };
 
   const shouldVerifyBoard = useMemo(
@@ -49,7 +48,7 @@ export const useSudoku = () => {
   );
 
   useEffect(() => {
-    if (!shouldVerifyBoard || !board || !matrix) return;
+    if (!board || !matrix || !shouldVerifyBoard) return;
 
     const { isSolved, verifiedBoard } = verifyBoard(board, matrix);
 
@@ -62,7 +61,6 @@ export const useSudoku = () => {
   return {
     board,
     generateBoard,
-    setBoard,
     setCell,
     status,
   };

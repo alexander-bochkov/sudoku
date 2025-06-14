@@ -1,8 +1,8 @@
-import type { Board, Matrix } from 'types/sudoku';
+import type { Board, Cell, Matrix } from 'types/sudoku';
 
 export const verifyBoard = (board: Board, matrix: Matrix) => {
   const verifiedBoard: Board = board.map((row, rowIdx) =>
-    row.map((cell, colIdx) => {
+    row.map((cell, colIdx): Cell => {
       if (cell.type !== 'solution') return cell;
 
       return cell.value === matrix[rowIdx][colIdx]

@@ -1,33 +1,31 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 import type { BoardGenerationHandler, BoardGeneratorInputMessage } from './types';
-import type { Nullable } from 'types/utility-types';
+import type { Difficulty } from 'types/sudoku';
 
 export const useBoardGenerator = (handler: BoardGenerationHandler) => {
-  // TODO: replace useState with useRef
-  const [worker, setWorker] = useState<Nullable<Worker>>(null);
+  const workerRef = useRef<Worker>(null);
 
   useEffect(() => {
-    const worker = new Worker(new URL('./worker.ts', import.meta.url), { type: 'module' });
-    setWorker(worker);
+    workerRef.current = new Worker(new URL('./board-generator-worker.ts', import.meta.url), { type: 'module' });
 
     return () => {
-      worker.terminate();
+      workerRef.current?.terminate();
+      workerRef.current = null;
     };
   }, []);
 
   useEffect(() => {
-    if (!worker) return;
-
-    worker.addEventListener('message', handler);
+    workerRef.current?.addEventListener('message', handler);
 
     return () => {
-      worker.removeEventListener('message', handler);
+      workerRef.current?.removeEventListener('message', handler);
     };
-  }, [handler, worker]);
+  }, [handler]);
 
-  const generate = (difficulty: BoardGeneratorInputMessage) => {
-    worker && worker.postMessage(difficulty);
+  const generate = (difficulty: Difficulty) => {
+    const message: BoardGeneratorInputMessage = { difficulty };
+    workerRef.current?.postMessage(message);
   };
 
   return generate;
