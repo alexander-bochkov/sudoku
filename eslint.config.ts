@@ -18,12 +18,10 @@ export default tseslint.config(
       importPlugin.flatConfigs.recommended,
       importPlugin.flatConfigs.typescript,
     ],
-    files: ['**/*.{ts,tsx}'],
     languageOptions: {
       globals: globals.browser,
       parserOptions: {
-        project: './tsconfig.json',
-        tsconfigRootDir: import.meta.dirname,
+        project: 'tsconfig.json',
       },
     },
     plugins: {
@@ -40,7 +38,7 @@ export default tseslint.config(
       '@typescript-eslint/no-unused-expressions': ['error', { allowShortCircuit: true }],
       '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
       'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
-      'import/newline-after-import': ['error', { count: 1 }],
+      'import/newline-after-import': ['error'],
       'import/no-named-as-default-member': ['off'],
       'import/no-useless-path-segments': ['error', { noUselessIndex: true }],
       'import/order': [
@@ -66,9 +64,7 @@ export default tseslint.config(
     },
     settings: {
       'import/resolver': {
-        typescript: {
-          project: './tsconfig.json',
-        },
+        typescript: true,
       },
       react: {
         version: 'detect',
