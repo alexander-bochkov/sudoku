@@ -10,9 +10,9 @@
   },
   "homepage": "https://alexander-bochkov.github.io/sudoku/",
   "scripts": {
-    "build": "npm run prettier && npm run eslint && npm run stylelint && npm run typescript && vite build",
+    "build": "npm run typescript && vite build",
     "deploy": "gh-pages -b deployment -d dist",
-    "eslint": "eslint \"**/*.{js,jsx,ts,tsx}\"",
+    "eslint": "eslint",
     "predeploy": "npm run build",
     "prepare": "husky",
     "prettier": "prettier --check .",
