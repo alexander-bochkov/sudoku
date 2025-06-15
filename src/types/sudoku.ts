@@ -1,6 +1,15 @@
 import type { Nullable } from './utility-types';
 
+export type Coordinates = {
+  rowIdx: number;
+  colIdx: number;
+};
+
+export type Difficulty = 'easy' | 'medium' | 'hard';
+
 export type Digit = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+
+export type Matrix = Nullable<Digit>[][];
 
 export type Note = Nullable<Digit>;
 
@@ -36,11 +45,6 @@ export type Cell = Clue | Empty | Error | Solution | Solved;
 
 export type Board = Cell[][];
 
-export type Coordinates = {
-  rowIdx: number;
-  colIdx: number;
-};
+export type InteractiveCell = Empty | Error | Solution;
 
-export type Difficulty = 'easy' | 'medium' | 'hard';
-
-export type Matrix = Nullable<Digit>[][];
+export type SelectedCell = InteractiveCell & Coordinates;

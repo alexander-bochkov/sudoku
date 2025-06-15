@@ -1,4 +1,4 @@
-@mixin board-suggestion {
+@mixin board-note {
   font-family: Itim, sans-serif;
   font-size: 14px;
   line-height: 14px;
@@ -45,14 +45,14 @@
   line-height: 38px;
 }
 
+@mixin note {
+  font-family: Itim, sans-serif;
+  font-size: 30px;
+  line-height: 30px;
+}
+
 @mixin settings-modal-text {
   font-family: 'Balsamiq Sans', sans-serif;
   font-size: 20px;
   line-height: 20px;
-}
-
-@mixin suggestion {
-  font-family: Itim, sans-serif;
-  font-size: 30px;
-  line-height: 30px;
 }

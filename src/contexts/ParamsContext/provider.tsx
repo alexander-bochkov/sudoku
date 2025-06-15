@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { ParamsContext } from './context';
 
 import type { PropsWithChildren } from 'react';
-import type { Difficulty } from 'types/board';
+import type { Difficulty } from 'types/sudoku';
 
 const DEFAULT_DIFFICULTY: Difficulty = 'medium';
 

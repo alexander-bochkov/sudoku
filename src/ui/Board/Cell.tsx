@@ -2,106 +2,67 @@ import clsx from 'clsx';
 
 import { SPACE } from 'constants/characters';
 
-import type { Cell as ICell, SelectedCell } from 'types/board';
+import type { Cell as ICell, Coordinates, SelectedCell } from 'types/sudoku';
 import type { Nullable } from 'types/utility-types';
 
 import styles from './Board.module.scss';
 
 type CellProps = {
   cell: ICell;
-  cellIdx: number;
-  rowIdx: number;
+  coords: Coordinates;
   selectedCell: Nullable<SelectedCell>;
-  onSelect: (selectedCell: SelectedCell) => void;
+  onSelect: (selectedCell: Nullable<SelectedCell>) => void;
 };
 
-const shouldPlaceSuggestionInThePosition = ({
-  cellIdx,
-  position,
-  rowIdx,
-  suggestionIdx,
-}: {
-  cellIdx: number;
-  position: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
-  rowIdx: number;
-  suggestionIdx: number;
-}) => {
-  const firstSuggestion = suggestionIdx === 0;
-  const secondSuggestion = suggestionIdx === 1;
-  const thirdSuggestion = suggestionIdx === 2;
+const getNotePosition = (
+  noteIdx: number,
+  coords: Coordinates,
+): 'bottomLeft' | 'bottomRight' | 'topLeft' | 'topRight' => {
+  const isFirstNote = noteIdx === 0;
+  const isSecondNote = noteIdx === 1;
+  const isThirdNote = noteIdx === 2;
 
-  const topLeftCell = rowIdx === 0 && cellIdx === 0;
-  const topRightCell = rowIdx === 0 && cellIdx === 8;
-  const bottomLeftCell = rowIdx === 8 && cellIdx === 0;
+  const isTopLeftCell = coords.rowIdx === 0 && coords.colIdx === 0;
+  const isTopRightCell = coords.rowIdx === 0 && coords.colIdx === 8;
+  const isBottomLeftCell = coords.rowIdx === 8 && coords.colIdx === 0;
 
-  if (position === 'topLeft' && firstSuggestion && !topLeftCell) return true;
-  if (position === 'topRight' && secondSuggestion && !topRightCell) return true;
-  if (position === 'bottomLeft' && thirdSuggestion && !bottomLeftCell) return true;
+  if (isFirstNote && !isTopLeftCell) return 'topLeft';
+  if (isSecondNote && !isTopRightCell) return 'topRight';
+  if (isThirdNote && !isBottomLeftCell) return 'bottomLeft';
 
-  if (
-    position === 'bottomRight' &&
-    ((firstSuggestion && topLeftCell) || (secondSuggestion && topRightCell) || (thirdSuggestion && bottomLeftCell))
-  ) {
-    return true;
-  }
-
-  return false;
+  return 'bottomRight';
 };
 
-export const Cell = ({ cell, cellIdx, rowIdx, selectedCell, onSelect }: CellProps) => {
-  const isDisabled = cell.type === 'correct' || cell.type === 'prefilled';
-  const isSelected = rowIdx === selectedCell?.coords.rowIdx && cellIdx === selectedCell.coords.cellIdx;
+export const Cell = ({ cell, coords, selectedCell, onSelect }: CellProps) => {
+  const isInteractive = cell.type === 'empty' || cell.type === 'error' || cell.type === 'solution';
+  const isSelected = coords.rowIdx === selectedCell?.rowIdx && coords.colIdx === selectedCell.colIdx;
 
   return (
     <td className={styles.board__cell}>
-      {cell.suggestions?.map(
-        (suggestion, suggestionIdx) =>
-          suggestion && (
-            <div
-              className={clsx(styles.board__suggestion, {
-                [styles.board__suggestion_topLeft]: shouldPlaceSuggestionInThePosition({
-                  cellIdx,
-                  position: 'topLeft',
-                  rowIdx,
-                  suggestionIdx,
-                }),
-                [styles.board__suggestion_topRight]: shouldPlaceSuggestionInThePosition({
-                  cellIdx,
-                  position: 'topRight',
-                  rowIdx,
-                  suggestionIdx,
-                }),
-                [styles.board__suggestion_bottomLeft]: shouldPlaceSuggestionInThePosition({
-                  cellIdx,
-                  position: 'bottomLeft',
-                  rowIdx,
-                  suggestionIdx,
-                }),
-                [styles.board__suggestion_bottomRight]: shouldPlaceSuggestionInThePosition({
-                  cellIdx,
-                  position: 'bottomRight',
-                  rowIdx,
-                  suggestionIdx,
-                }),
-              })}
-              key={`${rowIdx}-${cellIdx}-${suggestionIdx}-${suggestion}`}
-            >
-              {suggestion}
-            </div>
-          ),
-      )}
+      {isInteractive &&
+        cell.notes.map(
+          (note, noteIdx) =>
+            note && (
+              <div
+                className={clsx(styles.board__note, styles[`board__note_position_${getNotePosition(noteIdx, coords)}`])}
+                key={noteIdx}
+              >
+                {note}
+              </div>
+            ),
+        )}
 
       <input
         className={clsx(styles.board__button, {
           [styles.board__button_selected]: isSelected,
-          [styles[`board__button_${cell.type}`]]: cell.type,
+          [styles[`board__button_type_${cell.type}`]]: cell.type,
         })}
-        disabled={isDisabled}
+        disabled={!isInteractive}
         type="button"
         // Space is used to fix cell height in Safari
         value={cell.value ?? SPACE}
         onClick={() => {
-          onSelect({ cell, coords: { rowIdx, cellIdx } });
+          isInteractive && onSelect(isSelected ? null : { ...cell, ...coords });
         }}
       />
     </td>

@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import type { Difficulty } from 'types/board';
+import type { Difficulty } from 'types/sudoku';
 import type { Nullable } from 'types/utility-types';
 
 type ParamsContext = {

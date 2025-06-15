@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next';
 
 import { useParamsContext } from 'contexts';
 
-import type { Difficulty } from 'types/board';
 import type { Setting } from 'types/settings';
+import type { Difficulty } from 'types/sudoku';
 
 export const useDifficultySetting = (): Setting<Difficulty> => {
   const { difficulty, setDifficulty } = useParamsContext();

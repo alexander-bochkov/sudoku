@@ -4,7 +4,7 @@ export * from './Icon';
 export * from './Loader';
 export * from './Menu';
 export * from './Modal';
+export * from './Notes';
 export * from './Numpad';
 export * from './Overlay';
 export * from './Settings';
-export * from './Suggestions';

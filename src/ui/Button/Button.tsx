@@ -1,7 +1,7 @@
 import { Icon } from '../Icon';
 
 import type { ComponentPropsWithoutRef } from 'react';
-import type { NumberRange } from 'types/board';
+import type { Digit } from 'types/sudoku';
 
 import styles from './Button.module.scss';
 
@@ -13,7 +13,7 @@ type IconicButtonProps = {
 
 type NumericButtonProps = {
   icon?: never;
-  number: NumberRange;
+  number: Digit;
   onClick: () => void;
 };
 

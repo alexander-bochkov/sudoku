@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { useBoardGenerator } from './use-board-generator';
+import { useBoardGenerator } from './useBoardGenerator';
 import { verifyBoard } from './verify-board';
 
-import type { BoardGenerationHandler } from './use-board-generator';
+import type { BoardGenerationHandler } from './useBoardGenerator';
 import type { Board, Cell, Coordinates, Difficulty, Matrix } from 'types/sudoku';
 import type { Nullable } from 'types/utility-types';
 
@@ -54,7 +54,6 @@ export const useSudoku = () => {
 
     setBoard(verifiedBoard);
     isSolved && setStatus('SOLVED');
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldVerifyBoard]);
 

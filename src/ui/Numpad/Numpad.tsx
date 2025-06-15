@@ -1,14 +1,14 @@
 import { Button } from '../Button';
 
-import type { NumberRange } from 'types/board';
+import type { Digit } from 'types/sudoku';
 import type { Nullable } from 'types/utility-types';
 
 import styles from './Numpad.module.scss';
 
-const NUMERIC_BUTTONS: NumberRange[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const NUMERIC_BUTTONS: Digit[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 type NumpadProps = {
-  onClick: (value: Nullable<NumberRange>) => void;
+  onClick: (value: Nullable<Digit>) => void;
 };
 
 export const Numpad = ({ onClick }: NumpadProps) => (

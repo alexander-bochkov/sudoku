@@ -75,26 +75,26 @@
       background: colors.$board-cell-color-selected;
     }
 
-    &_correct {
-      color: colors.$board-text-color-correct;
+    &_type_clue {
+      color: colors.$board-text-color-clue;
     }
 
-    &_error {
+    &_type_error {
       color: colors.$board-text-color-error;
     }
 
-    &_prefilled {
-      color: colors.$board-text-color-prefilled;
+    &_type_solution {
+      color: colors.$board-text-color-solution;
     }
 
-    &_solution {
-      color: colors.$board-text-color-solution;
+    &_type_solved {
+      color: colors.$board-text-color-solved;
     }
   }
 
-  &__suggestion {
+  &__note {
     align-items: center;
-    color: colors.$board-suggestion-color;
+    color: colors.$board-note-color;
     display: flex;
     height: 14px;
     justify-content: center;
@@ -102,24 +102,24 @@
     position: absolute;
     width: 14px;
 
-    @include typography.board-suggestion;
+    @include typography.board-note;
 
-    &_topLeft {
+    &_position_topLeft {
       left: 0;
       top: 0;
     }
 
-    &_topRight {
+    &_position_topRight {
       right: 0;
       top: 0;
     }
 
-    &_bottomLeft {
+    &_position_bottomLeft {
       bottom: 0;
       left: 0;
     }
 
-    &_bottomRight {
+    &_position_bottomRight {
       bottom: 0;
       right: 0;
     }
