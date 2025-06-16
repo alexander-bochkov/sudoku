@@ -5,7 +5,7 @@ import { FinishModal, PauseModal } from 'components';
 import { useParamsContext } from 'contexts';
 import { Board, Button, Loader, Notes, Numpad } from 'ui';
 
-import { useSudoku } from './useSudoku';
+import { useSudoku } from './use-sudoku';
 
 import type { Digit, InteractiveCell, SelectedCell } from 'types/sudoku';
 import type { Nullable } from 'types/utility-types';

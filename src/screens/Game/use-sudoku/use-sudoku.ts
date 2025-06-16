@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { useBoardGenerator } from './useBoardGenerator';
+import { useBoardGenerator } from './use-board-generator';
 import { verifyBoard } from './verify-board';
 
-import type { BoardGenerationHandler } from './useBoardGenerator';
+import type { BoardGenerationHandler } from './use-board-generator';
 import type { Board, Cell, Coordinates, Difficulty, Matrix } from 'types/sudoku';
 import type { Nullable } from 'types/utility-types';
 

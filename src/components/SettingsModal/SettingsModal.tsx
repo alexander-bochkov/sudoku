@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next';
 
 import { Modal, Setting, Settings } from 'ui';
 
-import { useDifficultySetting } from './useDifficultySetting';
-import { useLanguageSetting } from './useLanguageSetting';
+import { useDifficultySetting } from './use-difficulty-setting';
+import { useLanguageSetting } from './use-language-setting';
 
 type SettingsModalProps = {
   onClose: () => void;

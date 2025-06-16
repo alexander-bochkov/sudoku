@@ -1,6 +1,6 @@
 import type { Board, Cell, Matrix, Note } from 'types/sudoku';
 
-export const covertToBoard = (matrix: Matrix): Board =>
+export const covertMatrixToBoard = (matrix: Matrix): Board =>
   matrix.map((row) =>
     row.map(
       (value): Cell =>
