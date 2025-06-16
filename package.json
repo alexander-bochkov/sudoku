@@ -1,14 +1,9 @@
 {
   "name": "sudoku",
   "version": "1.2.0",
-  "type": "module",
   "license": "MIT",
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/alexander-bochkov/sudoku.git"
-  },
-  "homepage": "https://alexander-bochkov.github.io/sudoku/",
+  "type": "module",
   "scripts": {
     "build": "npm run typescript && vite build",
     "deploy": "gh-pages -b deployment -d dist",
