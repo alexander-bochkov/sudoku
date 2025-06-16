@@ -1,2 +1,2 @@
-export * from './init';
-export * from './use-update-html-lang';
+export { init } from './init';
+export { useUpdateHtmlLang } from './use-update-html-lang';

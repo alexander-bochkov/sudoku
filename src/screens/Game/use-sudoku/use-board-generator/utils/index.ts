@@ -1,3 +1,3 @@
-export * from './covert-matrix-to-board';
-export * from './create-clues';
-export * from './shuffle';
+export { covertMatrixToBoard } from './covert-matrix-to-board';
+export { createClues } from './create-clues';
+export { shuffle } from './shuffle';
