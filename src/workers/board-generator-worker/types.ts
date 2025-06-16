@@ -1,10 +1,10 @@
 import type { Board, Difficulty, Matrix } from 'types/sudoku';
 
-export type BoardGeneratorInputMessage = {
+export type BoardGeneratorWorkerRequest = {
   difficulty: Difficulty;
 };
 
-export type BoardGeneratorOutputMessage = {
+export type BoardGeneratorWorkerResponse = {
   board: Board;
   matrix: Matrix;
 };
