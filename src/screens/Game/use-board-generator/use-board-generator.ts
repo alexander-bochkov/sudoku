@@ -1,13 +1,16 @@
 import { useEffect, useRef } from 'react';
 
-import type { BoardGenerationHandler, BoardGeneratorInputMessage } from './types';
+import { BoardGeneratorWorker } from 'workers/board-generator-worker';
+
+import type { BoardGenerationHandler } from './types';
 import type { Difficulty } from 'types/sudoku';
+import type { BoardGeneratorInputMessage } from 'workers/board-generator-worker';
 
 export const useBoardGenerator = (handler: BoardGenerationHandler) => {
   const workerRef = useRef<Worker>(null);
 
   useEffect(() => {
-    workerRef.current = new Worker(new URL('./board-generator-worker.ts', import.meta.url), { type: 'module' });
+    workerRef.current = new BoardGeneratorWorker();
 
     return () => {
       workerRef.current?.terminate();

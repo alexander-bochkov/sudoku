@@ -1,5 +1,7 @@
 import { CLUES_MAP, SWAPS, TEMPLATE } from './constants';
-import { covertMatrixToBoard, createClues, shuffle } from './utils';
+import { covertMatrixToBoard } from './utils/covert-matrix-to-board';
+import { createClues } from './utils/create-clues';
+import { shuffle } from './utils/shuffle';
 
 import type { BoardGeneratorInputMessage, BoardGeneratorOutputMessage } from './types';
 
