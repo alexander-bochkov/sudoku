@@ -36,6 +36,7 @@ export default tseslint.config(
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       '@typescript-eslint/consistent-type-imports': ['error'],
       '@typescript-eslint/no-unused-expressions': ['error', { allowShortCircuit: true }],
+      '@typescript-eslint/no-unused-vars': ['error', { caughtErrorsIgnorePattern: '_' }],
       'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
       'import/newline-after-import': ['error'],
       'import/no-named-as-default-member': ['off'],
