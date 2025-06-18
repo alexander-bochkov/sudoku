@@ -2,18 +2,22 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
 import { FinishModal, PauseModal } from 'components';
-import { useParamsContext } from 'contexts';
+import { STORAGE_KEYS } from 'constants/storage';
+import { DEFAULT_DIFFICULTY } from 'constants/sudoku';
+import { usePersistentState } from 'hooks/use-persistent-state';
 import { Board, Button, Loader, Notes, Numpad } from 'ui';
 
 import { useSudoku } from './use-sudoku';
 
-import type { Digit, InteractiveCell, SelectedCell } from 'types/sudoku';
+import type { Difficulty, Digit, InteractiveCell, SelectedCell } from 'types/sudoku';
 import type { Nullable } from 'types/utility-types';
 
 import styles from './Game.module.scss';
 
 export const Game = () => {
-  const { difficulty } = useParamsContext();
+  const [difficulty = DEFAULT_DIFFICULTY] = usePersistentState<Difficulty>(STORAGE_KEYS.DIFFICULTY, {
+    returnUndefined: true,
+  });
   const { board, generateBoard, setCell, status } = useSudoku();
 
   const [isPaused, setIsPaused] = useState(false);

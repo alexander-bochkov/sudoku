@@ -1,12 +1,16 @@
 import { useTranslation } from 'react-i18next';
 
-import { useParamsContext } from 'contexts';
+import { STORAGE_KEYS } from 'constants/storage';
+import { DEFAULT_DIFFICULTY } from 'constants/sudoku';
+import { usePersistentState } from 'hooks/use-persistent-state';
 
 import type { Setting } from 'types/settings';
 import type { Difficulty } from 'types/sudoku';
 
 export const useDifficultySetting = (): Setting<Difficulty> => {
-  const { difficulty, setDifficulty } = useParamsContext();
+  const [difficulty = DEFAULT_DIFFICULTY, setDifficulty] = usePersistentState<Difficulty>(STORAGE_KEYS.DIFFICULTY, {
+    returnUndefined: true,
+  });
   const { t } = useTranslation();
 
   return {
