@@ -5,16 +5,10 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig(({ mode }) => ({
   base: loadEnv(mode, process.cwd()).VITE_BASE_URL,
-  css: {
-    preprocessorOptions: {
-      scss: {
-        api: 'modern-compiler',
-      },
-    },
-  },
   plugins: [react(), svgr(), tsconfigPaths()],
   resolve: {
     alias: {
+      assets: '/src/assets',
       styles: '/src/styles',
     },
   },

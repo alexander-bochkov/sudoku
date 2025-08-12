@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 
 import type { Note } from 'types/sudoku';
 import type { Nullable } from 'types/utility-types';
