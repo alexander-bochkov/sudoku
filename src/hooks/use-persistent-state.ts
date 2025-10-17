@@ -33,7 +33,9 @@ export function usePersistentState<T>(
   const subscribe = useCallback(
     (onChange: () => void) => {
       const handleStorageChange = (event: StorageEvent) => {
-        event.key === key && onChange();
+        if (event.key === key) {
+          onChange();
+        }
       };
 
       window.addEventListener('storage', handleStorageChange);

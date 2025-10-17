@@ -1,42 +1,38 @@
 import js from '@eslint/js';
 import { defineConfig } from 'eslint/config';
-import eslintConfigPrettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
-import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
+import prettier from 'eslint-plugin-prettier/recommended';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
+import { browser } from 'globals';
+import ts from 'typescript-eslint';
 
 export default defineConfig(
-  { ignores: ['dist'] },
   {
     extends: [
       js.configs.recommended,
-      tseslint.configs.strictTypeChecked,
-      tseslint.configs.stylisticTypeChecked,
+      ts.configs.strictTypeChecked,
+      ts.configs.stylisticTypeChecked,
       importPlugin.flatConfigs.recommended,
       importPlugin.flatConfigs.typescript,
+      react.configs.flat.recommended,
+      react.configs.flat['jsx-runtime'],
       reactHooks.configs.flat.recommended,
+      reactRefresh.configs.recommended,
+      prettier,
     ],
+    ignores: ['dist/**'],
     languageOptions: {
-      globals: globals.browser,
+      globals: browser,
       parserOptions: {
         project: 'tsconfig.json',
       },
     },
-    plugins: {
-      'react-refresh': reactRefresh,
-      react,
-    },
     rules: {
-      ...react.configs.recommended.rules,
-      ...react.configs['jsx-runtime'].rules,
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       '@typescript-eslint/consistent-type-imports': ['error'],
-      '@typescript-eslint/no-unused-expressions': ['error', { allowShortCircuit: true }],
-      '@typescript-eslint/no-unused-vars': ['error', { caughtErrorsIgnorePattern: '_' }],
+      '@typescript-eslint/no-unused-vars': ['error', { caughtErrorsIgnorePattern: '^_$' }],
       'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
       'import/newline-after-import': ['error'],
       'import/no-named-as-default-member': ['off'],
@@ -45,19 +41,10 @@ export default defineConfig(
         'error',
         {
           'newlines-between': 'always',
-          alphabetize: {
-            caseInsensitive: true,
-            order: 'asc',
-          },
+          alphabetize: { caseInsensitive: true, order: 'asc' },
           groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'object', 'unknown', 'type', 'index'],
           named: true,
-          pathGroups: [
-            {
-              group: 'index',
-              pattern: '*.scss',
-              patternOptions: { matchBase: true },
-            },
-          ],
+          pathGroups: [{ group: 'index', pattern: '*.scss', patternOptions: { matchBase: true } }],
           warnOnUnassignedImports: true,
         },
       ],
@@ -77,6 +64,4 @@ export default defineConfig(
       '@typescript-eslint/consistent-type-definitions': ['off'],
     },
   },
-  eslintConfigPrettier,
-  eslintPluginPrettier,
 );

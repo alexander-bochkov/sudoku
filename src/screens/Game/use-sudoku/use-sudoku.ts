@@ -49,7 +49,10 @@ export const useSudoku = () => {
     const { isSolved, verifiedBoard } = verifyBoard(board, matrix);
 
     setBoard(verifiedBoard);
-    isSolved && setStatus('SOLVED');
+
+    if (isSolved) {
+      setStatus('SOLVED');
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldVerifyBoard]);
 

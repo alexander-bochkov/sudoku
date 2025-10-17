@@ -36,7 +36,9 @@ export const shuffle = (template: Matrix, swaps: number) => {
   for (let i = 0; i < swaps; i++) {
     const shouldShuffleColumns = Boolean(Math.floor(Math.random() * 2));
 
-    shouldShuffleColumns && (matrix = transpose(matrix));
+    if (shouldShuffleColumns) {
+      matrix = transpose(matrix);
+    }
 
     const rowIdx = Math.floor(Math.random() * BOARD_SIZE);
     const colIdx = Math.floor(Math.random() * BOARD_SIZE);
@@ -46,7 +48,9 @@ export const shuffle = (template: Matrix, swaps: number) => {
 
     shuffleRows(firstRow, secondRow, colIdx, true);
 
-    shouldShuffleColumns && (matrix = transpose(matrix));
+    if (shouldShuffleColumns) {
+      matrix = transpose(matrix);
+    }
   }
 
   return matrix;

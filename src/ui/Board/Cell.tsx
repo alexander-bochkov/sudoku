@@ -62,7 +62,9 @@ export const Cell = ({ cell, coords, selectedCell, onSelect }: CellProps) => {
         // Space is used to fix cell height in Safari
         value={cell.value ?? SPACE}
         onClick={() => {
-          isInteractive && onSelect(isSelected ? null : { ...cell, ...coords });
+          if (isInteractive) {
+            onSelect(isSelected ? null : { ...cell, ...coords });
+          }
         }}
       />
     </td>
