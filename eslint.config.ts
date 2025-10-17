@@ -18,6 +18,7 @@ export default defineConfig(
       tseslint.configs.stylisticTypeChecked,
       importPlugin.flatConfigs.recommended,
       importPlugin.flatConfigs.typescript,
+      reactHooks.configs.flat.recommended,
     ],
     languageOptions: {
       globals: globals.browser,
@@ -26,14 +27,12 @@ export default defineConfig(
       },
     },
     plugins: {
-      'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       react,
     },
     rules: {
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
-      ...reactHooks.configs.recommended.rules,
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       '@typescript-eslint/consistent-type-imports': ['error'],
       '@typescript-eslint/no-unused-expressions': ['error', { allowShortCircuit: true }],
