@@ -5,7 +5,7 @@ import prettier from 'eslint-plugin-prettier/recommended';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
-import { browser } from 'globals';
+import globals from 'globals';
 import ts from 'typescript-eslint';
 
 export default defineConfig(
@@ -24,7 +24,7 @@ export default defineConfig(
     ],
     ignores: ['dist/**'],
     languageOptions: {
-      globals: browser,
+      globals: globals.browser,
       parserOptions: {
         project: 'tsconfig.json',
       },

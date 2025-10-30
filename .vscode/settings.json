@@ -1,4 +1,9 @@
 {
   "editor.rulers": [120],
+
+  "eslint.options": {
+    "flags": ["unstable_native_nodejs_ts_config"]
+  },
+
   "stylelint.validate": ["css", "scss"]
 }
