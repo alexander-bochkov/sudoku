@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "npm run typescript && vite build",
-    "deploy": "gh-pages -b deployment -d dist",
+    "deploy": "gh-pages -d dist -v \"{**,.*}/{*,.*}\"",
     "eslint": "eslint --flag unstable_native_nodejs_ts_config",
     "predeploy": "npm run build",
     "prepare": "husky",
